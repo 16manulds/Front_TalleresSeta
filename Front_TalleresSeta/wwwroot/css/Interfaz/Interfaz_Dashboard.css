@@ -1,0 +1,36 @@
+/* --- Estilos para Centrado de Imagen en los Cuadrados --- */
+.card-img-container {
+    height: 150px; /* **AJUSTA ESTA ALTURA** para tus GIFs. Prueba diferentes valores. */
+    display: flex; /* Habilitar Flexbox */
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    overflow: hidden; /* Oculta cualquier parte de la imagen que se salga */
+    background-color: #f8f9fa; /* Fondo suave si la imagen no llena completamente */
+    padding: 10px; /* Un poco de padding interno para evitar que la imagen toque los bordes */
+}
+
+.centered-image {
+    max-width: 100%; /* Asegura que la imagen no exceda el ancho de su contenedor */
+    max-height: 100%; /* Asegura que la imagen no exceda la altura de su contenedor */
+    object-fit: contain; /* Escala la imagen para que quepa completamente sin ser recortada */
+    /* Si quieres que la imagen llene el espacio y se recorte si es necesario, usa 'cover' */
+}
+
+/* --- Estilo para el Título Más Grande y con Sombra --- */
+.enhanced-title {
+    font-size: 2rem; /* Puedes ajustar este tamaño (ej. 1.8rem, 2.2rem) */
+    font-weight: bold;
+    color: #343a40; /* Un gris oscuro para buen contraste */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25); /* Sombra de texto para un efecto de profundidad */
+    margin-bottom: 0.75rem; /* Margen debajo del título */
+}
+
+/* --- Estilo para el Valor <p> Más Notorio --- */
+.highlighted-text {
+    font-size: 2.5rem; /* ¡MUY GRANDE para captar la atención! Ajusta si es demasiado */
+    font-weight: 800; /* Extra-bold para máximo impacto */
+    color: #007bff; /* Un azul vibrante de Bootstrap, puedes cambiarlo */
+    margin-top: 0.5rem; /* Pequeño margen superior para separar del span */
+    margin-bottom: 1.5rem; /* Más espacio debajo para separarlo del botón */
+    line-height: 1; /* Asegura que el número grande no tenga mucho espacio vertical */
+}

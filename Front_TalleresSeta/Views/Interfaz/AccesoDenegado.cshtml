@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Interfaz/_LayoutVerticalInterfaz.cshtml";
+}
+
+
+<div>
+    <center>
+        <img src="~/images/Interfaz/Acceso denegado/Acceso denegado.jpg" id="img_muy_pronto" class="justify-content-center" />
+        <p class="acceso-denegado-mensaje">
+            <b>Acceso denegado </b>
+            <br> Comunícate con el administrador del Sitio Web
+            @{
+                if (@ViewBag.mensaje != null)
+                {
+                    <div class="alert alert-danger" role="alert">
+                        @ViewBag.mensaje
+                    </div>
+                }
+
+                if (@ViewBag.mensajeError != null)
+                {
+                    <div class="alert alert-danger" role="alert">
+                        @ViewBag.mensajeError
+                    </div>
+                }
+            }            
+        </p>                   
+    </center>
+</div>

@@ -1,0 +1,168 @@
+﻿@model IEnumerable<Front_TalleresSeta.Modelos.Sucursal>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Interfaz/_LayoutVerticalInterfaz.cshtml";
+
+    var TipoUser = User.FindFirst("TipoUsuarioAcceso")?.Value ?? string.Empty;
+    var TipoRol = User.FindFirst("TipoRolAcceso")?.Value ?? string.Empty;
+}
+
+
+<div class="container-fluid">
+    @if (ViewBag.accion == "ELIMINADO")
+    {
+        <div id="alert-message" class="alert alert-info" role="alert">
+            @ViewBag.mensaje
+        </div>
+    }
+</div>
+
+
+<div class="container-fluid">
+
+    <!-- Tabla de datos -->
+    <div class="card shadow mb-4">
+
+        <div class="card-header py-3">
+            <div class="row">
+                
+                <!-- Link consolidado -->
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <a asp-action="Consolidado" asp-route-id="" class="nav-link">
+                            <span>
+                                <i class="fab fa-wpforms"></i>
+                                Informe Sucursal
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                @{
+                    if (TipoUser == "SuperAdmin" || TipoUser == "Admin" || (TipoUser == "Empleado" && TipoRol == "Jefe"))
+                    {
+                        <!-- Botón registrar -->
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <a type="button" asp-controller="Sucursales" asp-action="Create" class="btn btn-success btn-registrar">NUEVO</a>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+
+        <div class="card-body">
+
+            <!-- Filtro por año -->
+            <div class="row">
+                <div class="col-lg-3">
+                    <form asp-controller="Sucursales" asp-action="Index">
+                        <div class="input-group mb-3">
+                            <select step="1" name="search" class="form-control" aria-label="Buscar" aria-describedby="button-filtrar" asp-items="ViewBag.FechaRegistro">
+                            </select>
+                            <div class="input-group-append">
+                                <input class="btn btn-primary btn-user center-block" type="submit" id="button-filtrar" value="Filtrar por año">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+            <div class="table-responsive">
+                <table id="modelTable" class="table table-hover table-outline mb-0">
+                    <thead class="thead-light" align="center">
+                        <tr>
+                            <th class="col-md-1">
+                                OK
+                            </th>
+                            <th class="col-md-3">
+                                CÓDIGO
+                            </th>
+                            <th class="col-md-2">
+                                NOMBRE
+                            </th>
+                            <th class="col-md-2">
+                                FECHA FUNDACIÓN
+                            </th>
+                            <th class="col-md-3">
+                                CELULAR
+                            </th>
+                            <th class="col-md-3">
+                                TALLER
+                            </th>
+                            <th class="col-md-1">ACCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody align="center">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @{
+                                        if (item.Habilitado == true)
+                                        {
+                                            <span><i class="fas fa-check-square" style="color: green;"></i></span>
+                                        }
+                                        else
+                                        {
+                                            <span><i class="far fa-window-close" style="color: firebrick;"></i></span>
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Codigo)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FechaFundacion)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TelMovil)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Talleres.RazonSocialTaller)
+                                </td>
+                                <td>
+                                    <a type="button" asp-controller="Sucursales" asp-action="Details" asp-route-id="@item.SucursalId" class="btn btn-info btn-consultar"
+                                   data-bs-toggle="tooltip" title="Detalle">
+                                        <i class="fas fa-info-circle fa-1x"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Fin Tabla de datos -->
+</div>
+<!-- Fin container -->
+
+@section Scripts {
+    <script src="~/lib/data-tables/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#modelTable').DataTable({
+                order: [],
+                language: {
+                    url: '/lib/data-tables/Spanish.json'
+                }
+            });
+        });
+
+        // Ocultar el mensaje después de 30 segundos
+        setTimeout(function () {
+            var alertMessage = document.getElementById("alert-message");
+            if (alertMessage) {
+                alertMessage.style.display = "none";
+            }
+        }, 30000); // 30 segundos
+
+    </script>
+}

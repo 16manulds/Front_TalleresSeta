@@ -1,0 +1,64 @@
+
+/* =======================================================
+* 	Desarrollo Manuel Torres L. 
+* ======================================================= */
+
+
+
+/* =======================================================
+* 	Checkbox
+* ======================================================= */
+input#CheckBoxActivo {
+    width: 50%;
+    border-radius: 50px;
+}
+
+/* acceso denegado */
+.acceso-denegado-mensaje {
+    display: inline-block;
+    background-color: #466797;
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 20px 0;
+    position: relative;
+    animation: shake 0.5s ease-in-out 2;
+    cursor: pointer;
+}
+
+/* Efecto sacudida */
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-10px);
+    }
+
+    50% {
+        transform: translateX(10px);
+    }
+
+    75% {
+        transform: translateX(-10px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Efecto hover */
+.acceso-denegado-mensaje:hover {
+    background-color: #27acc7;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4);
+    transform: scale(1.05);
+}

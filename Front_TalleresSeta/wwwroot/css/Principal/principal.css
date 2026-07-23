@@ -1,0 +1,155 @@
+
+/* =======================================================
+* 	Desarrollo Manuel Torres L. 
+* ======================================================= */
+
+
+
+/* =======================================================
+* Barra menu Navegador
+* ======================================================= */
+
+#imagen-barra-menu {
+    width: 60PX;
+    height: 60PX;
+    border-radius: 12PX;
+    color: #BA2C2C;
+}
+
+nav#HeaderNavMenu {
+    /*width: 100%;*/
+}
+
+#titulo-menu-principal {
+    margin-bottom: -20px;
+    font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    color: white;
+}
+
+li a.nav-link {
+    font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+}
+
+.navbar.navbar-expand-lg {
+    background-color: #BA2C2C;
+    margin-bottom: 20px;
+    height: 65px;
+}
+
+a.btn.btn-outline-secondary.boton-login {
+    width: 70px;
+    height: 30px;
+    margin-top: -25px;
+    color: white;
+    border-color: white;
+}
+
+
+
+
+@media (min-width: 1540px) {
+    .dropdown-menu .dropdown-toggle:after {
+        border-top: .3em solid transparent;
+        border-right: 0;
+        border-bottom: .3em solid transparent;
+        border-left: .3em solid;
+        max-width: 2540px;
+    }
+
+    .dropdown-menu {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .dropdown-menu li {
+        position: relative;
+    }
+
+    .nav-item .submenu {
+        display: none;
+        position: absolute;
+        left: 100%;
+        top: -7px;
+    }
+
+    .nav-item .submenu-left {
+        right: 100%;
+        left: auto;
+    }
+
+    .dropdown-menu > li:hover {
+        background-color: #BA2C2C;
+    }
+
+        .dropdown-menu > li:hover > .submenu {
+            display: block;
+        }
+}
+
+
+/*  Page Usuarios/Registrarme */
+input#GuardarBtn {
+    background-color: #dc3545d9;
+    float: right;
+    border-radius: 7px;
+}
+
+
+/*  Page Usuarios/Login */
+img#logo-menu-login {
+    width: 50%;
+    height: 60px;
+    border-radius: 20px;
+}
+
+
+nav.navbar.navbar-expand-sm.navbar-toggleable-sm.navbar-light.bg-white.border-bottom.box-shadow.mb-3 {
+    background-color: #BA2C2C;
+    background: radial-gradient(#BA2C2C, #BA2C2C);
+}
+
+
+
+/*  Page footer */
+a#DesarrolladoPor {
+    color: antiquewhite;
+    font-size: 3px;
+    font: oblique bold 100% cursive;
+    font-family: cursive;
+}
+
+a#anno {
+    font: oblique bold 100% cursive;
+    font-family: cursive;
+}
+
+
+.footer {
+    background-color: #BA2C2C;
+    height: 40px;
+    width: 100%;
+    bottom: 0;
+    position: fixed;
+    /*clear: both;*/
+    z-index: 0;
+}
+
+div.footer {
+    /*width: 100%;*/
+
+    /*background-color: #BA2C2C;
+    height: 40px;
+    position: relative;
+    clear: both;*/
+}
+
+
+#footer_P {
+    background-color: #BA2C2C;
+    bottom: 0;
+    position: fixed;
+}

@@ -1,0 +1,566 @@
+﻿@model Front_TalleresSeta.Modelos.InventarioEntradaProducto
+<link rel="stylesheet" href="~/css/CodigoDeBarras/style.css">
+
+
+@{
+	ViewData["Title"] = "Editar";
+	Layout = "~/Views/Shared/Interfaz/_LayoutVerticalInterfaz.cshtml";
+
+	var tipoUser = User.FindFirst("TipoUsuarioAcceso")?.Value ?? string.Empty;
+	var tipoRol = User.FindFirst("TipoRolAcceso")?.Value ?? string.Empty;
+}
+
+
+<div class="container-fluid">
+	@if (ViewBag.accion == "ACTUALIZAR")
+	{
+		<div id="alert-message" class="alert alert-info" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+	else if (ViewBag.accion == "ACTUALIZADO")
+	{
+		<div id="alert-message" class="alert alert-success" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+	else if (ViewBag.accion == "ERROR_DATOS")
+	{
+		<div id="alert-message" class="alert alert-warning" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+	else if (ViewBag.accion == "ERROR_CATCH")
+	{
+		<div id="alert-message" class="alert alert-danger" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+</div>
+
+
+
+<div class="container-fluid">
+	<div class="card shadow mb-lg-4">
+		<div class="card-header py-3">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						<span class="nav-link">
+							<i class="fab fa-wpforms"></i>
+							Actualizar Producto
+						</span>
+					</div>
+				</div>
+				<div class="text-right col-sm-8">
+					<div class="form-group">
+						<span style="float:right;">Campos Obligatorios <b style="color:red;">*</b></span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="card-body">
+			<form class="needs-validation" novalidate asp-controller="InventarioEntradaProductos" asp-action="Edit">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+				<input type="hidden" asp-for="CodigoProducto" />
+
+				<div class="row">
+					<div class="col-lg-4 col-sm-4">
+						<div class="form-group">
+							<label for="validarCodigo" class="text-center col-sm-12 col-form-label">
+								CÓDIGO PRODUCTO<b style="color:red;"> *</b>
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresar un código"></i>
+							</label>
+							<div class="text-center col-sm-12">
+								<input type="text" class="form-control" id="validarCodigo" asp-for="CodigoProducto" style="text-align: center;" required disabled>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-4 text-center">
+						<button class="col-lg-12" type="button" id="btnDescargar" style="display: none; visibility:hidden;" disabled></button>
+						<div class="d-flex justify-content-center align-items-center">
+							<input type="hidden" asp-for="ImagenCodigoDeBarras" id="ImagenCodigoDeBarras" />
+							<input type="hidden" asp-for="ConsecutivoCodBarras" id="consecutivoCodBarras" />
+							<canvas id="barcodeCanvas" style="max-width: auto; height: 50%; display: none;"></canvas>
+							<img id="barcodeImage" style="display: none; margin-right: 7px; max-width: auto; height: 50%;" />
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-4 text-center">
+						<label class="col-sm-12 col-form-label">PRODUCTO</label>
+						<div class="d-flex justify-content-center align-items-center">
+							<div class="row">
+								<div class="col-lg-12 col-sm-12">
+									<div class="text-center">
+										<input type="hidden" asp-for="ImagenProducto" id="ImagenProducto" />
+										<img class="form-control" src="@ViewBag.ImagenProducto" id="previewImagenProducto" alt="Imagen del Producto Actual" style="max-width: 200px; height: 200px; border: 2px solid #ddd; padding: 5px; border-radius: 10px; margin-top: 0px; margin-left: auto; margin-right: auto; display: none;" />
+										<img class="form-control" src="~/images/Admin_Productos/SinArchivos.png" id="iconoPreviewImagenProducto" alt="Imagen del producto" style="max-width: 100px; height: 100px; border: 2px solid #ddd; padding: 5px; border-radius: 10px; margin-top: 0px; margin-left: auto; margin-right: auto; display: block;" />
+										<input type="file" id="inputImagenProducto" class="form-control" accept="image/*" style="max-width: 100%; height: auto; margin-top: 20px;" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr />
+
+				<div class="row">
+					<div class="text-center col-lg-3 col-sm-12">
+						<div class="form-group">
+							<label for="validarActivoProducto" class="text-center col-sm-6">
+								ACTIVO
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Indique si el producto se encuentra activo"></i>
+							</label>
+							<div class="text-center col-sm-12">
+								<input type="checkbox" class="form-check-label" id="validarActivoProducto" asp-for="@Model.Habilitado">
+							</div>
+						</div>
+					</div>
+
+					<div class="text-center col-lg-3 col-sm-12">
+						<div class="form-group">
+							<label for="validarHomologado" class="text-center col-sm-12 col-form-label">
+								HOMOLOGADO<b style="color:red;"> *</b>
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresar si es homologado"></i>
+							</label>
+							<div class="text-center col-sm-12">
+								<input type="checkbox" class="form-check-input" id="validarHomologado"
+									   asp-for="Homologado">
+							</div>
+						</div>
+					</div>
+
+					<div class="text-left col-lg-3 col-sm-3">
+						<div class="form-group">
+							<label for="validarStockMinimo" class="col-sm-12 col-form-label">
+								STOCK MÍNIMO <b style="color:red;"> *</b>
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresa una cantidad mínima de stock para este producto"></i>
+							</label>
+							<div class="col-sm-6">
+								<input type="number" class="form-control" id="validarStockMinimo" name="StockMinimo" asp-for="StockMinimo" required>
+							</div>
+							<div class="valid-tooltip">
+								OK!
+							</div>
+							<div class="invalid-tooltip">
+								stock incorrecto
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-4 col-sm-4">
+						<div class="form-group">
+							<label for="validarInventarioProveedorId" class="col-sm-12 col-form-label">
+								PROVEEDOR<b style="color:red;"> *</b>
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Selecciona un proveedor"></i>
+							</label>
+							<div class="col-sm-12">
+								<select class="selectpicker" data-live-search="true" id="validarInventarioProveedorId"
+										asp-for="InventarioProveedores.InventarioProveedorId" asp-items="ViewBag.InventarioProveedorId" name="InventarioProveedorId" required>
+									<option value="">Seleccionar...</option>
+								</select>
+								<span asp-validation-for="InventarioProveedorId" class="text-danger"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-sm-4">
+						<div class="form-group">
+							<label for="validarInventarioMarcaId" class="col-sm-12 col-form-label">
+								MARCA<b style="color:red;"> *</b>
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Selecciona una marca"></i>
+							</label>
+							<div class="col-sm-12">
+								<select class="selectpicker" data-live-search="true" id="validarInventarioMarcaId"
+										asp-for="InventarioMarcas.InventarioMarcaId" asp-items="ViewBag.InventarioMarcaId" name="InventarioMarcaId" required>
+									<option value="">Seleccionar...</option>
+								</select>
+								<span asp-validation-for="InventarioMarcaId" class="text-danger"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-4 col-sm-4">
+						<div class="form-group">
+							<label for="idCategoria" class="col-sm-12 col-form-label">
+								CATEGORIA<b style="color:red;"> *</b>
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Selecciona una categoria"></i>
+							</label>
+							<div class="col-sm-12">
+								<select class="selectpicker" data-live-search="true" id="idCategoria"
+										asp-for="InventarioSubCategorias.InventarioCategorias.InventarioCategoriaId" asp-items="ViewBag.InventarioCategoriaId" name="InventarioCategoriaId" required>
+									<option value="">Seleccionar...</option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-sm-4">
+						<div class="form-group">
+							<label for="InventarioSubCategoriaId" class="col-sm-12 col-form-label">
+								SUB-CATEGORIA<b style="color:red;"> *</b>
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Selecciona una sub-categoria"></i>
+							</label>
+							<div class="col-sm-12">
+								<select class="selectpicker" data-live-search="true" id="InventarioSubCategoriaId"
+										asp-for="InventarioSubCategorias.InventarioSubCategoriaId" asp-items="ViewBag.InventarioSubCategoriaId" name="InventarioSubCategoriaId" required>
+									<option value="">Seleccionar...</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-4 col-sm-4">
+						<div class="form-group">
+							<label for="validarNombre" class="col-sm-12 col-form-label">
+								NOMBRE PRODUCTO<b style="color:red;"> *</b>
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresar un nombre de producto"></i>
+							</label>
+							<div class="col-sm-12">
+								<input type="text" class="form-control" id="validarNombre" asp-for="NombreProducto" required>
+							</div>
+							<div class="valid-tooltip">
+								OK!
+							</div>
+							<div class="invalid-tooltip">
+								nombre incorrecto
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-sm-4">
+						<div class="form-group">
+							<div class="row">
+								<label for="validarReferencia" class="col-sm-12 col-form-label">
+									REFERENCIA<b style="color:red;"> *</b>
+									<i class="far fa-question-circle" data-bs-toggle="tooltip" title="" data-original-title="Ingresar una referencia"></i>
+								</label>
+								<div class="col-sm-12 col-input-group">
+									<label class="col-md-3 input-group-addon">N/A </label>
+									<input type="checkbox" class="col-sm-1 form-check-input" id="CheckSinCampos">
+									<input type="text" class="col-sm-8 form-control" id="validarReferencia" asp-for="Referencia"
+										   required style="float:right;">
+								</div>
+							</div>
+							<div class="valid-tooltip">
+								OK!
+							</div>
+							<div class="invalid-tooltip">
+								referecia incorrecta
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-sm-4">
+						<div class="form-group">
+							<label for="validarColor" class="col-sm-12 col-form-label">
+								COLOR
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Selecciona un color"></i>
+							</label>
+							<div class="col-sm-12">
+								<select class="selectpicker" data-live-search="true" id="validarColor"
+										asp-for="Color_cId" asp-items="ViewBag.Color_cId">
+									<option value="">Seleccionar...</option>
+								</select>
+								<span asp-validation-for="Color_cId" class="text-danger"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-6 col-sm-12">
+						<div class="form-group">
+							<label for="validarVehiculoAsociado" class="col-sm-12 col-form-label">
+								VEHÍCULOS ASOCIADOS
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Se debe ingresar cada vehículo de la siguiente forma: Vehículo/Modelo/Año"></i>
+							</label>
+							<div class="col-sm-12">
+								<textarea type="text" class="form-control" id="validarVehiculoAsociado" asp-for="VehiculoAsociado" placeholder="Marca/Modelo/Año,
+Marca/Modelo/Año,
+Marca/Modelo/Año," rows="6" style="width: 100%; resize: both;"> </textarea>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-3 col-sm-12">
+						<div class="form-group">
+							<label for="validarPosicionProducto" class="col-sm-12 col-form-label">
+								POSICIÓN PRODUCTO
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresar una posición del producto en el vehículo"></i>
+							</label>
+							<div class="col-sm-12">
+								<input type="text" class="form-control" id="validarPosicionProducto" asp-for="PosicionProducto">
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-sm-12">
+						<div class="form-group">
+							<label for="validarUbicacionProducto" class="col-sm-12 col-form-label">
+								UBICACIÓN PRODUCTO
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresar una ubicación para el producto en el estand"></i>
+							</label>
+							<div class="col-sm-12">
+								<input type="text" class="form-control" id="validarUbicacionProducto" asp-for="UbicacionProducto">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-4 col-sm-12">
+						<div class="form-group">
+							<label class="col-sm-12 col-form-label">
+								MEDIDA
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Selecciona una Medida"></i>
+							</label>
+							<div class="col-sm-12">								
+								<select class="selectpicker form-control" data-live-search="true" id="idMedida_c" name="idMedida_c"
+										asp-items="ViewBag.Medida_cId">
+									<option value="">Seleccionar...</option>
+								</select>
+							</div>
+						</div>
+					</div>
+										
+					<div class="col-lg-4 col-sm-12">
+						<div class="form-group">
+							<label class="col-sm-12 col-form-label">
+								UNIDAD DE MEDIDA
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Selecciona una unidad de medida"></i>
+							</label>
+							<div class="col-sm-12">
+								@{
+									if (ViewBag.UnidadMedida_cId != null)
+									{
+										<select class="form-control" id="validarUnidadMedida"
+												asp-for="UnidadMedida_cId" asp-items="ViewBag.UnidadMedida_cId">
+											<option value="">Seleccionar...</option>
+										</select>
+									}
+									else
+									{
+										<select class="form-control" id="validarUnidadMedida"
+												asp-for="UnidadMedida_cId" name="UnidadMedidaId">
+											<option value="">Seleccionar...</option>
+										</select>
+									}
+								}
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-sm-12">
+						<div class="form-group">
+							@{
+								if (tipoUser == "SuperAdmin")
+								{
+									<label for="validarTaller" class="col-sm-12 col-form-label">
+										Taller<b style="color:red;"> *</b>
+										<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Selecciona un Taller"></i>
+									</label>
+									<div class="col-sm-12">
+										<select asp-for="TallerId" class="form-control" asp-items="ViewBag.TallerId"></select>
+									</div>
+								}
+								else
+								{
+									<label for="validarTaller" class="col-sm-12 col-form-label">
+										Taller
+									</label>
+									<div class="col-sm-12">
+										<select asp-for="TallerId" class="form-control" asp-items="ViewBag.TallerId"></select>
+									</div>
+								}
+							}
+							<div class="valid-tooltip">
+								OK!
+							</div>
+							<div class="invalid-tooltip">
+								Selecciona algún Taller.
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-lg-8 col-sm-12">
+						<div class="form-group">
+							<label for="validarDetalle" class="col-sm-12 col-form-label">
+								DETALLE
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="No mayor a 200 caracteres"></i>
+							</label>
+							<div class="col-sm-12">
+								<textarea type="text" class="form-control" id="validarDetalle" asp-for="Detalle"
+										  rows="6" cols="40"></textarea>
+							</div>
+							<div class="valid-tooltip">
+								OK!
+							</div>
+							<div class="invalid-tooltip">
+								detalle superó los 200 caracteres
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<hr />
+				<div class="row">
+					<!-- Botón atrás -->
+					<div class="col-sm-6">
+						<div class="form-group">
+							<a asp-controller="InventarioEntradaProductos" asp-action="Details" asp-route-id="@Model.CodigoProducto" class="btn btn-dark btn-regresar">Atrás</a>
+						</div>
+					</div>
+					<!-- Botón Modificar -->
+					<div class="col-sm-6">
+						<div class="form-group">
+							<input type="submit" value="Modificar" class="btn btn-primary btn-actualizar" />
+						</div>
+					</div>
+				</div>
+
+			</form>
+		</div>
+
+	</div>
+</div>
+
+
+
+
+@section Scripts {
+
+	<script src="~/js/CodigoDeBarras/CargarCodigoDeBarras.js"></script>
+
+
+	<script>
+
+		// Categorias
+		var categoriaP = document.querySelector('#idCategoria');
+		var subCategoriaId = document.querySelector('#InventarioSubCategoriaId');
+
+		// Validar sin campos
+		var checkSinCampos = document.getElementById("CheckSinCampos");
+		var vReferenciaP = document.querySelector("#validarReferencia");
+
+		//validar campo solo numerico
+		//var valCantidad = document.getElementById('validarCantidad');
+		var valStockMinimo = document.getElementById('validarStockMinimo');
+
+		// Medidas
+		var medidaoP = document.querySelector('#idMedida_c');
+		var unidadMedidaP = document.querySelector('#validarUnidadMedida');
+
+		// var checkHomologado = document.getElementById("validarHomologado");
+		//var homologadoP = false;
+
+
+		// Inicializar tooltips
+		$(function () {
+			$('[data-bs-toggle="tooltip"]').tooltip();
+		});
+
+		// Validaciones
+		(function () {
+			'use strict'
+
+			// Fetch all the forms we want to apply custom Bootstrap validation styles to
+			var forms = document.querySelectorAll('.needs-validation')
+
+			// Loop over them and prevent submission
+			Array.prototype.slice.call(forms)
+				.forEach(function (form) {
+					form.addEventListener('submit', function (event) {
+						if (!form.checkValidity()) {
+							event.preventDefault()
+							event.stopPropagation()
+						}
+
+						form.classList.add('was-validated')
+					}, false)
+				})
+		})()
+
+		// function mostrarEnOtroInput() {
+
+		// 	var nombreProducto = document.getElementById("validarNombre").value;
+		// 	var referenciaProducto = document.getElementById("validarReferencia").value;
+
+		// 	var nombre0 = nombreProducto.replace(/\s+/g, '');
+		// 	var nombre2 = nombre0.substring(0, 3).toUpperCase();
+		// 	var referencia2 = referenciaProducto.replace(/\s+/g, '').toUpperCase();
+
+		// 	if (checkHomologado.checked) {
+		// 		Hom = "_R";
+		// 	} else {
+		// 		Hom = "";
+		// 	}
+		// 	// document.getElementById("validarCodigo").value = nombre2 + referencia2 + Hom;
+		// }
+
+
+		//DropDownList
+		categoriaP.addEventListener('change', () => {
+			TallerComplementos(categoriaP, subCategoriaId, ('@Url.Content("~/")' + 'Funciones/SubCategorias'), subCategoriaId);
+		});
+
+		medidaoP.addEventListener('change', () => {
+			TallerComplementos(medidaoP, unidadMedidaP, ('@Url.Content("~/")' + 'Funciones/UnidadMedidas'), unidadMedidaP);
+		});
+
+		// checkHomologado.addEventListener('click', function () {
+		// 	mostrarEnOtroInput();
+		// });
+
+		checkSinCampos.addEventListener('click', function () {
+			if (checkSinCampos.checked) {
+				//vReferenciaP.required = false;
+				//vReferenciaP.disabled = true;
+				vReferenciaP.value = 'No aplica';
+				//vReferenciaP.style.display = 'none';
+			} else {
+				//vReferenciaP.required = true;
+				//vReferenciaP.disabled = false;
+				vReferenciaP.value = '';
+				//vReferenciaP.style.display = 'block';
+			}
+			//mostrarEnOtroInput();
+		});
+
+
+		valStockMinimo.addEventListener("input", function (event) {
+			var inputValue = event.target.value;
+
+			// Verifica si el valor es un número
+			if (!/^[\d]+$/.test(inputValue)) {
+				// Si no es un número, elimina el último carácter ingresado
+				event.target.value = inputValue.slice(0, -1);
+			}
+		});
+
+		// Ocultar el mensaje
+		setTimeout(function () {
+			var alertMessage = document.getElementById("alert-message");
+			if (alertMessage) {
+				alertMessage.style.display = "none";
+			}
+		}, 30000); // 30 segundos
+
+
+
+	</script>
+
+
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+
+}

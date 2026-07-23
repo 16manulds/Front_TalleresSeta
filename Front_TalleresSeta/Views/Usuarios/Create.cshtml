@@ -1,0 +1,388 @@
+﻿@model Front_TalleresSeta.Modelos.Usuario
+
+
+@{
+	ViewData["Title"] = "Create";
+	Layout = "~/Views/Shared/Interfaz/_LayoutVerticalInterfaz.cshtml";
+
+	var TipoUser = User.FindFirst("TipoUsuarioAcceso")?.Value ?? string.Empty;
+	var TipoRol = User.FindFirst("TipoRolAcceso")?.Value ?? string.Empty;
+}
+
+
+<div class="container-fluid">
+	@if (ViewBag.accion == "CREADO")
+	{
+		<div id="alert-message" class="alert alert-success" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+	else if (ViewBag.accion == "FALLO")
+	{
+		<div id="alert-message" class="alert alert-danger" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+	else if (ViewBag.accion == "CREADO_CON_ERROR")
+	{
+		<div id="alert-message" class="alert alert-warning" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+	else if (ViewBag.accion == "YA_EXISTE")
+	{
+		<div id="alert-message" class="alert alert-warning" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+</div>
+
+
+<div class="container-fluid">
+	<div class="card shadow mb-lg-4">
+		<div class="card-header py-3">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						<span class="nav-link">
+							<i class="fab fa-wpforms"></i>
+							Registrar Usuario
+						</span>
+					</div>
+				</div>
+				<div class="text-right col-sm-8">
+					<div class="form-group">
+						<span style="float:right;">Campos Obligatorios <b style="color:red;">*</b></span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="card-body">
+			<form class="needs-validation" novalidate asp-controller="Usuarios" asp-action="Create">
+				<div class="row">
+					<div class="text-center col-lg-3 col-sm-12">
+						<div class="form-group">
+							<label for="ActivoUsuario" class="col-sm-12 col-form-label">
+								HABILITADO
+							</label>
+							<div class="col-sm-12">
+								<i class="fas fa-check-square" style="color: green;"></i>
+							</div>
+						</div>
+					</div>
+					<div class="text-center col-lg-3 col-sm-12">
+						<div class="form-group">
+							<label for="validarTipoDocumentoId" class="col-sm-12 col-form-label">
+								TIPO DOCUMENTO<b style="color:red;"> *</b>
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Selecciona un tipo de documento"></i>
+							</label>
+							<div class="col-sm-12">
+								<select class="selectpicker form-control" data-live-search="true" id="validarTipoDocumentoId"
+										asp-for="TipoDocumentoId" asp-items="ViewBag.TipoDocumentoId" required>
+									<option value="">Seleccionar...</option>
+								</select>
+								<span asp-validation-for="TipoDocumentoId" class="text-danger"></span>
+							</div>							
+						</div>
+					</div>
+					<div class="text-center col-lg-3 col-sm-12">
+						<div class="form-group">
+							<label for="validarDocumento" class="col-sm-12 col-form-label">
+								DOCUMENTO<b style="color:red;"> *</b>
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresa el número de documento"></i>
+							</label>
+							<div class="col-sm-12">
+								<input type="text" class="form-control" id="validarDocumento" asp-for="Documento" oninput="validarSoloNumeros(this)" required>
+								<span asp-validation-for="Documento" class="text-danger"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-3 col-sm-12">
+						<div class="form-group">
+							<label for="validarPrimerNombre" class="col-sm-12 col-form-label">
+								PRIMER NOMBRE
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresa el primer nombre"></i>
+							</label>
+							<div class="col-sm-12">
+								<input type="text" class="form-control" id="validarPrimerNombre" asp-for="PrimerNombre" required>
+								<span asp-validation-for="PrimerNombre" class="text-danger"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-sm-12">
+						<div class="form-group">
+							<label for="validarSegundoNombre" class="col-sm-12 col-form-label">
+								SEGUNDO NOMBRE
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresa el segundo nombre"></i>
+							</label>
+							<div class="col-sm-12">
+								<input type="text" class="form-control" id="validarSegundoNombre" asp-for="SegundoNombre">
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-sm-12">
+						<div class="form-group">
+							<label for="validarPrimerApellido" class="col-sm-12 col-form-label">
+								PRIMER APELLIDO
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresa el primer apellido"></i>
+							</label>
+							<div class="col-sm-12">
+								<input type="text" class="form-control" id="validarPrimerApellido" asp-for="PrimerApellido" required>
+								<span asp-validation-for="PrimerApellido" class="text-danger"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-sm-12">
+						<div class="form-group">
+							<label for="validarSegundoApellido" class="col-sm-12 col-form-label">
+								SEGUNDO APELLIDO
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresa el segundo apellido"></i>
+							</label>
+							<div class="col-sm-12">
+								<input type="text" class="form-control" id="validarSegundoApellido" asp-for="SegundoApellido">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-3 col-sm-12">
+						<div class="form-group">
+							<label class="col-sm-12 col-form-label">
+								FECHA NACIMIENTO<b style="color:red;">* </b>
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Selecciona una fecha de nacimiento"></i>
+							</label>
+							<div class="col-sm-12">
+								<input type="date" class="form-control" id="validarFechaNacimiento" asp-for="FechaNacimiento">
+							</div>
+						</div>
+					</div>
+					<div class="text-center col-lg-3 col-sm-12">
+						<div class="form-group">
+							<label for="validarSexo" class="col-sm-12 col-form-label">
+								GENERO<b style="color:red;"> *</b>
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Selecciona un tipo de genero"></i>
+							</label>
+							<div class="col-sm-12">
+								<select class="selectpicker form-control" data-live-search="true" id="validarSexo"
+										asp-for="Sexo" asp-items="ViewBag.Sexo" required>
+									<option value="">Seleccionar...</option>
+								</select>
+								<span asp-validation-for="Sexo" class="text-danger"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 col-sm-12">
+						<div class="form-group">
+							<label for="validarCorreo" class="col-sm-12 col-form-label">
+								CORREO
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresa un correo valido"></i>
+							</label>
+							<div class="col-sm-12">
+								<input type="email" class="form-control" id="validarCorreo" asp-for="Correo">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-4 col-sm-12">
+						<div class="form-group">
+							<label for="validarTelefono" class="col-sm-12 col-form-label">
+								TELÉFONO FIJO
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Por favor ingresa un número de teléfono fijo válido de 7 dígitos"></i>
+							</label>
+							<div class="col-sm-12">
+								<input type="text" class="form-control" id="validarTelefono" asp-for="TelefonoFijo" pattern="[0-9]{7}" oninput="validarSoloNumeros(this)">
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-12">
+						<div class="form-group">
+							<label for="validarMovil" class="col-sm-12 col-form-label">
+								CELULAR
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Por favor ingresa un número celular válido de 10 dígitos"></i>
+							</label>
+							<div class="col-sm-12">
+								<input type="text" class="form-control" id="validarMovil" asp-for="TelefonoMovil" pattern="[0-9]{10}" oninput="validarSoloNumeros(this)" required>
+								<span asp-validation-for="TelefonoMovil" class="text-danger"></span>
+							</div>
+						</div>
+					</div>
+					<div class="text-center col-lg-4 col-sm-12">
+						<div class="form-group">
+							<label for="validarEstadoId" class="col-sm-12 col-form-label">
+								ESTADO<b style="color:red;"> *</b>
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Selecciona un estado"></i>
+							</label>
+							<div class="col-sm-12">
+								<select class="selectpicker form-control" data-live-search="true" id="validarEstadoId"
+										asp-for="EstadoId" asp-items="ViewBag.EstadoId" required>
+									<option value="">Seleccionar...</option>
+								</select>
+								<span asp-validation-for="EstadoId" class="text-danger"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-6 col-sm-12">
+						<div class="form-group">
+							<label for="validarDireccionPrincipal" class="col-sm-12 col-form-label">
+								DIRECCIÓN PRINCIPAL
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresa una dirección principal"></i>
+							</label>
+							<div class="col-sm-12">
+								<textarea type="text" class="form-control" id="validarDireccionPrincipal" asp-for="DireccionPrincipal" placeholder="Dirección principal" rows="3" style="width: 100%; resize: both;"> </textarea>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 col-sm-12">
+						<div class="form-group">
+							<label for="validarDireccionAlterna" class="col-sm-12 col-form-label">
+								DIRECCIÓN ALTERNA
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresa una dirección alterna"></i>
+							</label>
+							<div class="col-sm-12">
+								<textarea type="text" class="form-control" id="validarDireccionAlterna" asp-for="DireccionAlterna" placeholder="Dirección alterna" rows="3" style="width: 100%; resize: both;"> </textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row">					
+					<div class="text-center col-lg-4 col-sm-12">
+						<div class="form-group">
+							<label for="validarTipoUsuarioId" class="col-sm-12 col-form-label">
+								TIPO USUARIO<b style="color:red;"> *</b>
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Selecciona un tipo de usuario"></i>
+							</label>
+							<div class="col-sm-12">
+								<select class="selectpicker form-control" data-live-search="true" id="validarTipoUsuarioId"
+										asp-for="TipoUsuarioId" asp-items="ViewBag.TipoUsuarioId" required>
+									<option value="">Seleccionar...</option>
+								</select>
+								<span asp-validation-for="TipoUsuarioId" class="text-danger"></span>
+							</div>
+						</div>
+					</div>				
+					<div class="text-center col-lg-4 col-sm-12">
+						<div class="form-group">
+							<label for="validarRolUsuarioId" class="col-sm-12 col-form-label">
+								ROL USUARIO<b style="color:red;"> *</b>
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Selecciona un rol de usuario"></i>
+							</label>
+							<div class="col-sm-12">
+								<select class="selectpicker form-control" data-live-search="true" id="validarRolUsuarioId"
+										asp-for="RolUsuarioId" asp-items="ViewBag.RolUsuarioId" required>
+									<option value="">Seleccionar...</option>
+								</select>
+								<span asp-validation-for="RolUsuarioId" class="text-danger"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-12">
+						<div class="form-group">
+							@if (TipoUser == "SuperAdmin")
+							{
+								<label for="validarSucursalId" class="col-sm-12 col-form-label">
+									SUCURSAL<b style="color:red;"> *</b>
+									<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Selecciona una sucursal"></i>
+								</label>
+								<div class="col-sm-12">
+									<select asp-for="SucursalId" class="form-control" asp-items="ViewBag.SucursalId"></select>
+								</div>
+							}
+							else
+							{
+								<label for="validarSucursalId" class="col-sm-12 col-form-label">
+									SUCURSAL
+								</label>
+								<div class="col-sm-12">
+									<select asp-for="SucursalId" class="form-control" asp-items="ViewBag.SucursalId"></select>
+								</div>
+							}
+							<span asp-validation-for="SucursalId" class="text-danger"></span>
+						</div>
+					</div>
+				</div>
+
+
+				<hr />
+				<div class="row">
+					<!-- Botón atrás -->
+					<div class="col-sm-6">
+						<div class="form-group">
+							<a asp-controller="Usuarios" asp-action="Index" class="btn btn-dark btn-regresar">Atrás </a>
+						</div>
+					</div>
+					<!-- Botón registrar -->
+					<div class="col-sm-6">
+						<div class="form-group">
+							<input type="submit" value="Registrar" class="btn btn-success btn-registrar" />
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+@section Scripts {
+
+	<script>
+
+		// Validaciones
+		(function () {
+			'use strict'
+
+			// Fetch all the forms we want to apply custom Bootstrap validation styles to
+			var forms = document.querySelectorAll('.needs-validation')
+
+			// Loop over them and prevent submission
+			Array.prototype.slice.call(forms)
+				.forEach(function (form) {
+					form.addEventListener('submit', function (event) {
+						if (!form.checkValidity()) {
+							event.preventDefault()
+							event.stopPropagation()
+						}
+
+						form.classList.add('was-validated')
+					}, false)
+				})
+		})()
+
+
+		// Ocultar el mensaje después de 30 segundos
+		setTimeout(function () {
+			var alertMessage = document.getElementById("alert-message");
+			if (alertMessage) {
+				alertMessage.style.display = "none";
+			}
+		}, 30000); // 30 segundos
+
+		// La función que se encargará de validar y limpiar el campo
+		function validarSoloNumeros(campo) {
+			// Escucha el evento 'input' en el campo proporcionado
+			campo.addEventListener('input', (e) => {
+				// Remueve cualquier carácter que no sea un dígito del valor del campo
+				e.target.value = e.target.value.replace(/\D/g, '');
+			});
+		}
+
+	</script>
+
+
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+
+}

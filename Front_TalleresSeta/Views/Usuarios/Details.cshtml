@@ -1,0 +1,312 @@
+﻿@model Front_TalleresSeta.Modelos.Usuario
+<link rel="stylesheet" href="~/css/CodigoDeBarras/style.css">
+
+
+@{
+	ViewData["Title"] = "Details";
+	Layout = "~/Views/Shared/Interfaz/_LayoutVerticalInterfaz.cshtml";
+
+	var tipoUser = User.FindFirst("TipoUsuarioAcceso")?.Value ?? string.Empty;
+	var tipoRol = User.FindFirst("TipoRolAcceso")?.Value ?? string.Empty;
+}
+
+<div class="container-fluid">
+	@if (ViewBag.accion == "CREADO" || ViewBag.accion == "ACTUALIZADO")
+	{
+		<div id="alert-message" class="alert alert-success" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+
+	@if (ViewBag.accion == "NO_ELIMINADO")
+	{
+		<div id="alert-message" class="alert alert-danger" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+</div>
+
+<div class="container-fluid">
+	<div class="card shadow mb-lg-4">
+		<div class="card-header py-3">
+			<div class="row">
+				<div class="text-left col-md-4">
+					<div class="form-group">
+						<span class="nav-link">
+							<i class="fab fa-wpforms"></i>
+							Detalle del usuario
+						</span>
+					</div>
+				</div>
+
+				@* @if (tipoUser == "SuperAdmin" || tipoUser == "Admin")
+				{
+					<div class="text-right col-md-4">
+						<div class="form-group">
+							<a class="btn btn-success btn-registrar" asp-controller="InventarioDevoluciones" asp-action="Devolver" asp-route-id="@Model.Documento">
+								Devoluciones <i class="fas fa-boxes fa-1x"></i>
+							</a>
+						</div>
+					</div>
+				} *@
+			</div>
+		</div>
+
+
+		<div class="card-body">
+
+			<div class="row">
+				<div class="col-lg-2 col-sm-2">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							ACTIVO
+						</label>
+						<div class="col-sm-12">
+							@{
+								if (Model.Habilitado == true)
+								{
+									<i class="fas fa-check-square" style="color: green;"></i>
+								}
+								else
+								{
+									<i class="far fa-window-close" style="color: firebrick;"></i>
+								}
+							}
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-2 col-sm-4">
+					<div class="form-group">
+						<label class="text-center col-sm-12 col-form-label">
+							TIPO
+						</label>
+						<div class="text-center col-sm-12">
+							<input type="text" class="form-control" id="validarTipoDocumento" value="@ViewBag.TipoDocumentoId" style="text-align: center;" readonly>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-sm-4">
+					<div class="form-group">
+						<label class="text-center col-sm-12 col-form-label">
+							DOCUMENTO
+						</label>
+						<div class="text-center col-sm-12">
+							<input type="text" class="form-control" id="validarDocumento" asp-for="Documento" style="text-align: center;" readonly>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-12">
+					<div class="form-group">
+						<label class="text-center col-sm-12 col-form-label">
+							ESTADO
+						</label>
+						<div class="text-center col-sm-12">
+							<input type="text" class="form-control" id="validarEstadoId" value="@ViewBag.EstadoId" style="text-align: center;" readonly>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label class="text-center col-sm-12 col-form-label">
+							PRIMER NOMBRE
+						</label>
+						<div class="text-center col-sm-12">
+							<input type="text" class="form-control" id="validarPrimerNombre" asp-for="PrimerNombre" style="text-align: center;" readonly>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label class="text-center col-sm-12 col-form-label">
+							SEGUNDO NOMBRE
+						</label>
+						<div class="text-center col-sm-12">
+							<input type="text" class="form-control" id="validarSegundoNombre" asp-for="SegundoNombre" style="text-align: center;" readonly>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label class="text-center col-sm-12 col-form-label">
+							FECHA DE NACIMIENTO
+						</label>
+						<div class="text-center col-sm-12">
+							<input type="text" class="form-control" id="validarFechaNacimiento" value="@ViewBag.FechaNacimiento" style="text-align: center;" readonly>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">				
+				<div class="col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label class="text-center col-sm-12 col-form-label">
+							PRIMER APELLIDO
+						</label>
+						<div class="text-center col-sm-12">
+							<input type="text" class="form-control" id="validarPrimerApellido" asp-for="PrimerApellido" style="text-align: center;" readonly>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label class="text-center col-sm-12 col-form-label">
+							SEGUNDO APELLIDO
+						</label>
+						<div class="text-center col-sm-12">
+							<input type="text" class="form-control" id="validarSegundoApellido" asp-for="SegundoApellido" style="text-align: center;" readonly>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-12">
+					<div class="form-group">
+						<label class="text-center col-sm-12 col-form-label">
+							SEXO
+						</label>
+						<div class="text-center col-sm-12">
+							<input type="text" class="form-control" id="validarSexo" value="@ViewBag.Sexo" style="text-align: center;" readonly>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-3 col-sm-12">
+					<div class="form-group">
+						<label class="text-center col-sm-12 col-form-label">
+							TELÉFONO FIJO
+						</label>
+						<div class="text-center col-sm-12">
+							<input type="text" class="form-control" id="validarTelefonoFijo" asp-for="TelefonoFijo" style="text-align: center;" readonly>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-12">
+					<div class="form-group">
+						<label class="text-center col-sm-12 col-form-label">
+							CELULAR
+						</label>
+						<div class="text-center col-sm-12">
+							<input type="text" class="form-control" id="validarTelefonoMovil" asp-for="TelefonoMovil" style="text-align: center;" readonly>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 col-sm-12">
+					<div class="form-group">
+						<label class="text-center col-sm-12 col-form-label">
+							CORREO
+						</label>
+						<div class="text-center col-sm-12">
+							<input type="text" class="form-control" id="validarCorreo" asp-for="Correo" style="text-align: center;" readonly>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-6 col-sm-12">
+					<div class="form-group">
+						<label class="text-center col-sm-12 col-form-label">
+							DIRECCIÓN PRINCIPAL
+						</label>
+						<div class="text-center col-sm-12">
+							<textarea type="text" class="form-control" id="validarDireccionPrincipal" asp-for="DireccionPrincipal" rows="4" cols="4" readonly> </textarea>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 col-sm-12">
+					<div class="form-group">
+						<label class="text-center col-sm-12 col-form-label">
+							DIRECCIÓN ALTERNA
+						</label>
+						<div class="text-center col-sm-12">
+							<textarea type="text" class="form-control" id="validarDireccionAlterna" asp-for="DireccionAlterna" rows="4" cols="4" readonly> </textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label class="text-center col-sm-12 col-form-label">
+							TIPO USUARIO
+						</label>
+						<div class="text-center col-sm-12">
+							<input type="text" class="form-control" id="validarTipoUsuarioId" value="@ViewBag.TipoUsuarioId" style="text-align: center;" readonly>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label class="text-center col-sm-12 col-form-label">
+							ROL USUARIO
+						</label>
+						<div class="text-center col-sm-12">
+							<input type="text" class="form-control" id="validarRolUsuarioId" value="@ViewBag.RolUsuarioId" style="text-align: center;" readonly>
+						</div>
+					</div>
+				</div>				
+				<div class="col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label class="text-center col-sm-12 col-form-label">
+							SUCURSAL
+						</label>
+						<div class="text-center col-sm-12">
+							<input type="text" class="form-control" id="validarSucursalId" value="@ViewBag.SucursalId" style="text-align: center;" readonly>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr />
+
+
+			<div class="row">
+				<!-- Botón atrás -->
+				<div class="col-sm-6">
+					<div class="form-group">
+						<a class="btn btn-dark btn-regresar" asp-controller="Usuarios" asp-action="Index">
+							Atrás
+						</a>
+					</div>
+				</div>
+				@if (tipoUser == "SuperAdmin" || tipoUser == "Admin" || (tipoUser == "Empleado" && tipoRol == "Jefe"))
+				{
+					<!-- Botón Actualizar -->
+					<div class="col-sm-6">
+						<div class="form-group">
+							<a class="btn btn-primary btn-actualizar" asp-controller="Usuarios" asp-action="Edit" asp-route-id="@Model.Documento">
+								Actualizar
+							</a>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+</div>
+
+
+@section Scripts {
+
+	<script>
+
+		// Ocultar el mensaje después de 30 segundos
+		setTimeout(function () {
+			var alertMessage = document.getElementById("alert-message");
+			if (alertMessage) {
+				alertMessage.style.display = "none";
+			}
+		}, 30000); // 30 segundos
+
+	</script>
+
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+
+}

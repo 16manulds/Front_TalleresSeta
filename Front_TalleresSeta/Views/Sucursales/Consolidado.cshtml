@@ -1,0 +1,200 @@
+﻿@model IEnumerable<Front_TalleresSeta.Modelos.Sucursal>
+
+@{
+    ViewData["Title"] = "Consolidado";
+    Layout = "~/Views/Shared/Interfaz/_LayoutVerticalInterfaz.cshtml";
+}
+
+
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+
+        <!-- Titulo consolidado -->
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h6 class="m-0 font-weight-bold text-primary" style="float: left;">Listado de Sucursales</h6>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card-body">
+
+            <!-- Filtro por año -->
+            <div class="row">
+                <div class="col-lg-3" style="float: right;">
+                    <form asp-controller="Sucursales" asp-action="Consolidado">
+                        <div class="input-group mb-2">
+                            <select step="1" name="search" class="form-control" aria-label="Buscar" aria-describedby="button-filtrar" asp-items="ViewBag.FechaFundacion">
+                            </select>
+                            <div class="input-group-append">
+                                <input class="btn btn-primary btn-user center-block" type="submit" id="button-filtrar" value="Filtrar por año">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+
+                <!-- Tabla de datos -->
+                <table id="modelTable" class="table table-hover table-outline mb-0">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="text-center col-md-1">
+                                ACTIVO
+                            </th>
+                            <th class="text-center col-md-2">
+                                FECHA REGISTRO
+                            </th>
+                            <th class="text-left col-md-4">
+                                CÓDIGO
+                            </th>
+                            <th class="text-left col-md-4">
+                                NOMBRE
+                            </th>
+                            <th class="text-center col-md-2">
+                                FECHA DE FUNDACIÓN
+                            </th>
+                            <th class="text-center col-md-2">
+                                Direccion
+                            </th>
+                            <th class="text-left col-md-4">
+                                DETALLE
+                            </th>
+                            <th class="text-left col-md-4">
+                                TÉLEFONO FIJO
+                            </th>
+                            <th class="text-left col-md-4">
+                                TÉLEFONO MÓVIL
+                            </th>
+                            <th class="text-left col-md-4">
+                                CORREO
+                            </th>
+                            <th class="text-left col-md-4">
+                                TALLER
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center">
+                                    @{
+                                        if (item.Habilitado == true)
+                                        {
+                                            //<span>SI</span>
+                                            <i class="fas fa-check">SI</i>
+                                        }
+                                        else
+                                        {
+                                            //<span>NO</span>
+                                            <i class="fas fa-times">NO</i>
+                                        }
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    @Html.DisplayFor(modelItem => item.FechaRegistro)
+                                </td>
+                                <td class="text-left">
+                                    @Html.DisplayFor(modelItem => item.Codigo)
+                                </td>
+                                <td class="text-center">
+                                    @Html.DisplayFor(modelItem => item.Nombre)
+                                </td>
+                                <td class="text-left">
+                                    @Html.DisplayFor(modelItem => item.FechaFundacion)
+                                </td>
+                                <td class="text-left">
+                                    @Html.DisplayFor(modelItem => item.Direccion)
+                                </td>
+                                <td class="text-left">
+                                    @Html.DisplayFor(modelItem => item.Detalle)
+                                </td>
+                                <td class="text-left">
+                                    @Html.DisplayFor(modelItem => item.TelFijo)
+                                </td>
+                                <td class="text-left">
+                                    @Html.DisplayFor(modelItem => item.TelMovil)
+                                </td>
+                                <td class="text-left">
+                                    @Html.DisplayFor(modelItem => item.Correo)
+                                </td>
+                                <td class="text-left">
+                                    @Html.DisplayFor(modelItem => item.Talleres.RazonSocialTaller)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <hr />
+            <div class="row">
+                <!-- Botón atrás -->
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <a type="button" asp-controller="Sucursales" asp-action="Index" class="btn btn-dark btn-regresar">Atrás </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="~/lib/data-tables/datatables.min.js"></script>
+    <script src="~/lib/data-tables/dataTables.buttons.min.js"></script>
+    <script src="~/lib/data-tables/jszip.min.js"></script>
+    <script src="~/lib/data-tables/pdfmake.min.js"></script>
+    <script src="~/lib/data-tables/vfs_fonts.js"></script>
+    <script src="~/lib/data-tables/buttons.html5.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $('#modelTable').dataTable({
+                order: [],
+                dom: 'lBfrtip',
+                buttons: [
+                    {
+                        extend: 'pdf', // formato excel
+                        text: 'Descargar Informe', // texto del botón de descarga
+                        className: 'btn btn-primary btn-user center-block', // clase del botón
+                        orientation: 'landscape', // orientación de la hoja horizontal
+                        pageSize: 'LEGAL', // tamaño de hoja
+                        messageTop: 'PDF created by PDFMake ith Buttons for DataTables.', // texto titulo del archivo descargado
+                        download: 'open',  //abre en una nueva pestaña
+                        //customize: function (xlsx) {
+                        //    var sheet = xlsx.xl.worksheets['sheet1.xml']; // nombre de la pestaña del excel
+
+                        //    $('row c[r^="C"]', sheet).attr('s', '2');  // columna y fila en negrilla
+                        //},
+
+                        // incluir imagen en archivo descarga
+                        customize: function (doc) {
+                            doc.content.splice(1, 0, {
+                                margin: [0, 0, 0, 12],
+                                alignment: 'center',
+                                image: 'data:image/jpeg;base64,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'
+                                //image: 'images/Net.png'
+                            });
+                        }
+
+                    }
+                ],
+                language: {
+                    url: '/lib/data-tables/Spanish.json'
+                }
+            });
+        });
+
+    </script>
+}

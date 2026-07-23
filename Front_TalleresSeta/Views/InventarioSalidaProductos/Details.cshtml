@@ -1,0 +1,427 @@
+﻿@* @model Front_TalleresSeta.Modelos.ViewVentaProducto
+<link rel="stylesheet" href="~/css/CodigoDeBarras/style.css">
+
+
+@{
+	ViewData["Title"] = "Details";
+	Layout = "~/Views/Shared/Interfaz/_LayoutVerticalInterfaz.cshtml";
+
+	var tipoUser = User.FindFirst("TipoUsuarioAcceso")?.Value ?? string.Empty;
+	var tipoRol = User.FindFirst("TipoRolAcceso")?.Value ?? string.Empty;
+}
+
+<div class="container-fluid">
+	@if (ViewBag.accion == "CREADO" || ViewBag.accion == "ACTUALIZADO")
+	{
+		<div id="alert-message" class="alert alert-success" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+
+	@if (ViewBag.accion == "NO_ELIMINADO")
+	{
+		<div id="alert-message" class="alert alert-danger" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+</div>
+
+<div class="container-fluid">
+	<div class="card shadow mb-lg-4">
+		<div class="card-header py-3">
+			<div class="row">
+				<div class="text-left col-md-4">
+					<div class="form-group">
+						<span class="nav-link">
+							<i class="fab fa-wpforms"></i>
+							Detalle del producto
+						</span>
+					</div>
+				</div>
+
+				<div class="text-right col-md-4">
+					<div class="form-group">
+						<a class="btn btn-success btn-registrar" asp-controller="InventarioLotes" asp-action="VerLotes" asp-route-id="@Model.CodigoProducto">
+							Ver Lotes <i class="fas fa-boxes fa-1x"></i>
+						</a>
+					</div>
+				</div>
+
+				@if (tipoUser == "SuperAdmin" || tipoUser == "Admin")
+				{
+					<!-- Campos opcionales -->
+					<div class="text-right col-sm-4">
+						<div class="form-group">
+							<a class="btn btn-danger btn-eliminar" data-toggle="modal" data-target="#BorrarProducto" asp-route-id="@Model.CodigoProducto">
+								Borrar Producto
+							</a>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+
+
+		<div class="card-body">
+
+			<div class="row">
+				<div class="col-lg-4 col-sm-4">
+					<div class="form-group">
+						<label class="text-center col-sm-12 col-form-label">
+							CÓDIGO PRODUCTO
+						</label>
+						<div class="text-center col-sm-12">
+							<input type="text" class="form-control" id="validarCodigo" asp-for="CodigoProducto" style="text-align: center;" disabled>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-4 col-sm-4 text-center">
+					<label>CODIGO DE BARRAS</label>
+					<button class="col-lg-12" id="btnDescargar" style="display: none;">
+						<div class="d-flex justify-content-center align-items-center">
+							<div class="row">
+								<div class="col-lg-12 col-sm-12">
+									<div class="form-group">
+										<input type="hidden" asp-for="ImagenCodigoDeBarras" id="ImagenCodigoDeBarras" />
+										<canvas id="barcodeCanvas" style="max-width: auto; height: 50%; display: none;"></canvas>
+										<img id="barcodeImage" style="display: block; margin-right: 7px; max-width: auto; height: 50%;" src="@ViewBag.CodigoDeBarras" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</button>
+				</div>
+
+				<div class="col-lg-4 col-sm-4 text-center">
+					<label class="col-sm-12 col-form-label">PRODUCTO</label>
+					<div class="d-flex justify-content-center align-items-center">
+						<div class="row">
+							<div class="col-lg-12 col-sm-12">
+								<div class="text-center">
+
+									<input type="hidden" asp-for="ImagenProducto" id="ImagenProducto" />
+									<img class="form-control" src="@ViewBag.ImagenProducto" id="previewImagenProducto" alt="Imagen del Producto Actual" style="max-width: 200px; height: 200px; border: 2px solid #ddd; padding: 5px; border-radius: 10px; margin-top: 0px; margin-left: auto; margin-right: auto; display: none;" />
+									<img class="form-control" src="~/images/Admin_Productos/SinArchivos.png" id="iconoPreviewImagenProducto" alt="Imagen del producto" style="max-width: 100px; height: 100px; border: 2px solid #ddd; padding: 5px; border-radius: 10px; margin-top: 0px; margin-left: auto; margin-right: auto; display: block;" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr />
+
+			<div class="row">
+				<div class="col-lg-2 col-sm-2">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							ACTIVO
+						</label>
+						<div class="col-sm-2">
+							@{
+								if (Model.Habilitado == true)
+								{
+									<i class="fas fa-check-square" style="color: green;"></i>
+								}
+								else
+								{
+									<i class="far fa-window-close" style="color: firebrick;"></i>
+								}
+							}
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-2 col-sm-2">
+					<div class="form-group">
+						<label class="text-center col-sm-12 col-form-label">
+							HOMOLOGADO
+						</label>
+						<div class="text-center col-sm-12">
+							<input type="checkbox" class="form-check-input" asp-for="Homologado" disabled>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-2 col-sm-2">
+					<div class="form-group">
+						<label class="text-center col-sm-12 col-form-label">
+							STOCK MÍNIMO
+						</label>
+						<div class="text-center col-sm-8">
+							<input type="number" class="form-control" id="validarStockMinimo" asp-for="StockMinimo" disabled>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-3 col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							PROVEEDOR
+						</label>
+						<div class="col-sm-12">
+							<input type="text" class="form-control" value="@ViewBag.Proveedor" disabled>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-3 col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							MARCA
+						</label>
+						<div class="col-sm-12">
+							<input type="text" class="form-control" value="@ViewBag.Marca" disabled>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-3 col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							CATEGORIA
+						</label>
+						<div class="col-sm-12">
+							<input type="text" class="form-control" value="@ViewBag.Categoria" disabled>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-3 col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							SUB-CATEGORIA
+						</label>
+						<div class="col-sm-12">
+							<input type="text" class="form-control" value="@ViewBag.SubCategoria" disabled>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-3 col-sm-6">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							NOMBRE PRODUCTO
+						</label>
+						<div class="col-sm-12">
+							<input type="text" class="form-control" asp-for="NombreProducto" style="text-align: center;" disabled>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-3 col-sm-4">
+					<div class="form-group">
+						<div class="row">
+							<label class="col-sm-12 col-form-label">
+								REFERENCIA
+							</label>
+							<div class="col-sm-12 col-input-group">
+								<input type="text" class="form-control" asp-for="Referencia" disabled>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-2 col-sm-2">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							STOCK ACTUAL
+						</label>
+						<div class="col-sm-12">
+							<input type="text" class="form-control" value="@ViewBag.StockActual" disabled>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-2 col-sm-2">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							COLOR
+						</label>
+						<div class="col-sm-12">
+							<input type="text" class="form-control" value="@ViewBag.Color" disabled>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-6 col-sm-6">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							VEHÍCULOS ASOCIADOS
+						</label>
+						<div class="col-sm-12">
+							<textarea type="text" class="form-control" asp-for="VehiculoAsociado" placeholder="Marca/Modelo/Año" rows="6" style="width: 100%; resize: both;" disabled> </textarea>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-3 col-sm-3">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							POSICIÓN PRODUCTO
+						</label>
+						<div class="col-sm-12">
+							<input type="text" class="form-control" asp-for="PosicionProducto" disabled>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-3">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							UBICACIÓN STAND PRODUCTO
+						</label>
+						<div class="col-sm-12">
+							<input type="text" class="form-control" asp-for="UbicacionProducto" disabled>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-3 col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							MEDIDA
+						</label>
+						<div class="col-sm-12">
+							<input type="text" class="form-control" value="@ViewBag.Medida" disabled>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-3 col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							UNIDAD DE MEDIDA
+						</label>
+						<div class="col-sm-12">
+							<input type="text" class="form-control" value="@ViewBag.UnidadMedida" disabled>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-3 col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							Taller
+						</label>
+						<div class="col-sm-12">
+							<input type="text" class="form-control" value="@ViewBag.TallerId" disabled>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-8 col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							DETALLE
+						</label>
+						<div class="col-sm-12">
+							<textarea type="text" class="form-control" asp-for="Detalle"
+									  rows="6" style="width: 100%; resize: both;" disabled></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr />
+
+
+			<div class="row">
+				<!-- Botón atrás -->
+				<div class="col-sm-6">
+					<div class="form-group">
+						<a class="btn btn-dark btn-regresar" asp-controller="InventarioEntradaProductos" asp-action="Index">
+							Atrás
+						</a>
+					</div>
+				</div>
+				@if (tipoUser == "SuperAdmin" || tipoUser == "Admin" || (tipoUser == "Empleado" && tipoRol == "Jefe"))
+				{
+					<!-- Botón Actualizar -->
+					<div class="col-sm-6">
+						<div class="form-group">
+							<a class="btn btn-primary btn-actualizar" asp-controller="InventarioEntradaProductos" asp-action="Edit" asp-route-id="@Model.CodigoProducto">
+								Actualizar
+							</a>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+</div>
+
+
+@if (tipoUser == "SuperAdmin" || tipoUser == "Admin")
+{
+	<!-- Modal Borrar Producto -->
+	<div class="modal fade" id="BorrarProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<!-- centrado verticalmente -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Borrar Producto</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<form asp-controller="InventarioEntradaProductos" asp-action="Delete" asp-route-id="@Model.CodigoProducto">
+					<input type="hidden" name="idProducto" value="@Model.CodigoProducto" />
+
+					<div class="modal-body text-center">
+						<p>¿Estás seguro de borrar este producto?</p>
+
+						<div class="my-3">
+							<label class="col-form-label text-center">
+								<strong>Código:</strong> @Model.CodigoProducto<br>
+								<strong>Producto:</strong> @Model.NombreProducto
+							</label>
+						</div>
+					</div>
+
+					<div class="modal-footer justify-content-center">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-danger">Borrar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+}
+
+
+
+@section Scripts {
+
+	<script src="~/js/CodigoDeBarras/CargarCodigoDeBarras.js"></script>
+
+
+	<script>
+
+		// Ocultar el mensaje después de 30 segundos
+		setTimeout(function () {
+			var alertMessage = document.getElementById("alert-message");
+			if (alertMessage) {
+				alertMessage.style.display = "none";
+			}
+		}, 30000); // 30 segundos
+
+	</script>
+
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+
+}
+ *@

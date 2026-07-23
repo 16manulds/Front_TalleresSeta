@@ -1,0 +1,117 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+}
+
+/*#resultadoContainer {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    word-wrap: break-word;*/ /* Permite que el código largo se ajuste */
+/*font-size: 18px;
+    overflow-wrap: break-word;
+}*/
+
+#contenedor {
+    max-width: 600px; /* Limita el ancho máximo del contenedor */
+    position: relative; /* Necesario para posicionar el marco dentro */
+    display: none; /* 🔥 Ahora está oculto por defecto */
+    justify-content: center;
+    margin: 20px auto;
+    overflow: hidden; /* Oculta cualquier desbordamiento del video */
+    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+    aspect-ratio: 16 / 9; /* Mantiene una proporción de aspecto para el video (ej: 16:9) */
+    border-radius: 8px; /* Bordes redondeados para el contenedor */
+}
+
+.hidden {
+    display: none;
+}
+
+#video {
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    border: 2px solid #000;
+    border-radius: 10px;
+    object-fit: cover; /* Asegura que el video cubra el área sin distorsión */
+}
+
+#marcoEscaneo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 4px solid red; /* Borde rojo por defecto al iniciar */
+    border-radius: 10px; /* Bordes redondeados para el marco */
+    pointer-events: none; /* No intercepta clics */
+    z-index: 10; /* Asegura que esté por encima del video */
+    transform: translate(-50%, -50%);
+    box-sizing: border-box; /* Incluye padding y border en el width/height */
+    /* Dimensiones para un área de captura más ancha y menos alta */
+    width: 80%; /* Más ancho */
+    height: 50%; /* Menos alto */
+    transition: border-color 0.3s ease-in-out; /* Transición suave del color del borde */
+}
+
+#marcoEscaneo.detectado {
+    border-color: green; /* Borde verde al detectar */
+}
+
+.detectado {
+    border-color: green !important;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.7) !important;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+#btnCapturar {
+    background-color: #007bff;
+    color: white;
+}
+
+#btnGenerar {
+    background-color: #28a745;
+    color: white;
+}
+
+canvas {
+    display: none;
+}
+
+#barcodeImage {
+    margin-top: 10px;
+    width: 200px;
+}
+
+.barcodeImage {
+    margin-top: 10px;
+    width: 200px;
+}
+
+#btnDescargar {
+    /* Opción 1: Estilo Moderno y Limpio */
+    font-family: 'Inter', sans-serif; /* Fuente moderna y legible */
+    font-size: 1.1em; /* Un poco más grande para destacar */
+    font-weight: 600; /* Seminegrita para mayor énfasis */
+    color: #007bff; /* Color azul estándar para enlaces */
+    text-decoration: none; /* Quitar el subrayado por defecto */
+    transition: color 0.3s ease-in-out; /* Transición suave al pasar el ratón */
+}
+
+    #btnDescargar:hover {
+        color: #0056b3; /* Color más oscuro al pasar el ratón */
+        text-decoration: underline; /* Subrayar al pasar el ratón */
+        cursor: pointer; /* Cambia el cursor a una manita (puntero) */
+    }

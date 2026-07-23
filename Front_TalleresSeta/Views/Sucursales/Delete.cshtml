@@ -1,0 +1,220 @@
+﻿@*@model Datos.Datos.Modelos.Sucursal
+
+@{
+    ViewData["Title"] = "Habilitado";
+    Layout = "~/Views/Shared/Interfaz/_LayoutVerticalInterfaz.cshtml";
+
+    var TipoUser = "";
+    var TipoRol = "";
+
+    @if (User.Identity.IsAuthenticated == true)
+    {
+        TipoUser = @User.FindFirst("TipoUsuarioAcceso").Value;
+        TipoRol = @User.FindFirst("TipoRolAcceso").Value;
+    }
+}
+
+<div class="container-fluid">
+
+    <!-- Tabla de datos -->
+    <div class="card shadow mb-4">
+
+        <div class="card-header py-3">
+            <div class="row">
+                <!-- Link consolidado -->
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <a asp-action="Consolidado" asp-route-id="" class="nav-link">
+                            <span>
+                                <i class="fab fa-wpforms"></i>
+                                Informe Sucursal
+                            </span>
+                            <span>
+                                @{
+                                    if (@ViewBag.mensaje != null)
+                                    {
+                                        <div class="alert alert-success" role="alert" style="float:right">
+                                            @ViewBag.mensaje
+                                        </div>
+                                    }
+                                }
+                            </span>
+                        </a>
+                    </div>
+                </div>
+                @{
+                    if (TipoUser == "SuperAdmin" || TipoUser == "Admin" || (TipoUser == "Empleado" && TipoRol == "Jefe"))
+                    {
+                        <!-- Botón registrar -->
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <a type="button" asp-controller="Sucursales" asp-action="Create" class="btn btn-success btn-registrar">NUEVO</a>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+
+        <div class="card-body">
+
+            <!-- Filtro por año -->
+            <div class="row">
+                <div class="col-lg-3">
+                    <form asp-controller="Talleres" asp-action="Index">
+                        <div class="input-group mb-3">
+                            <select step="1" name="search" class="form-control" aria-label="Buscar" aria-describedby="button-filtrar" asp-items="ViewBag.FechaFundacion">
+                            </select>
+                            <div class="input-group-append">
+                                <input class="btn btn-primary btn-user center-block" type="submit" id="button-filtrar" value="Filtrar por año">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <dl class="row">
+                <dt class="col-sm-2">
+                    BLOQUEADO
+                </dt>
+                <dd class="col-sm-10">
+                    @{
+                        if (Model.Habilitado == true)
+                        {
+                            ViewData["Activo"] = "SI";
+                        }
+                        else
+                        {
+                            ViewData["Activo"] = "NO";
+                        }
+                        @ViewData["Activo"]
+                    }
+                </dd>
+                <dt class="col-sm-2">
+                    FECHA REGISTRO
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.FechaRegistro)
+                </dd>
+                <dt class="col-sm-2">
+                    TALLER
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Codigo)
+                </dd>
+                <dt class="col-sm-2">
+                    NOMBRE
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Nombre)
+                </dd>
+                <dt class="col-sm-2">
+                    FECHA FUNDACIÓN
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.FechaFundacion)
+                </dd>
+                <dt class="col-sm-2">
+                    DIRECCIÓN
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Direccion)
+                </dd>
+
+                <dt class="col-sm-2">
+                    DETALLE
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Direccion)
+                </dd>
+                <dt class="col-sm-2">
+                    TÉLEFONO FIJO
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Direccion)
+                </dd>
+                <dt class="col-sm-2">
+                    TÉLEFONO MÓVIL
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Direccion)
+                </dd>
+                <dt class="col-sm-2">
+                    CORREO
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Direccion)
+                </dd>
+                <dt class="col-sm-2">
+                    DIRECCIÓN
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Direccion)
+                </dd>
+            </dl>
+
+
+            <div class="row">
+                <!-- Botón atrás -->
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <a type="button" asp-controller="Talleres" asp-action="Details" asp-route-id="@Model.TallerId" class="btn btn-dark btn-regresar" style="float: right;">Atrás </a>
+                    </div>
+                </div>
+                @{
+                    if (TipoUser == "SuperAdmin")
+                    {
+                        <!-- Botón borrar -->
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <a class="btn btn-danger btn-eliminar" data-toggle="modal" data-target="#BorrarTaller">Borrar Taller </a>
+                            </div>
+                        </div>
+                    }
+                }                
+            </div>
+
+
+            @{
+                if (TipoUser == "SuperAdmin" || TipoUser == "Admin" || (TipoUser == "Empleado" && TipoRol == "Jefe"))
+                {
+                    <!-- Modal Logout -->
+                    <div class="modal fade" id="BorrarTaller" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Borrar taller</h5>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">¿Estás seguro de borrar este taller?</div>
+                                <div class="modal-footer">
+                                    <form asp-action="Habilitado">
+                                        <input type="hidden" asp-for="TallerId" />
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal" style="float:left;">Cancelar</button>
+                                                </div>
+                                            </div>
+                                            <!-- Botón borrar -->
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <input type="submit" value="Borrar" class="btn btn-danger" style="width:100%;" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            
+        </div>
+    </div>
+</div>*@

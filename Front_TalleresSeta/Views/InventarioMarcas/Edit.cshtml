@@ -1,0 +1,205 @@
+﻿@model Front_TalleresSeta.Modelos.InventarioMarca
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/Interfaz/_LayoutVerticalInterfaz.cshtml";
+
+    var tipoUser = User.FindFirst("TipoUsuarioAcceso")?.Value ?? string.Empty;
+    var tipoRol = User.FindFirst("TipoRolAcceso")?.Value ?? string.Empty;
+}
+
+<div class="container-fluid">
+    @if (ViewBag.accion == "ACTUALIZAR")
+    {
+        <div id="alert-message" class="alert alert-info" role="alert">
+            @ViewBag.mensaje
+        </div>
+    }
+    else if (ViewBag.accion == "ACTUALIZADO")
+    {
+        <div id="alert-message" class="alert alert-success" role="alert">
+            @ViewBag.mensaje
+        </div>
+    }
+    else if (ViewBag.accion == "ERROR_DATOS")
+    {
+        <div id="alert-message" class="alert alert-warning" role="alert">
+            @ViewBag.mensaje
+        </div>
+    }
+    else if (ViewBag.accion == "ERROR_CATCH")
+    {
+        <div id="alert-message" class="alert alert-danger" role="alert">
+            @ViewBag.mensaje
+        </div>
+    }
+</div>
+
+<div class="container-fluid">
+    <div class="card shadow mb-lg-4">
+        <div class="card-header py-3">
+            <div class="row">
+                <!-- Actualizar Marca  -->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <span class="nav-link">
+                            <i class="fab fa-wpforms"></i>
+                            Actualizar Marca
+                        </span>
+                    </div>
+                </div>
+                <!-- Texto campos obligatorios  -->
+                <div class="text-right col-sm-8">
+                    <div class="form-group">
+                        <span style="float:right;">Campos Obligatorios <b style="color:red;">*</b></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <!-- Formulario: actualizar Marca -->
+            <form class="needs-validation" novalidate asp-controller="InventarioMarcas" asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="InventarioMarcaId" />
+
+                <div class="row mb-3">
+                    <label for="validarDeleteMarca" class="col-sm-3 col-form-label">
+                        HABILITADO<b style="color:red;">* </b>
+                        <i class="far fa-question-circle" data-bs-toggle="tooltip" title="Indique si la marca se encuentra en funcionamiento"></i>
+                    </label>
+                    <div class="col-sm-2">
+                        <input type="checkbox" class="form-check-input" id="validarDeleteMarca" asp-for="Habilitado">
+                    </div>
+                    <div class="valid-tooltip">
+                        OK!
+                    </div>
+                    <div class="invalid-tooltip">
+                        Campo vacío
+                    </div>
+                </div>
+                <hr />
+
+                <div class="row mb-3">
+                    <label for="validarMarca" class="col-sm-3 col-form-label">
+                        MARCA<b style="color:red;">* </b>
+                        <i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresar sin dígito"></i>
+                    </label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="validarMarca" asp-for="NombreMarca" required>
+                    </div>
+                    <div class="valid-tooltip">
+                        OK!
+                    </div>
+                    <div class="invalid-tooltip">
+                        Marca
+                    </div>
+                </div>
+
+                <hr />
+                <div class="row mb-3">
+                    <label for="validarDetalleMarca" class="col-sm-3 col-form-label">
+                        DESCRIPCIÓN
+                        <i class="far fa-question-circle" data-bs-toggle="tooltip" title="No mayor a 200 caracteres"></i>
+                    </label>
+                    <div class="col-sm-6">
+                        <textarea class="form-control" id="validarDetalleMarca" asp-for="Detalle" required></textarea>
+                    </div>
+                    <div class="valid-tooltip">
+                        OK!
+                    </div>
+                    <div class="invalid-tooltip">
+                        Falta un detalle
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    @if (tipoUser == "SuperAdmin")
+                    {
+                        <label for="validarTaller" class="col-sm-3 col-form-label">
+                            Taller<b style="color:red;">* </b>
+                            <i class="far fa-question-circle" data-bs-toggle="tooltip" title="Selecciona un Taller"></i>
+                        </label>
+                        <div class="col-sm-4">
+                            <select asp-for="TallerId" class="form-control" asp-items="ViewBag.TallerId"></select>
+                        </div>
+                    }
+                    else
+                    {
+                        <label for="validarTaller" class="col-sm-3 col-form-label">
+                            Taller
+                        </label>
+                        <div class="col-sm-4">
+                            <select asp-for="TallerId" class="form-control" asp-items="ViewBag.TallerId"></select>
+                        </div>
+                    }
+                    <div class="valid-tooltip">
+                        OK!
+                    </div>
+                    <div class="invalid-tooltip">
+                        Selecciona algún Taller.
+                    </div>
+                </div>
+
+                <hr />
+                <div class="row">
+                    <!-- Botón atrás -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <a asp-controller="InventarioMarcas" asp-action="Details" asp-route-id="@Model.InventarioMarcaId" class="btn btn-dark btn-regresar">Atrás</a>
+                        </div>
+                    </div>
+                    <!-- Botón Modificar -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="submit" value="Modificar" class="btn btn-primary btn-actualizar" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Inicializar tooltips
+        $(function () {
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        });
+
+        // Validaciones
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+
+        // Ocultar el mensaje
+        setTimeout(function () {
+            var alertMessage = document.getElementById("alert-message");
+            if (alertMessage) {
+                alertMessage.style.display = "none";
+            }
+        }, 30000); // 30 segundos
+
+    </script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

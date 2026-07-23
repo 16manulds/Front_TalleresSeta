@@ -1,0 +1,81 @@
+﻿@model Front_TalleresSeta.Modelos.ModelosView.ViewInterfazDashboardIndex
+<link rel="stylesheet" href="~/css/Interfaz/Interfaz_Dashboard.css">
+
+
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/Interfaz/_LayoutVerticalInterfaz.cshtml";
+}
+
+
+<div class="container my-5">
+    @* Un contenedor para centrar todo y darle margen vertical *@
+    <div class="row justify-content-center">
+        @* La fila que contendrá los cuadrados, centrada horizontalmente *@
+
+        @* Cada columna representa uno de los 4 cuadrados.
+           col-12: Ocupa todo el ancho en móviles (1 columna).
+           col-md-6: Ocupa medio ancho en tablets (2 columnas por fila).
+           col-lg-3: Ocupa un cuarto de ancho en pantallas grandes (4 columnas por fila).
+           mb-4: Margen inferior para separar los cuadrados. *@
+
+        <div class="col-12 col-md-6 col-lg-3 mb-4">
+            @* Tarjeta de Bootstrap, h-100 para que todas tengan la misma altura, shadow-sm para una sombra ligera *@
+            <div class="card h-100 shadow-sm text-center">
+                <div class="card-img-container">
+                    @* Contenedor para la imagen para permitir centrado y altura fija *@
+                    <img id="img_animada_index" src="~/images/Interfaz/Index/linea-de-ensamblaje.gif" class="card-img-top img-fluid centered-image" alt="Línea de Ensamblaje"> @* Atributo alt mejorado *@
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title enhanced-title">STOCK</h5> @* Clase para el título mejorado *@
+                    <span>Productos Ingresados: </span>
+                    <p class="card-text highlighted-text">@Model.CantidadStock</p> @* Clase para el texto más notorio *@
+                    <a href="#" class="btn btn-primary btn-sm mt-2">Más Info</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-3 mb-4">
+            <div class="card h-100 shadow-sm text-center">
+                <div class="card-img-container">
+                    <img id="img_animada_index" src="~/images/Interfaz/Index/cinta-transportadora.gif" class="card-img-top img-fluid centered-image" alt="Cinta Transportadora">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title enhanced-title">VENTAS</h5>
+                    <span>Productos Vendidos: </span>
+                    <p class="card-text highlighted-text">@Model.CantidadVentas</p>
+                    <a href="#" class="btn btn-primary btn-sm mt-2">Más Info</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-3 mb-4">
+            <div class="card h-100 shadow-sm text-center">
+                <div class="card-img-container">
+                    <img id="img_animada_index" src="~/images/Interfaz/Index/mecanico (1).gif" class="card-img-top img-fluid centered-image" alt="Mecánico Trabajando">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title enhanced-title">TRABAJOS</h5>
+                    <span>Trabajos Realizados: </span>
+                    <p class="card-text highlighted-text">@Model.CantidadTrabajosRealizados</p>
+                    <a href="#" class="btn btn-primary btn-sm mt-2">Más Info</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-3 mb-4">
+            <div class="card h-100 shadow-sm text-center">
+                <div class="card-img-container">
+                    <img id="img_animada_index" src="~/images/Interfaz/Index/mecanico (2).gif" class="card-img-top img-fluid centered-image" alt="Mecánico Revisando">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title enhanced-title">CLIENTES</h5>
+                    <span>Clientes Nuevos: </span>
+                    <p class="card-text highlighted-text">@Model.CantidadClientesNuevos</p>
+                    <a href="#" class="btn btn-primary btn-sm mt-2">Más Info</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

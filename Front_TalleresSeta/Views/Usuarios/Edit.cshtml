@@ -1,0 +1,361 @@
+﻿@model Front_TalleresSeta.Modelos.Usuario
+
+@{
+	ViewData["Title"] = "Editar";
+	Layout = "~/Views/Shared/Interfaz/_LayoutVerticalInterfaz.cshtml";
+
+	var tipoUser = User.FindFirst("TipoUsuarioAcceso")?.Value ?? string.Empty;
+	var tipoRol = User.FindFirst("TipoRolAcceso")?.Value ?? string.Empty;
+}
+
+
+<div class="container-fluid">
+	@if (ViewBag.accion == "ACTUALIZAR")
+	{
+		<div id="alert-message" class="alert alert-info" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+	else if (ViewBag.accion == "ACTUALIZADO")
+	{
+		<div id="alert-message" class="alert alert-success" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+	else if (ViewBag.accion == "ERROR_DATOS")
+	{
+		<div id="alert-message" class="alert alert-warning" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+	else if (ViewBag.accion == "ERROR_CATCH")
+	{
+		<div id="alert-message" class="alert alert-danger" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+</div>
+
+
+<div class="container-fluid">
+	<div class="card shadow mb-lg-4">
+		<div class="card-header py-3">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						<span class="nav-link">
+							<i class="fab fa-wpforms"></i>
+							Actualizar Usuario
+						</span>
+					</div>
+				</div>
+				<div class="text-right col-sm-8">
+					<div class="form-group">
+						<span style="float:right;">Campos Obligatorios <b style="color:red;">*</b></span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="card-body">
+			<form class="needs-validation" novalidate asp-controller="Usuarios" asp-action="Edit">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+				<input type="hidden" asp-for="Documento" />
+
+				<div class="row">
+					<div class="text-center col-lg-3 col-sm-12">
+						<div class="form-group">
+							<label for="validarActivoUsuario" class="text-center col-sm-6">
+								ACTIVO
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Indique si el Usuario se encuentra activo"></i>
+							</label>
+							<div class="text-center col-sm-12">
+								<input type="checkbox" class="form-check-label" id="validarActivoUsuario" asp-for="@Model.Habilitado">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-2">
+						<div class="form-group">
+							<label class="text-center col-sm-6 col-form-label">
+								TIPO
+							</label>
+							<div class="text-center col-sm-6">
+								<select class="selectpicker" data-live-search="true" id="validarTipoDocumentoId"
+										asp-for="TipoDocumentos.TipoDocumentoId" asp-items="ViewBag.TipoDocumentoId" required>
+									<option value="">Seleccionar...</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-4">
+						<div class="form-group">
+							<label class="text-center col-sm-12 col-form-label">
+								DOCUMENTO
+							</label>
+							<div class="text-center col-sm-12">
+								<input type="text" class="form-control" id="validarDocumento" asp-for="Documento" pattern="[0-9]*" oninput="filtrarSoloNumeros(this)" placeholder="Ingrese solo números" style="text-align: center;" required readonly>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-sm-12">
+						<div class="form-group">
+							<label class="text-center col-sm-12 col-form-label">
+								ESTADO
+							</label>
+							<div class="text-center col-sm-12">
+								<select class="selectpicker" data-live-search="true" id="validarEstadoId"
+										asp-for="Estados.EstadoId" asp-items="ViewBag.EstadoId" required>
+									<option value="">Seleccionar...</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-4 col-sm-12">
+						<div class="form-group">
+							<label class="text-center col-sm-12 col-form-label">
+								PRIMER NOMBRE
+							</label>
+							<div class="text-center col-sm-12">
+								<input type="text" class="form-control" id="validarPrimerNombre" asp-for="PrimerNombre" style="text-align: center;" required>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-12">
+						<div class="form-group">
+							<label class="text-center col-sm-12 col-form-label">
+								SEGUNDO NOMBRE
+							</label>
+							<div class="text-center col-sm-12">
+								<input type="text" class="form-control" id="validarSegundoNombre" asp-for="SegundoNombre" style="text-align: center;">
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-12">
+						<div class="form-group">
+							<label class="text-center col-sm-12 col-form-label">
+								FECHA DE NACIMIENTO
+							</label>
+							<div class="text-center col-sm-12">
+								<input type="date" class="form-control" id="validarFechaNacimiento" asp-for="FechaNacimiento" value="@ViewBag.FechaNacimiento" style="text-align: center;">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-4 col-sm-12">
+						<div class="form-group">
+							<label class="text-center col-sm-12 col-form-label">
+								PRIMER APELLIDO
+							</label>
+							<div class="text-center col-sm-12">
+								<input type="text" class="form-control" id="validarPrimerApellido" asp-for="PrimerApellido" style="text-align: center;" required>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-12">
+						<div class="form-group">
+							<label class="text-center col-sm-12 col-form-label">
+								SEGUNDO APELLIDO
+							</label>
+							<div class="text-center col-sm-12">
+								<input type="text" class="form-control" id="validarSegundoApellido" asp-for="SegundoApellido" style="text-align: center;">
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-sm-12">
+						<div class="form-group">
+							<label class="text-center col-sm-12 col-form-label">
+								SEXO
+							</label>
+							<div class="text-center col-sm-12">
+								@* <select class="selectpicker" data-live-search="true"
+										asp-for="Sexo" asp-items="ViewBag.Sexo" required>
+									<option value="">Seleccionar...</option>
+								</select> *@
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-3 col-sm-12">
+						<div class="form-group">
+							<label class="text-center col-sm-12 col-form-label">
+								TELÉFONO FIJO
+							</label>
+							<div class="text-center col-sm-12">
+								<input type="text" class="form-control" id="validarTelefonoFijo" asp-for="TelefonoFijo" pattern="[0-9]*" oninput="filtrarSoloNumeros(this)" placeholder="Ingrese solo números" style="text-align: center;">
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-sm-12">
+						<div class="form-group">
+							<label class="text-center col-sm-12 col-form-label">
+								CELULAR
+							</label>
+							<div class="text-center col-sm-12">
+								<input type="text" class="form-control" id="validarTelefonoMovil" asp-for="TelefonoMovil" pattern="[0-9]*" oninput="filtrarSoloNumeros(this)" placeholder="Ingrese solo números" style="text-align: center;">
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 col-sm-12">
+						<div class="form-group">
+							<label class="text-center col-sm-12 col-form-label">
+								CORREO
+							</label>
+							<div class="text-center col-sm-12">
+								<input type="email" class="form-control" id="validarCorreo" asp-for="Correo" style="text-align: center;">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-6 col-sm-12">
+						<div class="form-group">
+							<label class="text-center col-sm-12 col-form-label">
+								DIRECCIÓN PRINCIPAL
+							</label>
+							<div class="text-center col-sm-12">
+								<textarea type="text" class="form-control" id="validarDireccionPrincipal" asp-for="DireccionPrincipal" rows="4" cols="20"> </textarea>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 col-sm-12">
+						<div class="form-group">
+							<label class="text-center col-sm-12 col-form-label">
+								DIRECCIÓN ALTERNA
+							</label>
+							<div class="text-center col-sm-12">
+								<textarea type="text" class="form-control" id="validarDireccionAlterna" asp-for="DireccionAlterna" rows="4" cols="20"> </textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-4 col-sm-12">
+						<div class="form-group">
+							<label class="text-center col-sm-12 col-form-label">
+								TIPO USUARIO
+							</label>
+							<div class="text-center col-sm-12">
+								<select class="selectpicker" data-live-search="true" id="validarTipoUsuarioId"
+										asp-for="TipoUsuarios.TipoUsuarioId" asp-items="ViewBag.TipoUsuarioId" required>
+									<option value="">Seleccionar...</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-12">
+						<div class="form-group">
+							<label class="text-center col-sm-12 col-form-label">
+								ROL USUARIO
+							</label>
+							<div class="text-center col-sm-12">
+								<select class="selectpicker" data-live-search="true" id="validarRolUsuarioId"
+										asp-for="RolUsuarios.RolUsuarioId" asp-items="ViewBag.RolUsuarioId" required>
+									<option value="">Seleccionar...</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-12">
+						<div class="form-group">
+							<label class="text-center col-sm-12 col-form-label">
+								SUCURSAL
+							</label>
+							<div class="text-center col-sm-12">
+								<select class="selectpicker" data-live-search="true" id="validarSucursalId"
+										asp-for="Sucursales.SucursalId" asp-items="ViewBag.SucursalId" required>
+									<option value="">Seleccionar...</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr />
+
+				<div class="row">
+					<!-- Botón atrás -->
+					<div class="col-sm-6">
+						<div class="form-group">
+							<a asp-controller="Usuarios" asp-action="Details" asp-route-id="@Model.Documento" class="btn btn-dark btn-regresar">Atrás</a>
+						</div>
+					</div>
+					<!-- Botón Modificar -->
+					<div class="col-sm-6">
+						<div class="form-group">
+							<input type="submit" value="Modificar" class="btn btn-primary btn-actualizar" />
+						</div>
+					</div>
+				</div>
+
+			</form>
+		</div>
+
+	</div>
+</div>
+
+
+@section Scripts {
+
+	<script>				
+		// Inicializar tooltips
+		$(function () {
+			$('[data-bs-toggle="tooltip"]').tooltip();
+		});
+
+		// Validaciones
+		(function () {
+			'use strict'
+
+			// Fetch all the forms we want to apply custom Bootstrap validation styles to
+			var forms = document.querySelectorAll('.needs-validation')
+
+			// Loop over them and prevent submission
+			Array.prototype.slice.call(forms)
+				.forEach(function (form) {
+					form.addEventListener('submit', function (event) {
+						if (!form.checkValidity()) {
+							event.preventDefault()
+							event.stopPropagation()
+						}
+
+						form.classList.add('was-validated')
+					}, false)
+				})
+		})()
+
+		// Ocultar el mensaje
+		setTimeout(function () {
+			var alertMessage = document.getElementById("alert-message");
+			if (alertMessage) {
+				alertMessage.style.display = "none";
+			}
+		}, 30000); // 30 segundos
+
+		function filtrarSoloNumeros(input) {
+            // 1. Reemplaza cualquier caracter que NO sea un dígito (0-9) con una cadena vacía.
+            //    La expresión regular /[^0-9]/g busca cualquier cosa que no esté en el rango 0-9.
+            let valorFiltrado = input.value.replace(/[^0-9]/g, '');
+
+            // 2. Asigna el valor filtrado de vuelta al input.
+            //    Esto elimina al instante cualquier letra, símbolo o espacio.
+            input.value = valorFiltrado;
+        }
+
+	</script>
+
+
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+
+}

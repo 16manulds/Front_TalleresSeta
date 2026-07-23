@@ -1,0 +1,82 @@
+﻿@{
+    //string ColorUL = "#C2563F";
+    //string ColorUL = "#BA2C2C";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Talleres Seta</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/Principal/principal.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a href="#">
+                    <img src="~/images/Login/BannerPrincipal-2.png" id="logo-menu-login" alt="Talleres Seta" />
+                    <label style="color: white;">Talleres Seta</label>
+                    <span style="float: right; font-size: smaller; color: white;">V.1.0.1</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+     <footer class="footer">
+        <div class="text-center p-2 footer_1" style="margin-top: -20px;">
+            <label id="DerechosReservados">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Todos los derechos reservados.
+            </label>
+            <label>
+                &copy;
+                <b id="TallerSeta_Footer">Talleres Seta.</b>
+                <label id="version">
+                    <a id="version">Versión 1.0 - </a>
+                    <a id="anno">@DateTime.Now.ToString("yyyy")</a>
+                </label>
+            </label>
+            <label id="DesarrolladoPor">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Desarrollado por
+                <a id="DesarrolladoPor">
+                    Manuel Torres
+                </a>
+            </label>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,220 @@
+﻿@model Front_TalleresSeta.Modelos.Taller
+
+
+@{
+	ViewData["Title"] = "Details";
+	Layout = "~/Views/Shared/Interfaz/_LayoutVerticalInterfaz.cshtml";
+
+	var tipoUser = User.FindFirst("TipoUsuarioAcceso")?.Value ?? string.Empty;
+	var tipoRol = User.FindFirst("TipoRolAcceso")?.Value ?? string.Empty;
+}
+
+<div class="container-fluid">
+	@if (ViewBag.accion == "CREADO" || ViewBag.accion == "ACTUALIZADO")
+	{
+		<div id="alert-message" class="alert alert-success" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+
+	@if (ViewBag.accion == "NO_ELIMINADO")
+	{
+		<div id="alert-message" class="alert alert-danger" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+</div>
+
+<div class="container-fluid">
+	<div class="card shadow mb-lg-4">
+		<div class="card-header py-3">
+			<div class="row">
+				<div class="text-left col-md-4">
+					<div class="form-group">
+						<span class="nav-link">
+							<i class="fab fa-wpforms"></i>
+							Detalle del Taller
+						</span>
+					</div>
+				</div>
+
+				@if (tipoUser == "SuperAdmin")
+				{
+					<!-- Campos opcionales -->
+					<div class="text-right col-sm-4">
+						<div class="form-group">
+							<a class="btn btn-danger btn-eliminar" data-toggle="modal" data-target="#BorrarTaller" asp-route-id="@Model.TallerId">
+								Borrar Taller
+							</a>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+
+
+		<div class="card-body">
+
+			<div class="row">
+				<div class="col-lg-2 col-sm-2">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							ACTIVO
+						</label>
+						<div class="col-sm-2">
+							@{
+								if (Model.Habilitado == true)
+								{
+									<i class="fas fa-check-square" style="color: green;"></i>
+								}
+								else
+								{
+									<i class="far fa-window-close" style="color: firebrick;"></i>
+								}
+							}
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							NIT
+						</label>
+						<div class="col-sm-12">
+							<input type="text" class="form-control" asp-for="NitTaller" readonly>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							RAZÓN SOCIAL
+						</label>
+						<div class="col-sm-12">
+							<input type="text" class="form-control" asp-for="RazonSocialTaller" readonly>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-3 col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							FECHA DE FUNDACIÓN
+						</label>
+						<div class="col-sm-12">
+							<input type="text" class="form-control" asp-for="FechaFundacion" readonly>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-8 col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							DETALLE
+						</label>
+						<div class="col-sm-12">
+							<textarea type="text" class="form-control" asp-for="Detalle"
+									  rows="10" style="width: 100%; resize: both;" readonly></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr />
+
+			<div class="row">
+				@if (tipoUser == "SuperAdmin")
+				{
+					<!-- Botón atrás -->
+					<div class="col-sm-6">
+						<div class="form-group">
+							<a class="btn btn-dark btn-regresar" asp-controller="Talleres" asp-action="Index">
+								Atrás
+							</a>
+						</div>
+					</div>
+				}
+				
+				@if (tipoUser == "SuperAdmin" || tipoUser == "Admin" || (tipoUser == "Empleado" && tipoRol == "Jefe"))
+				{
+					<div class="col-sm-6">						
+					</div>
+					<!-- Botón Actualizar -->
+					<div class="col-sm-6">
+						<div class="form-group">
+							<a class="btn btn-primary btn-actualizar" asp-controller="Talleres" asp-action="Edit" asp-route-id="@Model.TallerId">
+								Actualizar
+							</a>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+</div>
+
+
+@if (tipoUser == "SuperAdmin" || tipoUser == "Admin")
+{
+	<!-- Modal Borrar Taller -->
+	<div class="modal fade" id="BorrarTaller" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<!-- centrado verticalmente -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Borrar Taller</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<form asp-controller="Talleres" asp-action="Delete" asp-route-id="@Model.TallerId">
+					<input type="hidden" name="idTaller" value="@Model.TallerId" />
+
+					<div class="modal-body text-center">
+						<p>¿Estás seguro de borrar este Taller?</p>
+
+						<div class="my-3">
+							<label class="col-form-label text-center">
+								<strong>NIT:</strong> @Model.NitTaller<br>
+								<strong>Razón social:</strong> @Model.RazonSocialTaller
+								<br />
+								<strong>Fecha de fundación:</strong> @Model.FechaFundacion
+							</label>
+						</div>
+					</div>
+
+					<div class="modal-footer justify-content-center">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-danger">Borrar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+}
+
+
+
+@section Scripts {
+
+	<script>
+
+		// Ocultar el mensaje después de 30 segundos
+		setTimeout(function () {
+			var alertMessage = document.getElementById("alert-message");
+			if (alertMessage) {
+				alertMessage.style.display = "none";
+			}
+		}, 30000); // 30 segundos
+
+	</script>
+
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+
+}

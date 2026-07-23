@@ -1,0 +1,270 @@
+﻿@model Front_TalleresSeta.Modelos.InventarioProveedor
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/Interfaz/_LayoutVerticalInterfaz.cshtml";
+
+    var TipoUser = User.FindFirst("TipoUsuarioAcceso")?.Value ?? string.Empty;
+    var TipoRol = User.FindFirst("TipoRolAcceso")?.Value ?? string.Empty;
+}
+
+
+<div class="container-fluid">
+    @if (ViewBag.accion == "CREADO")
+    {
+        <div id="alert-message" class="alert alert-success" role="alert">
+            @ViewBag.mensaje
+        </div>
+    }
+    else if (ViewBag.accion == "FALLO")
+    {
+        <div id="alert-message" class="alert alert-danger" role="alert">
+            @ViewBag.mensaje
+        </div>
+    }
+</div>
+
+<div class="container-fluid">
+    <div class="card shadow mb-lg-4">
+        <div class="card-header py-3">
+            <div class="row">
+                <!-- Texto registrar InventarioProveedor  -->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <span class="nav-link">
+                            <i class="fab fa-wpforms"></i>
+                            Registrar Proveedor
+                        </span>
+                    </div>
+                </div>
+                <!-- Texto campos obligatiorios  -->
+                <div class="text-right col-sm-8">
+                    <div class="form-group">
+                        <span style="float:right;">Campos Obligatorios <b style="color:red;">*</b></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+
+            <!-- Formulario: registro de un proveedor -->
+            <form class="needs-validation" novalidate asp-controller="InventarioProveedores" asp-action="Create">
+
+                <div class="row">
+                    <div class="col-3 col-sm-2">
+                        <div class="form-group">
+                            <label for="ActivoProveedor" class="col-sm-12 col-form-label">
+                                ACTIVO
+                            </label>
+                            <div class="col-sm-12">
+                                <i class="fas fa-check-square" style="color: green;"></i>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-3 col-sm-4">
+                        <div class="form-group">
+                            <label for="validarRazonSocial" class="col-sm-12 col-form-label">
+                                RAZÓN SOCIAL<b style="color:red;"> *</b>
+                                <i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresar una Razón Social"></i>
+                            </label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="validarRazonSocial" asp-for="RazonSocial" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-4">
+                        <div class="form-group">
+                            <label for="validarProveedor" class="col-sm-12 col-form-label">
+                                PROVEEDOR
+                                <i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresa el nombre del proveedor"></i>
+                            </label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="validarProveedor" asp-for="NombreProveedor" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-4">
+                        <div class="form-group">
+                            <label for="validarNit" class="col-sm-12 col-form-label">
+                                NIT
+                                <i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresa el NIT del proveedor sin indicador"></i>
+                            </label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="validarNit" asp-for="Nitproveedor" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-sm-4">
+                        <div class="form-group">
+                            <label for="validarDireccion" class="col-sm-12 col-form-label">
+                                DIRECCIÓN
+                                <i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresa una dirección"></i>
+                            </label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="validarDireccion" asp-for="Direccion">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-4">
+                        <div class="form-group">
+                            <label for="validarTelefono" class="col-sm-12 col-form-label">
+                                TELÉFONO FIJO
+                                <i class="far fa-question-circle" data-bs-toggle="tooltip" title="Por favor ingresa un número de teléfono fijo válido de 7 dígitos"></i>
+                            </label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="validarTelefono" asp-for="Telefono" pattern="[0-9]{7}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-4">
+                        <div class="form-group">
+                            <label for="validarMovil" class="col-sm-12 col-form-label">
+                                CELULAR
+                                <i class="far fa-question-circle" data-bs-toggle="tooltip" title="Por favor ingresa un número de teléfono válido de 10 dígitos"></i>
+                            </label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="validarMovil" asp-for="Movil" pattern="[0-9]{10}" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3 col-sm-4">
+                        <div class="form-group">
+                            <label for="validarUrl" class="col-sm-12 col-form-label">
+                                URL
+                                <i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresa una url o link de página del proveedor"></i>
+                            </label>
+                            <div class="col-sm-12">
+                                <input type="text" class="form-control" id="validarUrl" asp-for="Url">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-4">
+                        <div class="form-group">
+                            <label for="validarCorreo" class="col-sm-12 col-form-label">
+                                CORREO
+                                <i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresa un correo valido"></i>
+                            </label>
+                            <div class="col-sm-12">
+                                <input type="email" class="form-control" id="validarCorreo" asp-for="Correo">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-4">
+                        <div class="form-group">
+                            @if (TipoUser == "SuperAdmin")
+                            {
+                                <label for="validarTaller" class="col-sm-12 col-form-label">
+                                    Taller<b style="color:red;">* </b>
+                                    <i class="far fa-question-circle" data-bs-toggle="tooltip" title="Selecciona un Taller"></i>
+                                </label>
+                                <div class="col-sm-12">
+                                    <select asp-for="TallerId" class="form-control" asp-items="ViewBag.TallerId"></select>
+                                </div>
+                            }
+                            else
+                            {
+                                <label for="validarTaller" class="col-sm-12 col-form-label">
+                                    Taller
+                                </label>
+                                <div class="col-sm-12">
+                                    <select asp-for="TallerId" class="form-control" asp-items="ViewBag.TallerId"></select>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8 col-sm-4">
+                        <div class="form-group">
+                            <label for="validarDetalle" class="col-sm-12 col-form-label">
+                                DETALLE
+                                <i class="far fa-question-circle" data-bs-toggle="tooltip" title="No mayor a 200 caracteres"></i>
+                            </label>
+                            <div class="col-sm-12">
+                                <textarea type="text" class="form-control" id="validarDetalle" asp-for="Detalle"
+                                          rows="6" cols="40"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr />
+                <div class="row">
+                    <!-- Botón atrás -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <a asp-controller="InventarioProveedores" asp-action="Index" class="btn btn-dark btn-regresar">Atrás </a>
+                        </div>
+                    </div>
+                    <!-- Botón registrar -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="submit" value="Crear" class="btn btn-success btn-registrar" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- Fin Formulario: registro de producto -->
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script>
+
+        // Validaciones
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+
+        // Ocultar el mensaje después de 30 segundos
+		setTimeout(function () {
+			var alertMessage = document.getElementById("alert-message");
+			if (alertMessage) {
+				alertMessage.style.display = "none";
+			}
+		}, 30000); // 30 segundos
+
+    </script>
+
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}

@@ -1,0 +1,170 @@
+﻿@model Front_TalleresSeta.Modelos.InventarioMarca
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/Interfaz/_LayoutVerticalInterfaz.cshtml";
+
+    var tipoUser = User.FindFirst("TipoUsuarioAcceso")?.Value ?? string.Empty;
+    var tipoRol = User.FindFirst("TipoRolAcceso")?.Value ?? string.Empty;
+}
+
+<div class="container-fluid">
+    @if (ViewBag.accion == "CREADO" || ViewBag.accion == "ACTUALIZADO")
+    {
+        <div id="alert-message" class="alert alert-success" role="alert">
+            @ViewBag.mensaje
+        </div>
+    }
+
+    @if (ViewBag.accion == "NO_ELIMINADO")
+    {
+        <div id="alert-message" class="alert alert-danger" role="alert">
+            @ViewBag.mensaje
+        </div>
+    }
+</div>
+
+<div class="container-fluid">
+    <div class="card shadow mb-lg-4">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <span class="nav-link">
+                            <i class="fab fa-wpforms"></i>
+                            Detalle de la Marca
+                        </span>
+                    </div>
+                </div>
+
+                @if (tipoUser == "SuperAdmin" || tipoUser == "Admin")
+                {
+                    <!-- Campos opcionales -->
+                    <div class="text-right col-sm-8">
+                        <div class="form-group">
+                            <a class="btn btn-danger btn-eliminar" data-toggle="modal" data-target="#BorrarMarca" asp-route-id="@Model.InventarioMarcaId">
+                                Borrar Marca
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">ACTIVO</label>
+                <div class="col-sm-2">
+                    @if (Model.Habilitado)
+                    {
+                        <i class="fas fa-check-square text-success"></i>
+                    }
+                    else
+                    {
+                        <i class="far fa-window-close text-danger"></i>
+                    }
+                </div>
+            </div>
+            <hr />
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">MARCA</label>
+                <div class="col-sm-6">
+                    <span class="label-info">@Model.NombreMarca</span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">FECHA REGISTRO</label>
+                <div class="col-sm-6">
+                    <span class="label">@Model.FechaRegistro.ToShortDateString()</span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">DETALLE</label>
+                <div class="col-sm-3">
+                    <span class="label-default">@Model.Detalle</span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">TALLER</label>
+                <div class="col-sm-3">
+                    <span class="label-default">@Model.Talleres.RazonSocialTaller</span>
+                </div>
+            </div>
+
+            <hr />
+            <div class="row">
+                <!-- Botón atrás -->
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <a class="btn btn-dark btn-regresar" asp-controller="InventarioMarcas" asp-action="Index">
+                            Atrás
+                        </a>
+                    </div>
+                </div>
+                @if (tipoUser == "SuperAdmin" || tipoUser == "Admin" || (tipoUser == "Empleado" && tipoRol == "Jefe"))
+                {
+                    <!-- Botón Actualizar -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <a class="btn btn-primary btn-actualizar" asp-controller="InventarioMarcas" asp-action="Edit" asp-route-id="@Model.InventarioMarcaId">
+                                Actualizar
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (tipoUser == "SuperAdmin" || tipoUser == "Admin")
+{
+    <!-- Modal Borrar Marca -->
+    <div class="modal fade" id="BorrarMarca" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Borrar Marca</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">¿Estás seguro de borrar esta Marca?</div>
+                <div class="modal-footer">
+                    <form asp-controller="InventarioMarcas" asp-action="Delete" asp-route-id="@Model.InventarioMarcaId">
+                        <input type="hidden" name="idMarca" value="@Model.InventarioMarcaId" />
+                        <label class="col-sm-3 col-form-label">
+                            Id de la Marca: @Model.InventarioMarcaId
+                        </label>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-secondary me-md-2" data-dismiss="modal">Cancelar</button>
+                            <input type="submit" value="Borrar" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script>
+
+        // Ocultar el mensaje después de 30 segundos
+        setTimeout(function () {
+            var alertMessage = document.getElementById("alert-message");
+            if (alertMessage) {
+                alertMessage.style.display = "none";
+            }
+        }, 30000); // 30 segundos
+
+    </script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

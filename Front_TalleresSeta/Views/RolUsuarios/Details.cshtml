@@ -1,0 +1,132 @@
+﻿@model Front_TalleresSeta.Modelos.RolUsuario
+
+
+@{
+	ViewData["Title"] = "Details";
+	Layout = "~/Views/Shared/Interfaz/_LayoutVerticalInterfaz.cshtml";
+
+	var tipoUser = User.FindFirst("TipoUsuarioAcceso")?.Value ?? string.Empty;
+	var tipoRol = User.FindFirst("TipoRolAcceso")?.Value ?? string.Empty;
+}
+
+<div class="container-fluid">
+	@if (ViewBag.accion == "CREADO" || ViewBag.accion == "ACTUALIZADO")
+	{
+		<div id="alert-message" class="alert alert-success" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+
+	@if (ViewBag.accion == "NO_ELIMINADO")
+	{
+		<div id="alert-message" class="alert alert-danger" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+</div>
+
+<div class="container-fluid">
+	<div class="card shadow mb-lg-4">
+		<div class="card-header py-3">
+			<div class="row">
+				<div class="text-left col-md-4">
+					<div class="form-group">
+						<span class="nav-link">
+							<i class="fab fa-wpforms"></i>
+							Detalle rol de usuario
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="card-body">
+
+			<div class="row">				
+				<div class="col-lg-2 col-sm-2">
+					<div class="form-group text-center">
+						<label class="col-sm-12 col-form-label">
+							ACTIVO
+						</label>
+						<div class="col-sm-12">
+							@{
+								if (Model.Habilitado == true)
+								{
+									<i class="fas fa-check-square" style="color: green;"></i>
+								}
+								else
+								{
+									<i class="far fa-window-close" style="color: firebrick;"></i>
+								}
+							}
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label class="text-center col-sm-12 col-form-label">
+							ROL USUARIO
+						</label>
+						<div class="text-center col-sm-12">
+							<input type="text" class="form-control" id="validarRolUsuario" asp-for="NombreRol" style="text-align: center;" readonly>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-sm-12">
+					<div class="form-group">
+						<label class="text-center col-sm-12 col-form-label">
+							TALLER
+						</label>
+						<div class="text-center col-sm-12">
+							<input type="text" class="form-control" value="@ViewBag.TallerId" readonly>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr />
+			
+			<div class="row">
+				<!-- Botón atrás -->
+				<div class="col-sm-6">
+					<div class="form-group">
+						<a class="btn btn-dark btn-regresar" asp-controller="RolUsuarios" asp-action="Index">
+							Atrás
+						</a>
+					</div>
+				</div>
+				@if (tipoUser == "SuperAdmin" || tipoUser == "Admin" || (tipoUser == "Empleado" && tipoRol == "Jefe"))
+				{
+					<!-- Botón Actualizar -->
+					<div class="col-sm-6">
+						<div class="form-group">
+							<a class="btn btn-primary btn-actualizar" asp-controller="RolUsuarios" asp-action="Edit" asp-route-id="@Model.RolUsuarioId">
+								Actualizar
+							</a>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+</div>
+
+
+@section Scripts {
+
+	<script>
+
+		// Ocultar el mensaje después de 30 segundos
+		setTimeout(function () {
+			var alertMessage = document.getElementById("alert-message");
+			if (alertMessage) {
+				alertMessage.style.display = "none";
+			}
+		}, 30000); // 30 segundos
+
+	</script>
+
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+
+}

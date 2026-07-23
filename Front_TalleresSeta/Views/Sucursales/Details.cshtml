@@ -1,0 +1,261 @@
+﻿@model Front_TalleresSeta.Modelos.Sucursal
+
+
+@{
+	ViewData["Title"] = "Details";
+	Layout = "~/Views/Shared/Interfaz/_LayoutVerticalInterfaz.cshtml";
+
+	var tipoUser = User.FindFirst("TipoUsuarioAcceso")?.Value ?? string.Empty;
+	var tipoRol = User.FindFirst("TipoRolAcceso")?.Value ?? string.Empty;
+}
+
+<div class="container-fluid">
+	@if (ViewBag.accion == "CREADO" || ViewBag.accion == "ACTUALIZADO")
+	{
+		<div id="alert-message" class="alert alert-success" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+
+	@if (ViewBag.accion == "NO_ELIMINADO")
+	{
+		<div id="alert-message" class="alert alert-danger" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+</div>
+
+<div class="container-fluid">
+	<div class="card shadow mb-lg-4">
+		<div class="card-header py-3">
+			<div class="row">
+				<div class="text-left col-md-4">
+					<div class="form-group">
+						<span class="nav-link">
+							<i class="fab fa-wpforms"></i>
+							Detalle de la Sucursal
+						</span>
+					</div>
+				</div>
+
+				@if (tipoUser == "SuperAdmin")
+				{
+					<!-- Campos opcionales -->
+					<div class="text-right col-sm-4">
+						<div class="form-group">
+							<a class="btn btn-danger btn-eliminar" data-toggle="modal" data-target="#BorrarSucursal" asp-route-id="@Model.SucursalId">
+								Borrar Sucursal
+							</a>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+
+
+		<div class="card-body">
+
+			<div class="row">
+				<div class="text-center col-lg-3 col-sm-12">
+					<div class="form-group">
+						<label class="text-center col-sm-6">
+							ACTIVO
+						</label>
+						<div class="text-center col-sm-12">
+							<input type="checkbox" class="form-check-label" asp-for="Habilitado" readonly>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-4 col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							CÓDIGO
+						</label>
+						<div class="col-sm-12">
+							<input type="text" class="form-control" asp-for="Codigo" readonly>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							NOMBRE SUCURSAL
+						</label>
+						<div class="col-sm-12">
+							<input type="text" class="form-control" id="validarNombre" asp-for="Nombre" readonly>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-sm-4">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							FECHA FUNDACIÓN
+						</label>
+						<div class="col-sm-12">
+							<input type="date" class="form-control" asp-for="FechaFundacion" readonly>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-3 col-sm-12">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							CELULAR
+						</label>
+						<div class="col-sm-12">
+							<input type="text" class="form-control" asp-for="TelMovil" readonly>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-12">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							TELÉFONO FIJO
+						</label>
+						<div class="col-sm-12">
+							<input type="text" class="form-control" asp-for="TelFijo" readonly>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-12">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							CORREO
+						</label>
+						<div class="col-sm-12">
+							<input type="email" class="form-control" asp-for="Correo" readonly>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-6 col-sm-6">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							DIRECCIÓN
+						</label>
+						<div class="col-sm-12">
+							<input type="text" class="form-control" asp-for="Direccion" readonly>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 col-sm-6">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							Taller
+						</label>
+						<div class="col-sm-12">
+							<input type="text" class="form-control" value="@ViewBag.TallerId" disabled>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-8 col-sm-12">
+					<div class="form-group">
+						<label class="col-sm-12 col-form-label">
+							DETALLE
+						</label>
+						<div class="col-sm-12">
+							<textarea type="text" class="form-control" asp-for="Detalle"
+									  rows="6" cols="40" readonly></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<hr />
+			<div class="row">
+				<!-- Botón atrás -->
+				<div class="col-sm-6">
+					<div class="form-group">
+						<a class="btn btn-dark btn-regresar" asp-controller="Sucursales" asp-action="Index">
+							Atrás
+						</a>
+					</div>
+				</div>
+				@if (tipoUser == "SuperAdmin" || tipoUser == "Admin" || (tipoUser == "Empleado" && tipoRol == "Jefe"))
+				{
+					<!-- Botón Actualizar -->
+					<div class="col-sm-6">
+						<div class="form-group">
+							<a class="btn btn-primary btn-actualizar" asp-controller="Sucursales" asp-action="Edit" asp-route-id="@Model.SucursalId">
+								Actualizar
+							</a>
+						</div>
+					</div>
+				}
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+@if (tipoUser == "SuperAdmin" || tipoUser == "Admin")
+{
+	<!-- Modal Borrar Sucursal -->
+	<div class="modal fade" id="BorrarSucursal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<!-- centrado verticalmente -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Borrar Sucursal</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<form asp-controller="Sucursales" asp-action="Delete" asp-route-id="@Model.SucursalId">
+					<input type="hidden" name="idSucursal" value="@Model.SucursalId" />
+
+					<div class="modal-body text-center">
+						<p>¿Estás seguro de borrar este Sucursal?</p>
+
+						<div class="my-3">
+							<label class="col-form-label text-center">
+								<strong>Código Sucursal:</strong> @Model.Codigo<br>
+								<strong>Sucursal:</strong> @Model.Nombre
+								<br />
+								<strong>Fecha de fundación:</strong> @Model.FechaFundacion
+							</label>
+						</div>
+					</div>
+
+					<div class="modal-footer justify-content-center">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-danger">Borrar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+}
+
+
+@section Scripts {
+
+	<script>
+
+		// Ocultar el mensaje después de 30 segundos
+		setTimeout(function () {
+			var alertMessage = document.getElementById("alert-message");
+			if (alertMessage) {
+				alertMessage.style.display = "none";
+			}
+		}, 30000); // 30 segundos
+
+	</script>
+
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+
+}

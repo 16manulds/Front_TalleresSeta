@@ -1,0 +1,55 @@
+/* Estilo personalizado para el botón principal */
+.custom-orange-button {
+    background-color: #f6c23e; /* Color amarillo/naranja similar a Bootstrap warning */
+    border-radius: 20px;
+    color: black;
+    font-family: 'Comic Neue', cursive; /* Fuente cómica */
+    font-weight: bold;
+    border: none; /* Elimina el borde por defecto de los botones */
+    cursor: pointer; /* Indica que es clickable */
+    transition: background-color 0.3s ease; /* Transición suave al pasar el ratón */
+    /* Flexbox para el contenido interno del botón: apilar y centrar */
+    display: flex;
+    flex-direction: column; /* Apila el texto y el badge verticalmente */
+    align-items: center; /* Centra los ítems horizontalmente dentro del botón */
+    justify-content: center; /* Centra los ítems verticalmente */
+    text-align: center; /* Asegura que el texto se centre si se envuelve */
+    overflow-wrap: break-word; /* Permite que palabras largas se rompan y envuelvan */
+    word-break: break-word; /* Compatibilidad para rotura de palabras */
+    /* ***** CRUCIAL: Definir un tamaño consistente para ambos botones ***** */
+    /* Usa 'width' y 'height' fijos o 'min-width'/'min-height'
+		   para que tengan las mismas dimensiones. Ajusta estos valores según tus necesidades. */
+    width: 140px; /* Ancho fijo para ambos botones */
+    height: 80px; /* Altura fija para ambos botones */
+    /* O alternativamente:
+		min-width: 120px;
+		min-height: 70px;
+		padding: 10px 5px; /* Ajusta el padding para controlar el tamaño */
+}
+
+    .custom-orange-button:hover {
+        background-color: #e0b02a; /* Un tono más oscuro al pasar el ratón */
+    }
+
+/* Estilo para el texto principal del botón (ej. "Codigo", "Producto") */
+.button-main-text {
+    font-size: 1.1em; /* Tamaño de letra para el texto principal */
+    line-height: 1.2; /* Espaciado entre líneas */
+    margin-bottom: 3px; /* Pequeño espacio entre el texto y el badge */
+}
+
+/* Estilo para el badge (el número o código del producto) */
+.button-badge {
+    display: inline-flex; /* Permite centrar el contenido del badge */
+    align-items: center;
+    justify-content: center;
+    padding: 3px 8px; /* Padding del badge */
+    margin-left: 0; /* Elimina margen extra si usas flex-direction: column */
+    background-color: #6c757d; /* Color gris oscuro para el badge */
+    color: white; /* Color del texto del badge */
+    font-family: 'Comic Neue', cursive; /* Fuente del badge */
+    font-weight: bold; /* Negrita del badge */
+    font-size: 0.9em; /* Tamaño de letra del badge, ligeramente más pequeño que el texto principal */
+    border-radius: 9999px; /* Para un badge completamente redondo */
+    min-width: 25px; /* Asegura un ancho mínimo para el badge si el contenido es muy corto */
+}

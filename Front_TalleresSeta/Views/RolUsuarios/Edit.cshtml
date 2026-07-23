@@ -1,0 +1,190 @@
+﻿@model Front_TalleresSeta.Modelos.RolUsuario
+
+
+@{
+	ViewData["Title"] = "Editar";
+	Layout = "~/Views/Shared/Interfaz/_LayoutVerticalInterfaz.cshtml";
+
+	var tipoUser = User.FindFirst("TipoUsuarioAcceso")?.Value ?? string.Empty;
+	var tipoRol = User.FindFirst("TipoRolAcceso")?.Value ?? string.Empty;
+}
+
+
+<div class="container-fluid">
+	@if (ViewBag.accion == "ACTUALIZAR")
+	{
+		<div id="alert-message" class="alert alert-info" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+	else if (ViewBag.accion == "ACTUALIZADO")
+	{
+		<div id="alert-message" class="alert alert-success" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+	else if (ViewBag.accion == "ERROR_DATOS")
+	{
+		<div id="alert-message" class="alert alert-warning" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+	else if (ViewBag.accion == "ERROR_CATCH")
+	{
+		<div id="alert-message" class="alert alert-danger" role="alert">
+			@ViewBag.mensaje
+		</div>
+	}
+</div>
+
+
+<div class="container-fluid">
+	<div class="card shadow mb-lg-4">
+		<div class="card-header py-3">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						<span class="nav-link">
+							<i class="fab fa-wpforms"></i>
+							Actualizar Rol Usuario
+						</span>
+					</div>
+				</div>
+				<div class="text-right col-sm-8">
+					<div class="form-group">
+						<span style="float:right;">Campos Obligatorios <b style="color:red;">*</b></span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="card-body">
+			<form class="needs-validation" novalidate asp-controller="RolUsuarios" asp-action="Edit">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+				<input type="hidden" asp-for="RolUsuarioId" />
+
+				<div class="row">
+					<div class="col-lg-4 col-sm-4">
+						<div class="form-group">
+							<label for="validarRolUsuario" class="text-center col-sm-12 col-form-label">
+								ROL USUARIO<b style="color:red;"> *</b>
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresar un código"></i>
+							</label>
+							<div class="text-center col-sm-12">
+								<input type="text" class="form-control" id="validarRolUsuario" asp-for="NombreRol" style="text-align: center;" required>
+							</div>
+						</div>
+					</div>
+					<div class="text-center col-lg-3 col-sm-12">
+						<div class="form-group">
+							<label for="validarActivoProducto" class="text-center col-sm-6">
+								ACTIVO
+								<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Indique si el producto se encuentra activo"></i>
+							</label>
+							<div class="text-center col-sm-12">
+								<input type="checkbox" class="form-check-label" id="validarActivoProducto" asp-for="@Model.Habilitado">
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-12">
+						<div class="form-group">
+							@{
+								if (tipoUser == "SuperAdmin")
+								{
+									<label for="validarTaller" class="col-sm-12 col-form-label">
+										Taller<b style="color:red;"> *</b>
+										<i class="far fa-question-circle" data-bs-toggle="tooltip" title="Selecciona un Taller"></i>
+									</label>
+									<div class="col-sm-12">
+										<select asp-for="TallerId" class="form-control" asp-items="ViewBag.TallerId"></select>
+									</div>
+								}
+								else
+								{
+									<label for="validarTaller" class="col-sm-12 col-form-label">
+										Taller
+									</label>
+									<div class="col-sm-12">
+										<select asp-for="TallerId" class="form-control" asp-items="ViewBag.TallerId"></select>
+									</div>
+								}
+							}
+							<div class="valid-tooltip">
+								OK!
+							</div>
+							<div class="invalid-tooltip">
+								Selecciona algún Taller.
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr />
+
+				<div class="row">
+					<!-- Botón atrás -->
+					<div class="col-sm-6">
+						<div class="form-group">
+							<a asp-controller="RolUsuarios" asp-action="Details" asp-route-id="@Model.RolUsuarioId" class="btn btn-dark btn-regresar">Atrás</a>
+						</div>
+					</div>
+					<!-- Botón Modificar -->
+					<div class="col-sm-6">
+						<div class="form-group">
+							<input type="submit" value="Modificar" class="btn btn-primary btn-actualizar" />
+						</div>
+					</div>
+				</div>
+
+			</form>
+		</div>
+
+	</div>
+</div>
+
+
+@section Scripts {
+
+	<script>
+
+		// Inicializar tooltips
+		$(function () {
+			$('[data-bs-toggle="tooltip"]').tooltip();
+		});
+
+		// Validaciones
+		(function () {
+			'use strict'
+
+			// Fetch all the forms we want to apply custom Bootstrap validation styles to
+			var forms = document.querySelectorAll('.needs-validation')
+
+			// Loop over them and prevent submission
+			Array.prototype.slice.call(forms)
+				.forEach(function (form) {
+					form.addEventListener('submit', function (event) {
+						if (!form.checkValidity()) {
+							event.preventDefault()
+							event.stopPropagation()
+						}
+
+						form.classList.add('was-validated')
+					}, false)
+				})
+		})()
+
+		// Ocultar el mensaje
+		setTimeout(function () {
+			var alertMessage = document.getElementById("alert-message");
+			if (alertMessage) {
+				alertMessage.style.display = "none";
+			}
+		}, 30000); // 30 segundos
+
+	</script>
+
+
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+
+}

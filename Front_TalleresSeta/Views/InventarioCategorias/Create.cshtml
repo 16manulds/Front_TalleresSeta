@@ -1,0 +1,170 @@
+﻿@model Front_TalleresSeta.Modelos.InventarioCategoria
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/Interfaz/_LayoutVerticalInterfaz.cshtml";
+
+    var TipoUser = User.FindFirst("TipoUsuarioAcceso")?.Value ?? string.Empty;
+    var TipoRol = User.FindFirst("TipoRolAcceso")?.Value ?? string.Empty;
+}
+
+
+<div class="container-fluid">
+    @if (ViewBag.accion == "CREADO")
+    {
+        <div id="alert-message" class="alert alert-success" role="alert">
+            @ViewBag.mensaje
+        </div>
+    }
+    else if (ViewBag.accion == "FALLO")
+    {
+        <div id="alert-message" class="alert alert-danger" role="alert">
+            @ViewBag.mensaje
+        </div>
+    }
+</div>
+
+<div class="container-fluid">
+    <div class="card shadow mb-lg-4">
+        <div class="card-header py-3">
+            <div class="row">
+                <!-- Texto registrar InventarioCategorias  -->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <span class="nav-link">
+                            <i class="fab fa-wpforms"></i>
+                            Registrar Categoría
+                        </span>
+                    </div>
+                </div>
+                <!-- Textocampos obligatiorios  -->
+                <div class="text-right col-sm-8">
+                    <div class="form-group">
+                        <span style="float:right;">Campos Obligatorios <b style="color:red;">*</b></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card-body">
+
+            <form class="needs-validation" novalidate asp-controller="InventarioCategorias" asp-action="Create">
+
+                <div class="row mb-3">
+                    <label for="ActivoMarca" class="col-sm-3 col-form-label">
+                        ACTIVO
+                    </label>
+                    <div class="col-sm-2">
+                        <i class="fas fa-check-square" style="color: green;"></i>
+                    </div>
+                </div>
+                <hr />
+
+                <div class="row mb-3">
+                    <label for="validarNombreCategoria" class="col-sm-3 col-form-label">
+                        CATEGORIA<b style="color:red;">* </b>
+                        <i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresar una categoría"></i>
+                    </label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="validarNombreCategoria" asp-for="NombreCategoria" required>
+                    </div>
+                    <div class="valid-tooltip">
+                        OK!
+                    </div>
+                    <div class="invalid-tooltip">
+                        Categoría incorrecta
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="validarDetalleMarca" class="col-sm-3 col-form-label">
+                        DESCRIPCIÓN
+                        <i class="far fa-question-circle" data-bs-toggle="tooltip" title="No mayor a 200 caracteres"></i>
+                    </label>
+                    <div class="col-sm-6">
+                        <textarea type="text" class="form-control" id="validarDetalleMarca" asp-for="Detalle"></textarea>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    @if (TipoUser == "SuperAdmin")
+                    {
+                        <label for="validarTaller" class="col-sm-3 col-form-label">
+                            Taller<b style="color:red;">* </b>
+                            <i class="far fa-question-circle" data-bs-toggle="tooltip" title="Selecciona un Taller"></i>
+                        </label>
+                        <div class="col-sm-4">
+                            <select asp-for="TallerId" class="form-control" asp-items="ViewBag.TallerId"></select>
+                        </div>
+                    }
+                    else
+                    {
+                        <label for="validarTaller" class="col-sm-3 col-form-label">
+                            Taller
+                        </label>
+                        <div class="col-sm-4">
+                            <select asp-for="TallerId" class="form-control" asp-items="ViewBag.TallerId"></select>
+                        </div>
+                    }
+                    <div class="valid-tooltip">
+                        OK!
+                    </div>
+                    <div class="invalid-tooltip">
+                        Selecciona algún Taller.
+                    </div>
+                </div>
+
+                <hr />
+                <div class="row">
+                    <!-- Botón atrás -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <a asp-controller="InventarioCategorias" asp-action="Index" class="btn btn-dark btn-regresar">Atrás </a>
+                        </div>
+                    </div>
+                    <!-- Botón registrar -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="submit" value="Crear" class="btn btn-success btn-registrar" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- Fin Formulario: registro de categoria -->
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script>
+        // Validaciones
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}
+

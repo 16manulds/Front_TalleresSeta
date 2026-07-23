@@ -1,0 +1,180 @@
+﻿@model Front_TalleresSeta.Modelos.InventarioSubCategoria
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/Interfaz/_LayoutVerticalInterfaz.cshtml";
+
+    var tipoUser = User.FindFirst("TipoUsuarioAcceso")?.Value ?? string.Empty;
+    var tipoRol = User.FindFirst("TipoRolAcceso")?.Value ?? string.Empty;
+}
+
+<div class="container-fluid">
+    @if (ViewBag.accion == "CREADO" || ViewBag.accion == "ACTUALIZADO")
+    {
+        <div id="alert-message" class="alert alert-success" role="alert">
+            @ViewBag.mensaje
+        </div>
+    }
+
+    @if (ViewBag.accion == "NO_ELIMINADO")
+    {
+        <div id="alert-message" class="alert alert-danger" role="alert">
+            @ViewBag.mensaje
+        </div>
+    }
+</div>
+
+<div class="container-fluid">
+    <div class="card shadow mb-lg-4">
+        <div class="card-header py-3">
+            <div class="row">
+                <!-- Detalle SubCategoria  -->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <span class="nav-link">
+                            <i class="fab fa-wpforms"></i>
+                            Detalle SubCategoría
+                        </span>
+                    </div>
+                </div>
+
+                @if (tipoUser == "SuperAdmin" || tipoUser == "Admin" /*|| (tipoUser == "Empleado" && tipoRol == "Jefe")*/)
+                {
+                    <!-- campos obligatiorios -->
+                    <div class="text-right col-sm-8">
+                        <div class="form-group">
+                            <a class="btn btn-danger btn-eliminar" data-toggle="modal" data-target="#BorrarSubCategoria" asp-route-id="@Model.InventarioCategoriaId">
+                                Borrar SubCategoría
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+
+        <div class="card-body">
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">
+                    ACTIVO
+                </label>
+                <div class="col-sm-2">
+                    @if (Model.Habilitado == true)
+                    {
+                        <i class="fas fa-check-square" style="color: green;"></i>
+                    }
+                    else
+                    {
+                        <i class="far fa-window-close" style="color: firebrick;"></i>
+                    }
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">SUBCATEGORÍA</label>
+                <div class="col-sm-6">
+                    <span class="label-info">@Model.NombreSubCategoria</span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">CATEGORÍA</label>
+                <div class="col-sm-6">
+                    <span class="label-info">@Model.InventarioCategorias.NombreCategoria</span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">FECHA REGISTRO</label>
+                <div class="col-sm-6">
+                    <span class="label">@Model.FechaRegistro.ToShortDateString()</span>
+                </div>
+            </div>
+
+            <hr />
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">TALLER</label>
+                <div class="col-sm-6">
+                    <span class="label-info">@Model.Talleres.RazonSocialTaller</span>
+                </div>
+            </div>
+
+
+            <hr />
+            <div class="row">
+                <!-- Botón atrás -->
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <a class="btn btn-dark btn-regresar" asp-controller="InventarioSubCategorias" asp-action="Index">
+                            Atrás
+                        </a>
+                    </div>
+                </div>
+                @if (tipoUser == "SuperAdmin" || tipoUser == "Admin" || (tipoUser == "Empleado" && tipoRol == "Jefe"))
+                {
+                    <!-- Botón Actualizar -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <a class="btn btn-primary btn-actualizar" asp-controller="InventarioSubCategorias" asp-action="Edit" asp-route-id="@Model.InventarioSubCategoriaId">
+                                Actualizar
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@if (tipoUser == "SuperAdmin" || tipoUser == "Admin" /*|| (tipoUser == "Empleado" && tipoRol == "Jefe")*/)
+{
+    <!-- Modal Borrar SubCategoria -->
+    <div class="modal fade" id="BorrarSubCategoria" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Borrar SubCategoría</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">¿Estás seguro de borrar esta SubCategoría?</div>
+                <div class="modal-footer">
+                    <form asp-controller="InventarioSubCategorias" asp-action="Delete" asp-route-id="@Model.InventarioSubCategoriaId">
+                        <input type="hidden" name="idSubCategoria" value="@Model.InventarioSubCategoriaId" />
+                        <label for="validarDeleteSubCategoria" class="col-sm-3 col-form-label">
+                            Id de la SubCategoría: @Model.InventarioSubCategoriaId
+                        </label>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-secondary me-md-2" style="float: right; width: 100px;" data-dismiss="modal">Cancelar</button>
+                            <input type="submit" value="Borrar" class="btn btn-primary" style="float: left; width: 100px;" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    <script>
+
+        // Ocultar el mensaje después de 30 segundos
+        setTimeout(function () {
+            var alertMessage = document.getElementById("alert-message");
+            if (alertMessage) {
+                alertMessage.style.display = "none";
+            }
+        }, 30000); // 30 segundos
+
+    </script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

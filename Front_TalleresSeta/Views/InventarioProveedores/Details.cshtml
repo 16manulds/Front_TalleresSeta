@@ -1,0 +1,226 @@
+﻿@model Front_TalleresSeta.Modelos.InventarioProveedor
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/Interfaz/_LayoutVerticalInterfaz.cshtml";
+
+    var tipoUser = User.FindFirst("TipoUsuarioAcceso")?.Value ?? string.Empty;
+    var tipoRol = User.FindFirst("TipoRolAcceso")?.Value ?? string.Empty;
+}
+
+<div class="container-fluid">
+    @if (ViewBag.accion == "CREADO" || ViewBag.accion == "ACTUALIZADO")
+    {
+        <div id="alert-message" class="alert alert-success" role="alert">
+            @ViewBag.mensaje
+        </div>
+    }
+
+    @if (ViewBag.accion == "NO_ELIMINADO")
+    {
+        <div id="alert-message" class="alert alert-danger" role="alert">
+            @ViewBag.mensaje
+        </div>
+    }
+</div>
+
+<div class="container-fluid">
+    <div class="card shadow mb-lg-4">
+        <div class="card-header py-3">
+            <div class="row">
+                <!-- detalle Categoria  -->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <span class="nav-link">
+                            <i class="fab fa-wpforms"></i>
+                            Detalle Proveedor
+                        </span>
+                    </div>
+                </div>
+
+                @if (tipoUser == "SuperAdmin" || tipoUser == "Admin" /*|| (tipoUser == "Empleado" && tipoRol == "Jefe")*/)
+                {
+                    <!-- campos obligatiorios -->
+                    <div class="text-right col-sm-8">
+                        <div class="form-group">
+                            <a class="btn btn-danger btn-eliminar" data-toggle="modal" data-target="#BorrarProveedor" asp-route-id="@Model.InventarioProveedorId">
+                                Borrar Proveedor
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">
+                        ACTIVO
+                    </label>
+                    <div class="col-sm-2">
+                        @if (Model.Habilitado == true)
+                        {
+                            <i class="fas fa-check-square" style="color: green;"></i>
+                        }
+                        else
+                        {
+                            <i class="far fa-window-close" style="color: firebrick;"></i>
+                        }
+                    </div>
+                </div>
+                <hr />
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">RAZÓN SOCIAL</label>
+                    <div class="col-sm-6">
+                        <span class="label-info">@Model.RazonSocial</span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">PROVEEDOR</label>
+                    <div class="col-sm-6">
+                        <span class="label-info">@Model.NombreProveedor</span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">NIT</label>
+                    <div class="col-sm-6">
+                        <span class="label">@Model.Nitproveedor</span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">DIRECCIÓN</label>
+                    <div class="col-sm-6">
+                        <span class="label-info">@Model.Direccion</span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">TELÉFONO</label>
+                    <div class="col-sm-6">
+                        <span class="label-info">@Model.Telefono</span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">CELULAR</label>
+                    <div class="col-sm-6">
+                        <span class="label-info">@Model.Telefono</span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">CORREO</label>
+                    <div class="col-sm-6">
+                        <span class="label-info">@Model.Correo</span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">URL</label>
+                    <div class="col-sm-6">
+                        <span class="label-info">@Model.Url</span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">TALLER</label>
+                    <div class="col-sm-6">
+                        <span class="label-info">@Model.Talleres.RazonSocialTaller</span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">DETALLE</label>
+                    <div class="col-sm-6">
+                        <span class="label-info">@Model.Detalle</span>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-3 col-form-label">FECHA REGISTRO</label>
+                    <div class="col-sm-6">
+                        <span class="label">@Model.FechaRegistro.ToShortDateString()</span>
+                    </div>
+                </div>
+
+
+                <hr />
+                <div class="row">
+                    <!-- Botón atrás -->
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <a class="btn btn-dark btn-regresar" asp-controller="InventarioProveedores" asp-action="Index">
+                                Atrás
+                            </a>
+                        </div>
+                    </div>
+
+                    @if (tipoUser == "SuperAdmin" || tipoUser == "Admin" || (tipoUser == "Empleado" && tipoRol == "Jefe"))
+                    {
+                        <!-- Botón Actualizar -->
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <a class="btn btn-primary btn-actualizar" asp-controller="InventarioProveedores" asp-action="Edit" asp-route-id="@Model.InventarioProveedorId">
+                                    Actualizar
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (tipoUser == "SuperAdmin" || tipoUser == "Admin" /*|| (tipoUser == "Empleado" && tipoRol == "Jefe")*/)
+{
+    <!-- Modal Borrar Proveedor -->
+    <div class="modal fade" id="BorrarProveedor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Borrar Proveedor</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">¿Estás seguro de borrar el siguiente proveedor?</div>
+                <div class="modal-footer">
+                    <form asp-controller="InventarioProveedores" asp-action="Delete" asp-route-id="@Model.InventarioProveedorId">
+                        <input type="hidden" name="idProveedor" value="@Model.InventarioProveedorId" />
+                        <label for="validarDeleteProveedor" class="col-sm-3 col-form-label">
+                            Id del Proveedor: @Model.InventarioProveedorId
+                        </label>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="button" class="btn btn-secondary me-md-2" style="float: right; width: 100px;" data-dismiss="modal">Cancelar</button>
+                            <input type="submit" value="Borrar" class="btn btn-primary" style="float: left; width: 100px;" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script>
+
+        // Ocultar el mensaje después de 30 segundos
+        setTimeout(function () {
+            var alertMessage = document.getElementById("alert-message");
+            if (alertMessage) {
+                alertMessage.style.display = "none";
+            }
+        }, 30000); // 30 segundos
+
+    </script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
