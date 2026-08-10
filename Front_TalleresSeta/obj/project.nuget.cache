@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "8Ac+xeVl3sw=",
+  "dgSpecHash": "fF6Xk/x5zQ4=",
   "success": true,
-  "projectFilePath": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\TalleresSeta\\Front_TalleresSeta\\Front_TalleresSeta\\Front_TalleresSeta.csproj",
+  "projectFilePath": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\Front_TalleresSeta.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\manuelnelson.torresl\\.nuget\\packages\\azure.core\\1.44.1\\azure.core.1.44.1.nupkg.sha512",
     "C:\\Users\\manuelnelson.torresl\\.nuget\\packages\\azure.identity\\1.13.2\\azure.identity.1.13.2.nupkg.sha512",

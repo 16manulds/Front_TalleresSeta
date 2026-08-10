@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Front_TalleresSeta.Modelos.ModelosView
+﻿namespace Front_TalleresSeta.Modelos.ModelosView
 {
     public partial class ViewCargarProductoParaVenta
     {
@@ -21,14 +19,8 @@ namespace Front_TalleresSeta.Modelos.ModelosView
         public int? CantStock { get; set; } = 0;
         public Int64 PrecioVentaXuni { get; set; } = 0;
 
-        //public long IdInventarioSalidaProducto { get; set; }
-        //public bool Habilitado { get; set; } = true;
-        //public DateTime FechaVenta { get; set; } = DateTime.Now;
-        //public Int64 PrecioFinalXuni { get; set; } = 0;
-        //public int? CantVendidos { get; set; } = 0;
-        //public int? CantDevoluciones { get; set; } = 0;
-        //public string? Detalle { get; set; } = null;
-
+        public string? Referencia { get; set; } = null;
     }
+
 }
 

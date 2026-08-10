@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\TalleresSeta\\Front_TalleresSeta\\Front_TalleresSeta\\Front_TalleresSeta.csproj": {}
+    "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\Front_TalleresSeta.csproj": {}
   },
   "projects": {
-    "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\TalleresSeta\\Front_TalleresSeta\\Front_TalleresSeta\\Front_TalleresSeta.csproj": {
+    "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\Front_TalleresSeta.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\TalleresSeta\\Front_TalleresSeta\\Front_TalleresSeta\\Front_TalleresSeta.csproj",
+        "projectUniqueName": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\Front_TalleresSeta.csproj",
         "projectName": "Front_TalleresSeta",
-        "projectPath": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\TalleresSeta\\Front_TalleresSeta\\Front_TalleresSeta\\Front_TalleresSeta.csproj",
+        "projectPath": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\Front_TalleresSeta.csproj",
         "packagesPath": "C:\\Users\\manuelnelson.torresl\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\TalleresSeta\\Front_TalleresSeta\\Front_TalleresSeta\\obj\\",
+        "outputPath": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

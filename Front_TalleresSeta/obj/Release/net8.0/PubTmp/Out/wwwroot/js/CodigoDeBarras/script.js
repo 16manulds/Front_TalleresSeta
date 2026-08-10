@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
             let codigoGenerado = null;
             consecutivoCodBarras.value = 0;
 
-            // 🔢 Generar código aleatorio de 3 dígitos
+            // Generar código aleatorio de 3 dígitos
             if (tipoSecuenciaCodigo === "ALEATORIO") {
                 codigoAleatorio = Math.floor(100 + Math.random() * 900).toString();
 

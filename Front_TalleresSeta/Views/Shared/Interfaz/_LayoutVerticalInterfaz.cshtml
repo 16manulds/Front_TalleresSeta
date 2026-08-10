@@ -125,7 +125,7 @@
                 }
 
 
-                if (TipoUser == "SuperAdmin" || TipoUser == "Admin" || (TipoUser == "Empleado" && (User.IsInRole("Jefe") || User.IsInRole("Mecánico"))))
+                if (TipoUser == "SuperAdmin" || TipoUser == "Admin" || (TipoUser == "Empleado" && (User.IsInRole("Jefe") || User.IsInRole("Mecánico"))))    
                 {
                     <!-- Titulo -->
                     <div class="sidebar-heading" lang="es-co">
@@ -142,7 +142,7 @@
                         <div id="collapseInventario" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
                                 <h6 class="collapse-header">Inventario:</h6>
-                                <a class="collapse-item" asp-controller="InventarioEntradaProductos" asp-action="Index">Ingreso productos</a>
+                                <a class="collapse-item" asp-controller="InventarioEntradaProductos" asp-action="Index">Productos</a>
                                 <a class="collapse-item" asp-controller="InventarioSalidaProductos" asp-action="Index">Ventas</a>
                                 <a class="collapse-item" asp-controller="Interfaz" asp-action="MuyPronto">Devoluciones</a>
                                 <a class="collapse-item" asp-controller="InventarioStocks" asp-action="Index">Stock</a>

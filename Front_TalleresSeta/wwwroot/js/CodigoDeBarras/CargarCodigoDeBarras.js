@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const cargarNombreMarca = document.getElementById('CargarNombreMarca');
     const cargarNombreCategoria = document.getElementById('CargarNombreCategoria');
     const cargarNombreSubCategoria = document.getElementById('CargarNombreSubCategoria');
-    const cargarColor = document.getElementById('CargarColor');
+    const cargarColor = document.getElementById('CargarColor');    
     const cargarMedida = document.getElementById('CargarMedida');
     const cargarUnidadMedida = document.getElementById('CargarUnidadMedida');
     const cargarTaller = document.getElementById('CargarTaller');
@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
             btnCapturar.style.display = 'block';
             CancelarEscaneo.style.display = 'none';
             DetenerEscaneo();
-        });                
+        });
     }
 
 
@@ -202,78 +202,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-
-    async function CargarProductoExisteParaVenta(limpiarCampos) {
-        let codigo = document.getElementById("validarCodigo").value;
-        let productoEncontrado = false;
-
-        if (limpiarCampos == true) {
-            LimpiarCampos();
-        }
-
-        if (!codigo) {
-            // Si no hay código, los campos ya están limpios, así que salimos.
-            console.log("El campo de código está vacío.");
-            return;
-        }
-
-        try {
-            const response = await fetch(`/Funciones/CargarProductoExisteParaVenta?filtroId=${codigo}`);
-
-            if (response.ok) {
-                const producto = await response.json();
-
-                // Asegúrate de que el producto se encontró y no es un objeto vacío/nulo
-                // Tu API debería devolver un 404 o un objeto vacío si no hay producto.
-                // Si devuelve un 200 OK con un objeto vacío o null, maneja eso aquí.
-                if (producto && Object.keys(producto).length > 0) { // Verifica si el objeto producto no está vacío
-                    productoEncontrado = true;
-
-                    // 2. Llenar los campos con los datos del producto (solo si se encontró)
-                    lblCantStockActual.setAttribute("data-valor-interno", producto.cantStock);
-                    lblCantStockActual.innerText = `${producto.cantStock} unidades en Stock`;
-                    cargarUnidadesStock.value = producto.cantStock;
-
-                    lblCargarNombreProducto.setAttribute("data-valor-interno", producto.nombreProducto);
-                    lblCargarNombreProducto.innerText = producto.nombreProducto.toUpperCase();
-                    cargarNombreProducto.value = producto.nombreProducto.toUpperCase();
-
-                    cargarNombreProveedor.value = producto.nombreProveedor || '';
-                    cargarNombreMarca.value = producto.nombreMarca || '';
-                    cargarNombreCategoria.value = producto.nombreCategoria || '';
-                    cargarNombreSubCategoria.value = producto.nombreSubCategoria || '';
-                    cargarColor.value = producto.nombreColor || '';
-                    cargarMedida.value = producto.nombreMedida || '';
-                    cargarUnidadMedida.value = producto.nombreUnidadMedida || '';
-                    cargarTaller.value = producto.taller || '';
-                    cargarTallerId.value = producto.tallerId || '';
-                    inputPrecioVentaPorUni.value = producto.precioVentaXuni;
-
-                    formatoMoneda(inputPrecioVentaPorUni, 'resPrecioVentaPorUni');
-
-                    CargarImagenBase64(previewImagenProducto, producto.imagenProducto);
-                    ImagenProducto.value = null;
-                    ImagenProducto.value = producto.imagenProducto;
-                } else {
-                    console.log("Producto no encontrado o datos vacíos.");
-                }
-            } else if (response.status === 404) {
-                console.log("Producto no encontrado. Código de estado: 404.");
-            } else {
-                console.log("No se encontró en la respuesta de la API el producto: ", codigo);
-            }
-        } catch (error) {
-            console.error('Error al buscar producto:', error);
-        }
-
-        if (productoEncontrado && ImagenProducto.value != null && ImagenProducto.value != '') {
-            previewImagenProducto.style.display = 'block';
-            iconoPreviewImagenProducto.style.display = 'none';
-        } else if (productoEncontrado == false) {
-            previewImagenProducto.style.display = 'none';
-            iconoPreviewImagenProducto.style.display = 'block';
-        }        
-    }
 
     function formatoMoneda(input, resultPrecio) {
         const resultadoElement = document.getElementById(resultPrecio);
@@ -432,6 +360,7 @@ document.addEventListener("DOMContentLoaded", () => {
         ImagenProducto.value = null;
     }
 
+    
     // Función para limpiar formato moneda y obtener número
     function parseCurrency(value) {
         if (!value) return 0;
@@ -442,6 +371,6 @@ document.addEventListener("DOMContentLoaded", () => {
         // 3. Convertimos a número
         return parseFloat(cleanValue) || 0;
     }
-       
+
 
 });

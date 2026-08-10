@@ -34,12 +34,12 @@ document.addEventListener("DOMContentLoaded", () => {
         let valorUniRestante = cantidadRestante.value.replace(/\D/g, '');
         if (valorUniRestante > 0) {
             if (valorUniIngresan == valorUniRestante) {
-                cantidadIngresan.disabled = false;
+                cantidadIngresan.readOnly = false;
             } else {
-                cantidadIngresan.disabled = true;
+                cantidadIngresan.readOnly = true;
             }
         } else {
-            cantidadIngresan.disabled = true;
+            cantidadIngresan.readOnly = false;
         }
     }
 

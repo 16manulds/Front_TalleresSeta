@@ -17,385 +17,385 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Front_TalleresSeta
 build_property.RootNamespace = Front_TalleresSeta
-build_property.ProjectDir = C:\Users\manuelnelson.torresl\ManuelT\PersonalMT\Proyectos P\TalleresSeta\Front_TalleresSeta\Front_TalleresSeta\
+build_property.ProjectDir = C:\Users\manuelnelson.torresl\ManuelT\PersonalMT\Proyectos P\GitHub\Front_TalleresSeta\Front_TalleresSeta\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\manuelnelson.torresl\ManuelT\PersonalMT\Proyectos P\TalleresSeta\Front_TalleresSeta\Front_TalleresSeta
+build_property.MSBuildProjectDirectory = C:\Users\manuelnelson.torresl\ManuelT\PersonalMT\Proyectos P\GitHub\Front_TalleresSeta\Front_TalleresSeta
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Estados/Create.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Estados/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXN0YWRvc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Estados/Delete.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Estados/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXN0YWRvc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Estados/Details.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Estados/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXN0YWRvc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Estados/Edit.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Estados/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXN0YWRvc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Estados/Index.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Estados/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXN0YWRvc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Home/Index.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Home/Privacy.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Interfaz/AccesoDenegado.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Interfaz/AccesoDenegado.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW50ZXJmYXpcQWNjZXNvRGVuZWdhZG8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Interfaz/Index.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Interfaz/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW50ZXJmYXpcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Interfaz/MuyPronto.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Interfaz/MuyPronto.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW50ZXJmYXpcTXV5UHJvbnRvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Interfaz/SinDatos.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Interfaz/SinDatos.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW50ZXJmYXpcU2luRGF0b3MuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioCategorias/Create.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioCategorias/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb0NhdGVnb3JpYXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioCategorias/Delete.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioCategorias/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb0NhdGVnb3JpYXNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioCategorias/Details.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioCategorias/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb0NhdGVnb3JpYXNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioCategorias/Edit.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioCategorias/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb0NhdGVnb3JpYXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioCategorias/Index.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioCategorias/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb0NhdGVnb3JpYXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioEntradaProductos/Create.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioEntradaProductos/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb0VudHJhZGFQcm9kdWN0b3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioEntradaProductos/Delete.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioEntradaProductos/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb0VudHJhZGFQcm9kdWN0b3NcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioEntradaProductos/Details.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioEntradaProductos/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb0VudHJhZGFQcm9kdWN0b3NcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioEntradaProductos/Edit.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioEntradaProductos/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb0VudHJhZGFQcm9kdWN0b3NcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioEntradaProductos/Index.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioEntradaProductos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb0VudHJhZGFQcm9kdWN0b3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioLotes/Edit.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioLotes/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb0xvdGVzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioLotes/VerLotes.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioLotes/VerLotes.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb0xvdGVzXFZlckxvdGVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioMarcas/Create.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioMarcas/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb01hcmNhc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioMarcas/Delete.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioMarcas/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb01hcmNhc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioMarcas/Details.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioMarcas/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb01hcmNhc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioMarcas/Edit.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioMarcas/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb01hcmNhc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioMarcas/Index.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioMarcas/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb01hcmNhc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioProveedores/Create.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioProveedores/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb1Byb3ZlZWRvcmVzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioProveedores/Delete.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioProveedores/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb1Byb3ZlZWRvcmVzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioProveedores/Details.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioProveedores/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb1Byb3ZlZWRvcmVzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioProveedores/Edit.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioProveedores/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb1Byb3ZlZWRvcmVzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioProveedores/Index.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioProveedores/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb1Byb3ZlZWRvcmVzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioSalidaProductos/Create.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioSalidaProductos/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb1NhbGlkYVByb2R1Y3Rvc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioSalidaProductos/Details.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioSalidaProductos/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb1NhbGlkYVByb2R1Y3Rvc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioSalidaProductos/Index.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioSalidaProductos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb1NhbGlkYVByb2R1Y3Rvc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioStocks/Index.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioStocks/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb1N0b2Nrc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioSubCategorias/Create.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioSubCategorias/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb1N1YkNhdGVnb3JpYXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioSubCategorias/Delete.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioSubCategorias/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb1N1YkNhdGVnb3JpYXNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioSubCategorias/Details.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioSubCategorias/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb1N1YkNhdGVnb3JpYXNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioSubCategorias/Edit.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioSubCategorias/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb1N1YkNhdGVnb3JpYXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioSubCategorias/Index.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/InventarioSubCategorias/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50YXJpb1N1YkNhdGVnb3JpYXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Login/Acceso.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Login/Acceso.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cQWNjZXNvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/RolUsuarios/Create.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/RolUsuarios/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sVXN1YXJpb3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/RolUsuarios/Delete.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/RolUsuarios/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sVXN1YXJpb3NcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/RolUsuarios/Details.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/RolUsuarios/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sVXN1YXJpb3NcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/RolUsuarios/Edit.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/RolUsuarios/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sVXN1YXJpb3NcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/RolUsuarios/Index.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/RolUsuarios/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sVXN1YXJpb3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Shared/Error.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Shared/Interfaz/_LayoutVerticalInterfaz - Copia.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Shared/Interfaz/_LayoutVerticalInterfaz - Copia.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEludGVyZmF6XF9MYXlvdXRWZXJ0aWNhbEludGVyZmF6IC0gQ29waWEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Shared/Interfaz/_LayoutVerticalInterfaz.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Shared/Interfaz/_LayoutVerticalInterfaz.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEludGVyZmF6XF9MYXlvdXRWZXJ0aWNhbEludGVyZmF6LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Shared/Usuario/_LayoutLogin.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Shared/Usuario/_LayoutLogin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFVzdWFyaW9cX0xheW91dExvZ2luLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Sucursales/Consolidado.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Sucursales/Consolidado.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VjdXJzYWxlc1xDb25zb2xpZGFkby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Sucursales/Create.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Sucursales/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VjdXJzYWxlc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Sucursales/Delete.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Sucursales/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VjdXJzYWxlc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Sucursales/Details.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Sucursales/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VjdXJzYWxlc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Sucursales/Edit.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Sucursales/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VjdXJzYWxlc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Sucursales/Index.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Sucursales/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3VjdXJzYWxlc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Talleres/Consolidado.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Talleres/Consolidado.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFsbGVyZXNcQ29uc29saWRhZG8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Talleres/Create.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Talleres/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFsbGVyZXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Talleres/Delete.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Talleres/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFsbGVyZXNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Talleres/Details.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Talleres/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFsbGVyZXNcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Talleres/Edit.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Talleres/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFsbGVyZXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Talleres/Index.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Talleres/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFsbGVyZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/TipoDocumentos/Create.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/TipoDocumentos/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0RvY3VtZW50b3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/TipoDocumentos/Delete.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/TipoDocumentos/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0RvY3VtZW50b3NcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/TipoDocumentos/Details.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/TipoDocumentos/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0RvY3VtZW50b3NcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/TipoDocumentos/Edit.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/TipoDocumentos/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0RvY3VtZW50b3NcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/TipoDocumentos/Index.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/TipoDocumentos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb0RvY3VtZW50b3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/TipoUsuarios/Create.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/TipoUsuarios/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb1VzdWFyaW9zXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/TipoUsuarios/Delete.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/TipoUsuarios/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb1VzdWFyaW9zXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/TipoUsuarios/Details.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/TipoUsuarios/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb1VzdWFyaW9zXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/TipoUsuarios/Edit.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/TipoUsuarios/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb1VzdWFyaW9zXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/TipoUsuarios/Index.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/TipoUsuarios/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb1VzdWFyaW9zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Usuarios/Create.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Usuarios/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Usuarios/Delete.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Usuarios/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Usuarios/Details.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Usuarios/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Usuarios/Edit.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Usuarios/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Usuarios/Index.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Usuarios/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Usuarios_/Create.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Usuarios_/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NfXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Usuarios_/Delete.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Usuarios_/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NfXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Usuarios_/Details.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Usuarios_/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NfXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Usuarios_/Edit.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Usuarios_/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NfXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Usuarios_/Index.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Usuarios_/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb3NfXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Vehiculos/Create.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Vehiculos/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWN1bG9zXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Vehiculos/Delete.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Vehiculos/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWN1bG9zXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Vehiculos/Details.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Vehiculos/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWN1bG9zXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Vehiculos/Edit.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Vehiculos/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWN1bG9zXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Vehiculos/Index.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Vehiculos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWN1bG9zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/_ViewImports.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/_ViewStart.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/TalleresSeta/Front_TalleresSeta/Front_TalleresSeta/Views/Shared/_Layout.cshtml]
+[C:/Users/manuelnelson.torresl/ManuelT/PersonalMT/Proyectos P/GitHub/Front_TalleresSeta/Front_TalleresSeta/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-2u51dw74vj

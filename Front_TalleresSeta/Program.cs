@@ -20,8 +20,9 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 //Se agrega la conexion al API
 builder.Services.AddHttpClient("ApiClient", client =>
 {
-    //client.BaseAddress = new Uri("https://apiadminweb.talleresseta.com/api/"); // Cambia esto por la URL de tu API. https://apiadminweb.talleresseta.com/swagger/
-    //client.BaseAddress = new Uri("https://apiinventario.runasp.net/api/"); // Cambia esto por la URL de tu API.
+    // client.BaseAddress = new Uri("https://apiadminweb.talleresseta.com/api/");
+    // cambia esto por la URL de tu API. https://apiadminweb.talleresseta.com/swagger/
+    // client.BaseAddress = new Uri("https://apiinventario.runasp.net/api/"); // Cambia esto por la URL de tu API.
     client.BaseAddress = new Uri("https://localhost:7196/api/"); // Cambia esto por la URL de tu API.
     client.DefaultRequestHeaders.Accept.Clear();
     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

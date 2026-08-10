@@ -114,6 +114,54 @@
                 <input type="hidden" asp-for="UnidadesStock" id="cargarUnidadesStock" />
                 <input type="hidden" asp-for="TallerId" id="cargarTallerId" />
 
+                <!-- Contenedor principal: Oculto por defecto (d-none) por seguridad de interfaz -->
+                <div id="contenedorDetallesProducto" class="row mb-4 p-3 bg-light rounded border d-none" aria-hidden="true">
+                                        
+                    <div class="col-md-3 border-end">
+                        <!-- Fila para MARCA -->
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <label class="fw-bold text-dark">MARCA: </label>
+                            <label class="text-muted fw-bold text-uppercase" id="lblMarcaProducto"></label>
+                        </div>
+                        <hr class="my-4 text-secondary opacity-25">
+                        <!-- Fila para PRODUCTO -->
+                        <div class="d-flex align-items-center gap-2">
+                            <label class="fw-bold text-dark">PRODUCTO: </label>
+                            <label class="text-muted fw-bold text-uppercase" id="lblNombreProducto"></label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 border-end">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <label class="fw-bold text-dark">REFERENCIA: </label>
+                            <label class="text-muted fw-bold text-uppercase" id="lblReferenciaProducto"></label>
+                        </div>
+                        <hr class="my-4 text-secondary opacity-25">
+                        <!-- Fila para PRODUCTO -->
+                        <div class="d-flex align-items-center gap-2">
+                            <label class="fw-bold text-dark">COLOR: </label>
+                            <label class="text-muted fw-bold text-uppercase" id="lblColorProducto"></label>
+                        </div>
+                    </div>
+
+
+                    <!-- SELECCIÓN DE LOTES -->
+                    <div class="col-md-6">
+                        <div class="d-flex flex-column">
+                            <small class="text-muted fw-bold text-uppercase mb-1">Lotes Disponibles (Seleccione uno o varios)</small>
+
+                            <!-- Contenedor dinámico de Lotes -->
+                            <div id="contenedorLotes" class="d-flex flex-wrap gap-2 align-items-center">
+                                <span class="text-muted fst-italic fs-7">Cargue un producto para ver los lotes...</span>
+                            </div>
+
+                            <!-- Resumen dinámico de la selección -->
+                            <div id="resumenSeleccionLotes" class="mt-2 text-primary fw-bold text-start fs-7"></div>
+                        </div>
+                    </div>
+
+                </div>
+
                 <div class="row align-items-start mb-4">
                     <div class="col-lg-4 col-md-5">
                         <div class="mb-3">
@@ -143,7 +191,7 @@
                     </div>
 
                     <div class="col-lg-4 col-md-2 text-center">
-                        <label class="d-block mb-2 fw-bold" id="lblCargarNombreProducto" name="lblCargarNombreProducto"></label>
+                        @* <label class="d-block mb-2 fw-bold" id="lblCargarNombreProducto" name="lblCargarNombreProducto"></label> *@
                         <div class="position-relative d-inline-block">
                             <input type="hidden" asp-for="ImagenProducto" id="ImagenProducto" />
                             <img src="#" id="previewImagenProducto" class="img-thumbnail shadow-sm"
@@ -152,7 +200,7 @@
                                  class="img-thumbnail shadow-sm" style="width: 120px; height: 120px; opacity: 0.6;" />
                         </div>
                         <div class="mt-2 small text-muted">
-                            <label class="d-block mb-2 fw-bold" id="lblCantStockActual" name="lblCantStockActual"></label>                            
+                            <label class="d-block mb-2 fw-bold" id="lblCantStockActual" name="lblCantStockActual"></label>
                         </div>
                     </div>
 
@@ -327,7 +375,7 @@
                     </div>
                 </div>
 
-                
+
 
 
                 <hr />
@@ -360,6 +408,7 @@
 
     <script src="~/js/VenderProducto.js"></script>
     <script src="~/js/CodigoDeBarras/CargarCodigoDeBarras.js"></script>
+    <script src="~/js/VentaDeProducto.js"></script>
 
     <script>
         // // These variables MUST come from your ViewBag, not hardcoded if they change!
