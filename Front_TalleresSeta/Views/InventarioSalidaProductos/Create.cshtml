@@ -116,7 +116,7 @@
 
                 <!-- Contenedor principal: Oculto por defecto (d-none) por seguridad de interfaz -->
                 <div id="contenedorDetallesProducto" class="row mb-4 p-3 bg-light rounded border d-none" aria-hidden="true">
-                                        
+
                     <div class="col-md-3 border-end">
                         <!-- Fila para MARCA -->
                         <div class="d-flex align-items-center gap-2 mb-2">
@@ -137,7 +137,7 @@
                             <label class="text-muted fw-bold text-uppercase" id="lblReferenciaProducto"></label>
                         </div>
                         <hr class="my-4 text-secondary opacity-25">
-                        <!-- Fila para PRODUCTO -->
+                        <!-- Fila para color -->
                         <div class="d-flex align-items-center gap-2">
                             <label class="fw-bold text-dark">COLOR: </label>
                             <label class="text-muted fw-bold text-uppercase" id="lblColorProducto"></label>
@@ -233,6 +233,14 @@
                     </div>
                     <div class="col-md-6">
                         <div class="row align-items-center">
+                            <!-- Checkbox para habilitar edición manual -->
+                            <div class="form-check me-2">
+                                <input class="form-check-input" type="checkbox" id="chkManualTotal" style="cursor: pointer;">
+                                <label class="form-check-label small fw-bold text-muted" for="chkManualTotal" style="cursor: pointer;">
+                                    Manual
+                                </label>
+                            </div>
+
                             <label for="validarPrecioVentaTotal" class="col-sm-4 col-form-label text-end fw-bold">VALOR TOTAL VENTA</label>
                             <div class="col-sm-8">
                                 <div class="input-group">
@@ -470,6 +478,8 @@
                 alertMessage.style.display = "none";
             }
         }, 30000); // 30 segundos
+
+
 
     </script>
 

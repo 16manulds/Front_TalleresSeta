@@ -10,8 +10,15 @@ const lblCantStockActual = document.getElementById('lblCantStockActual');
 let inputPrecioVentaPorUni = document.getElementById('validarPrecioVentaPorUni');
 const cantUnidadesVender = document.getElementById('validarCantidadVendidos');
 
+const chkManualTotal = document.getElementById('chkManualTotal');
+const inputPrecioVentaTotal = document.getElementById('validarPrecioVentaTotal');
+
 let ImagenProducto = document.getElementById('ImagenProducto');
 let previewImagenProducto = document.getElementById('previewImagenProducto');
+
+// Variable global para conservar el precio de venta unitario original
+let precioVentaBaseOriginal = 0;
+
 
 /**
  * 1. Carga los lotes desde el Backend filtrando por código de producto
@@ -66,8 +73,12 @@ function renderizarLotes(lotes) {
     lotes.forEach(lote => {
         const idLote = lote.idLote ?? lote.IdLote;
         const stock = lote.cantRestante ?? lote.CantRestante ?? 0;
+        const precioCompra = lote.precioCompraXuni ?? lote.PrecioCompraXuni ?? 0;
         const precioVenta = lote.precioVentaXuni ?? lote.PrecioVentaXuni ?? 0;
         const loteIdSanitizado = String(idLote).replace(/[^\w-]/g, '');
+
+        let precioCompraP = SoloFormatoMoneda(precioCompra);
+        let precioVentaP = SoloFormatoMoneda(precioVenta);
 
         const btnLote = document.createElement('button');
         btnLote.type = 'button';
@@ -76,13 +87,48 @@ function renderizarLotes(lotes) {
         btnLote.dataset.stock = stock;
         btnLote.dataset.precio = precioVenta;
 
+        // Le agregamos una clase identificadora (.badge-compra-tooltip) al span de compra
         btnLote.innerHTML = `
-            Lote: <strong>#${idLote}</strong> 
-            <span class="badge bg-secondary ms-1">${stock} und</span>
-        `;
+                Lote <strong>${idLote}</strong> 
+                <span class="badge bg-secondary ms-1">${stock} und</span>
+                <span class="badge bg-danger ms-1 badge-venta-tooltip"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="top"
+                      data-bs-title="Venta: ${precioVentaP}" 
+                      data-bs-trigger="click"
+                      style="cursor: pointer;">
+                    <i class="fa fa-low-vision" aria-hidden="true"></i>
+                </span>
+                <span class="badge bg-success ms-1 badge-compra-tooltip"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="top"
+                      data-bs-title="Compra: ${precioCompraP}" 
+                      data-bs-trigger="click"
+                      style="cursor: pointer;">
+                    <i class="fa fa-low-vision" aria-hidden="true"></i>
+                </span>
+            `;
 
+        // Evento para seleccionar el lote
         btnLote.addEventListener('click', () => toggleSeleccionLote(loteIdSanitizado, btnLote));
+
+        // Insertamos el botón en el contenedor
         contenedor.appendChild(btnLote);
+
+        // --- 💡 INICIALIZACIÓN Y CONTROL DEL TOOLTIP ---
+        btnLote.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
+            const tooltip = new bootstrap.Tooltip(el);
+            let timer;
+
+            // 1. Evita que el clic seleccione el lote
+            el.addEventListener('click', (e) => e.stopPropagation());
+
+            // 2. Oculta el tooltip automáticamente a los 4 segundos
+            el.addEventListener('shown.bs.tooltip', () => {
+                clearTimeout(timer);
+                timer = setTimeout(() => tooltip.hide(), 4000);
+            });
+        });
     });
     actualizarCalculoUnidades();
 }
@@ -105,6 +151,59 @@ function toggleSeleccionLote(loteId, elementoHtml) {
 
     actualizarCalculoUnidades();
 }
+
+function toggleSeleccionLote(loteId, elementoHtml) {
+    const index = lotesSeleccionados.indexOf(loteId);
+
+    if (index > -1) {
+        // DESELECCIONAR: Siempre se permite quitar un lote
+        lotesSeleccionados.splice(index, 1);
+        elementoHtml.classList.remove('btn-primary', 'active');
+        elementoHtml.classList.add('btn-outline-primary');
+    } else {
+        // SELECCIONAR: Validamos antes de permitir agregar un nuevo lote
+        const cantidadRequerida = parseInt(cantUnidadesVender?.value || 0, 10);
+
+        if (cantidadRequerida <= 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Atención',
+                text: 'Ingresa primero la cantidad de unidades a vender.',
+                timer: 5000,
+                showConfirmButton: false
+            });
+            return;
+        }
+
+        // Sumamos el stock de los botones de lotes que ya están seleccionados (.active)
+        let stockAcumulado = 0;
+        document.querySelectorAll('.btn-lote.active').forEach(btn => {
+            stockAcumulado += parseInt(btn.dataset.stock || 0, 10);
+        });
+
+        // Si el stock ya es igual o mayor a lo requerido, bloqueamos la selección
+        if (stockAcumulado >= cantidadRequerida) {
+            Swal.fire({
+                icon: 'info',
+                title: 'Cantidad cubierta',
+                text: `La cantidad requerida (${cantidadRequerida} und) ya está totalmente cubierta por los lotes seleccionados.`,
+                timer: 5000,
+                showConfirmButton: false
+            });
+            return; // Cancela la selección
+        }
+
+        // Si pasa la validación, se agrega a la lista y se marca activo
+        lotesSeleccionados.push(loteId);
+        elementoHtml.classList.remove('btn-outline-primary');
+        elementoHtml.classList.add('btn-primary', 'active');
+    }
+
+    actualizarCalculoUnidades();
+}
+
+
+
 
 /**
  * 4. Recalcula la distribución respetando el orden en que se hizo clic
@@ -191,7 +290,7 @@ function actualizarCalculoUnidades() {
 
         htmlResumen += `
             <span class="badge ${badgeColor} border fs-7 me-1">
-                Lote #${item.codigo}: <strong class="text-dark">${item.tomadas} und</strong>
+                Lote ${item.codigo}: <strong class="text-dark">${item.tomadas} und</strong>
             </span>
         `;
     });
@@ -243,17 +342,20 @@ async function CargarProductoExisteParaVenta(limpiarCampos) {
                 if (visualizaNombreProducto) visualizaNombreProducto.innerText = producto.nombreProducto || 'N/A';
                 if (visualizaReferenciaProducto) visualizaReferenciaProducto.innerText = producto.referencia || 'N/A';
 
-                if (inputPrecioVentaPorUni) inputPrecioVentaPorUni.value = producto.precioVentaXuni;
+                // 1. Guardamos el precio base original en la variable global
+                precioVentaBaseOriginal = producto.precioVentaXuni || 0;
+
+                if (inputPrecioVentaPorUni) inputPrecioVentaPorUni.value = precioVentaBaseOriginal;
 
                 if (typeof formatoMoneda === 'function') {
                     formatoMoneda(inputPrecioVentaPorUni, 'resPrecioVentaPorUni');
-                }
+                }                               
 
                 CargarLotesProductoVenta(producto);
 
-                if (typeof CargarImagenBase64 === 'function') {
-                    CargarImagenBase64(previewImagenProducto, producto.imagenProducto);
-                }
+                //if (typeof CargarImagenBase64 === 'function') {
+                CargarImagenBase64(previewImagenProducto, producto.imagenProducto);
+                //}
 
                 if (ImagenProducto) ImagenProducto.value = producto.imagenProducto;
             } else {
@@ -310,3 +412,102 @@ if (cantUnidadesVender) {
         actualizarCalculoUnidades();
     });
 }
+
+
+// Limpia un texto formateado ($ 75.000) a un número puro (75000)
+const limpiarNumero = (val) => parseFloat((val || '').toString().replace(/\D/g, '')) || 0;
+
+function SoloFormatoMoneda(valor) {
+    if (!isNaN(valor)) {
+        // Formatear el valor como moneda COP
+        const formatoMoneda = new Intl.NumberFormat("es-CO", {
+            style: "currency",
+            currency: "COP",
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        });
+        const cantidadFormateada = formatoMoneda.format(valor);
+        return valor = cantidadFormateada;
+    }
+}
+
+
+chkManualTotal.addEventListener('change', function () {
+    if (this.checked) {
+        // Modo manual activo...
+        inputPrecioVentaTotal.removeAttribute('readonly');
+        inputPrecioVentaTotal.classList.add('bg-white');
+        inputPrecioVentaTotal.focus();
+
+        if (inputPrecioVentaPorUni) {
+            inputPrecioVentaPorUni.readOnly = true;
+            inputPrecioVentaPorUni.classList.add('bg-light');
+        }
+        calcularUnidadDesdeTotal();
+    } else {
+        // 🔄 MODO AUTOMÁTICO: Restauramos el valor original guardado
+        inputPrecioVentaTotal.readOnly = true;
+        inputPrecioVentaTotal.classList.remove('bg-white');
+
+        if (inputPrecioVentaPorUni) {
+            inputPrecioVentaPorUni.readOnly = false;
+            inputPrecioVentaPorUni.classList.remove('bg-light');
+
+            // Reasignamos el precio base original
+            inputPrecioVentaPorUni.value = precioVentaBaseOriginal;
+
+            if (typeof formatoMoneda === 'function') {
+                formatoMoneda(inputPrecioVentaPorUni, 'resPrecioVentaPorUni');
+            }
+        }
+
+        // Recalculamos totales con el valor restaurado
+        if (typeof actualizarCalculoUnidades === 'function') {
+            actualizarCalculoUnidades();
+        }
+    }
+});
+
+
+// Función que calcula el valor unitario basándose en el Total / Unidades
+function calcularUnidadDesdeTotal() {
+    const total = limpiarNumero(inputPrecioVentaTotal.value);
+    const cantidad = parseInt(cantUnidadesVender.value, 10) || 0;
+
+    if (cantidad > 0) {
+        const precioUnidad = total / cantidad;
+        inputPrecioVentaPorUni.value = SoloFormatoMoneda(precioUnidad);
+    } else {
+        inputPrecioVentaPorUni.value = SoloFormatoMoneda(0);
+    }
+
+    // Asegura el formato de moneda en el total
+    inputPrecioVentaTotal.value = SoloFormatoMoneda(total);
+}
+
+
+// A. Al escribir o cambiar el valor en el TOTAL VENTA
+inputPrecioVentaTotal.addEventListener('input', function () {
+    if (chkManualTotal.checked) {
+        calcularUnidadDesdeTotal();
+    }
+});
+
+// A.1 Aplicar formato moneda final al perder el foco (blur)
+inputPrecioVentaTotal.addEventListener('blur', function () {
+    if (chkManualTotal.checked) {
+        const num = limpiarNumero(this.value);
+        this.value = SoloFormatoMoneda(num);
+    }
+});
+
+// B. Al cambiar la CANTIDAD DE UNIDADES A VENDER
+cantUnidadesVender.addEventListener('input', function () {
+    if (chkManualTotal.checked) {
+        // Si está en manual, recalcula el valor unitario dividiendo el total
+        calcularUnidadDesdeTotal();
+    } else if (typeof actualizarCalculoUnidades === 'function') {
+        // Si NO está en manual, ejecuta la lógica estándar
+        actualizarCalculoUnidades();
+    }
+});

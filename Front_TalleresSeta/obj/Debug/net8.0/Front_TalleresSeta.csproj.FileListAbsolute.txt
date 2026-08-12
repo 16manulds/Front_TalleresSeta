@@ -300,8 +300,8 @@ C:\Users\manuelnelson.torresl\ManuelT\PersonalMT\Proyectos P\TalleresSeta\Front_
 C:\Users\manuelnelson.torresl\ManuelT\PersonalMT\Proyectos P\TalleresSeta\Front_TalleresSeta\Front_TalleresSeta\obj\Debug\net8.0\ref\Front_TalleresSeta.dll
 C:\Users\manuelnelson.torresl\ManuelT\PersonalMT\Proyectos P\GitHub\Front_TalleresSeta\Front_TalleresSeta\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\manuelnelson.torresl\ManuelT\PersonalMT\Proyectos P\GitHub\Front_TalleresSeta\Front_TalleresSeta\bin\Debug\net8.0\appsettings.json
-C:\Users\manuelnelson.torresl\ManuelT\PersonalMT\Proyectos P\GitHub\Front_TalleresSeta\Front_TalleresSeta\bin\Debug\net8.0\Front_TalleresSeta.staticwebassets.endpoints.json
 C:\Users\manuelnelson.torresl\ManuelT\PersonalMT\Proyectos P\GitHub\Front_TalleresSeta\Front_TalleresSeta\bin\Debug\net8.0\Front_TalleresSeta.staticwebassets.runtime.json
+C:\Users\manuelnelson.torresl\ManuelT\PersonalMT\Proyectos P\GitHub\Front_TalleresSeta\Front_TalleresSeta\bin\Debug\net8.0\Front_TalleresSeta.staticwebassets.endpoints.json
 C:\Users\manuelnelson.torresl\ManuelT\PersonalMT\Proyectos P\GitHub\Front_TalleresSeta\Front_TalleresSeta\bin\Debug\net8.0\Front_TalleresSeta.exe
 C:\Users\manuelnelson.torresl\ManuelT\PersonalMT\Proyectos P\GitHub\Front_TalleresSeta\Front_TalleresSeta\bin\Debug\net8.0\Front_TalleresSeta.deps.json
 C:\Users\manuelnelson.torresl\ManuelT\PersonalMT\Proyectos P\GitHub\Front_TalleresSeta\Front_TalleresSeta\bin\Debug\net8.0\Front_TalleresSeta.runtimeconfig.json
@@ -557,6 +557,7 @@ C:\Users\manuelnelson.torresl\ManuelT\PersonalMT\Proyectos P\GitHub\Front_Taller
 C:\Users\manuelnelson.torresl\ManuelT\PersonalMT\Proyectos P\GitHub\Front_TalleresSeta\Front_TalleresSeta\obj\Debug\net8.0\staticwebassets.build.json.cache
 C:\Users\manuelnelson.torresl\ManuelT\PersonalMT\Proyectos P\GitHub\Front_TalleresSeta\Front_TalleresSeta\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\manuelnelson.torresl\ManuelT\PersonalMT\Proyectos P\GitHub\Front_TalleresSeta\Front_TalleresSeta\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\manuelnelson.torresl\ManuelT\PersonalMT\Proyectos P\GitHub\Front_TalleresSeta\Front_TalleresSeta\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\manuelnelson.torresl\ManuelT\PersonalMT\Proyectos P\GitHub\Front_TalleresSeta\Front_TalleresSeta\obj\Debug\net8.0\Front_Ta.AFABEF41.Up2Date
 C:\Users\manuelnelson.torresl\ManuelT\PersonalMT\Proyectos P\GitHub\Front_TalleresSeta\Front_TalleresSeta\obj\Debug\net8.0\Front_TalleresSeta.dll
 C:\Users\manuelnelson.torresl\ManuelT\PersonalMT\Proyectos P\GitHub\Front_TalleresSeta\Front_TalleresSeta\obj\Debug\net8.0\refint\Front_TalleresSeta.dll

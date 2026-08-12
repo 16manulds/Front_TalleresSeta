@@ -20,6 +20,7 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 //Se agrega la conexion al API
 builder.Services.AddHttpClient("ApiClient", client =>
 {
+    //client.BaseAddress = new Uri("https://adminwebapi.talleresseta.com.co/api/");
     // client.BaseAddress = new Uri("https://apiadminweb.talleresseta.com/api/");
     // cambia esto por la URL de tu API. https://apiadminweb.talleresseta.com/swagger/
     // client.BaseAddress = new Uri("https://apiinventario.runasp.net/api/"); // Cambia esto por la URL de tu API.

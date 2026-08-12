@@ -1,2 +1,12 @@
 [Bb]in/
 [Oo]bj/
+
+# Visual Studio
+.vs/
+
+# .NET / C#
+bin/
+obj/
+[D-d]ebug/
+[R-r]elease/
+*.user
