@@ -63,6 +63,7 @@ namespace Front_TalleresSeta.Controllers
             return Json(producto);
         }
 
+
         public async Task<JsonResult> ActualCantidadIngresanPorLote(long LoteId, string CodigoProducto)
         {
             var actualCantidadIngresan = await _httpClient.GetFromJsonAsync<InventarioLote>($"InventarioLotes/actualCantidadIngresanPorLote?idLote={LoteId}&codProducto={CodigoProducto}");

@@ -204,7 +204,7 @@ namespace Front_TalleresSeta.Controllers
             }
         }
                       
-
+                
         public async Task<IActionResult> MostrarLotesPorProducto(string filtroId)
         {
             if (string.IsNullOrWhiteSpace(filtroId))
@@ -212,12 +212,18 @@ namespace Front_TalleresSeta.Controllers
                 return BadRequest("El identificador del producto es requerido.");
             }
 
-            // CORREGIDO: Se cambia el tipo genérico a List<> para matchear la API
-            var lotes = await _httpClient.GetFromJsonAsync<List<ViewMostrarLotesPorProducto>>($"InventarioLotes/mostrarLotesPorProducto/{filtroId}");
+            try
+            {
+                // ✅ Captura la petición en caso de fallos HTTP
+                var lotes = await _httpClient.GetFromJsonAsync<List<ViewMostrarLotesPorProducto>>($"InventarioLotes/mostrarLotesPorProducto/{filtroId}");
 
-            return Json(lotes ?? new List<ViewMostrarLotesPorProducto>());
+                return Json(lotes ?? new List<ViewMostrarLotesPorProducto>());
+            }
+            catch (HttpRequestException ex)
+            {
+                return Json(new List<ViewMostrarLotesPorProducto>());
+            }
         }
-
 
     }
 }

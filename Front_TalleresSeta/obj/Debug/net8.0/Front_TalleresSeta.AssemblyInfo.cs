@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Front_TalleresSeta")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f89142728c4a0af9e5ef4f76727ae8927c84115a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+30381f722d57b94e641e04d3c56203684e35634b")]
 [assembly: System.Reflection.AssemblyProductAttribute("Front_TalleresSeta")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Front_TalleresSeta")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,6 +1,12 @@
 // Variable global o de ámbito de la venta
 let lotesActuales = null;
 let lotesSeleccionados = []; // Guarda los IDs de los lotes activos en orden de clic
+let precioVentaBaseOriginal = 0;
+let ImagenProducto = document.getElementById('ImagenProducto');
+let previewImagenProducto = document.getElementById('previewImagenProducto');
+let carritoVenta = [];
+let productoCargadoActual = null;
+//let validarCodigo = document.getElementById("validarCodigo");
 
 const visualizaMarcaProducto = document.getElementById('lblMarcaProducto');
 const visualizaNombreProducto = document.getElementById('lblNombreProducto');
@@ -9,15 +15,9 @@ const visualizaColorProducto = document.getElementById('lblColorProducto');
 const lblCantStockActual = document.getElementById('lblCantStockActual');
 let inputPrecioVentaPorUni = document.getElementById('validarPrecioVentaPorUni');
 const cantUnidadesVender = document.getElementById('validarCantidadVendidos');
-
 const chkManualTotal = document.getElementById('chkManualTotal');
 const inputPrecioVentaTotal = document.getElementById('validarPrecioVentaTotal');
 
-let ImagenProducto = document.getElementById('ImagenProducto');
-let previewImagenProducto = document.getElementById('previewImagenProducto');
-
-// Variable global para conservar el precio de venta unitario original
-let precioVentaBaseOriginal = 0;
 
 
 /**
@@ -36,20 +36,31 @@ async function CargarLotesProductoVenta(producto) {
         const codigo = encodeURIComponent(producto.codigoProducto);
         const response = await fetch(`/InventarioLotes/MostrarLotesPorProducto?filtroId=${codigo}`);
 
+        //const contenedor = document.getElementById('contenedorDetallesProducto');
+        //if (contenedor) {
+        //    contenedor.classList.remove('d-none');
+        //    contenedor.removeAttribute('aria-hidden');
+        //}
+
+        mostrarBloqueDatosProducto(true);
+
         if (response.ok) {
             const lotes = await response.json();
 
-            lotesActuales = lotes;
+            if (lotes.length > 0) {
+                // 1. Guardamos el precio base original en la variable global
+                precioVentaBaseOriginal = producto.precioVentaXuni || 0;
 
-            const contenedor = document.getElementById('contenedorDetallesProducto');
-            if (contenedor) {
-                contenedor.classList.remove('d-none');
-                contenedor.removeAttribute('aria-hidden');
+                if (inputPrecioVentaPorUni) inputPrecioVentaPorUni.value = precioVentaBaseOriginal;
+
+                if (typeof formatoMoneda === 'function') {
+                    formatoMoneda(inputPrecioVentaPorUni, 'resPrecioVentaPorUni');
+                }
             }
-
+            lotesActuales = lotes;
             renderizarLotes(lotes || []);
         } else {
-            console.error('Error al consultar lotes:', response.statusText);
+            MostrarAlerta("info", "Stock - Lotes", "El producto No tiene lotes registrados.", 7000, false, null);
         }
     } catch (error) {
         console.error('Error en la petición de lotes:', error);
@@ -67,6 +78,7 @@ function renderizarLotes(lotes) {
 
     if (!lotes || lotes.length === 0) {
         contenedor.innerHTML = '<span class="badge bg-danger">Sin stock de lotes</span>';
+        MostrarAlerta("info", "Stock - Lotes", "El producto No tiene lotes registrados.", 7000, false, null);
         return;
     }
 
@@ -203,8 +215,6 @@ function toggleSeleccionLote(loteId, elementoHtml) {
 }
 
 
-
-
 /**
  * 4. Recalcula la distribución respetando el orden en que se hizo clic
  */
@@ -253,7 +263,7 @@ function actualizarCalculoUnidades() {
     if (!resumen) return;
 
     if (!lotesActuales || lotesActuales.length === 0) {
-        resumen.innerHTML = '<span class="text-danger fs-7">No hay lotes disponibles en stock.</span>';
+        //resumen.innerHTML = '<span class="text-warning fs-7">Sin stock.</span>';
         return;
     }
 
@@ -307,6 +317,7 @@ function actualizarCalculoUnidades() {
     resumen.innerHTML = htmlResumen;
 }
 
+
 /**
  * 6. Búsqueda y carga del producto
  */
@@ -328,6 +339,7 @@ async function CargarProductoExisteParaVenta(limpiarCampos) {
 
         if (response.ok) {
             const producto = await response.json();
+            productoCargadoActual = producto;
 
             if (producto && Object.keys(producto).length > 0) {
                 productoEncontrado = true;
@@ -342,20 +354,8 @@ async function CargarProductoExisteParaVenta(limpiarCampos) {
                 if (visualizaNombreProducto) visualizaNombreProducto.innerText = producto.nombreProducto || 'N/A';
                 if (visualizaReferenciaProducto) visualizaReferenciaProducto.innerText = producto.referencia || 'N/A';
 
-                // 1. Guardamos el precio base original en la variable global
-                precioVentaBaseOriginal = producto.precioVentaXuni || 0;
-
-                if (inputPrecioVentaPorUni) inputPrecioVentaPorUni.value = precioVentaBaseOriginal;
-
-                if (typeof formatoMoneda === 'function') {
-                    formatoMoneda(inputPrecioVentaPorUni, 'resPrecioVentaPorUni');
-                }                               
-
                 CargarLotesProductoVenta(producto);
-
-                //if (typeof CargarImagenBase64 === 'function') {
                 CargarImagenBase64(previewImagenProducto, producto.imagenProducto);
-                //}
 
                 if (ImagenProducto) ImagenProducto.value = producto.imagenProducto;
             } else {
@@ -389,12 +389,18 @@ function LimpiarCamposVenta() {
 
     if (lblCantStockActual) lblCantStockActual.setAttribute("data-valor-interno", '');
     if (inputPrecioVentaPorUni) inputPrecioVentaPorUni.value = '';
+    if (inputPrecioVentaTotal) inputPrecioVentaTotal.value = '';
+    if (lblCantStockActual) lblCantStockActual.textContent = '';
     if (cantUnidadesVender) cantUnidadesVender.value = '';
+    if (chkManualTotal) chkManualTotal.checked = false;
+    if (precioVentaBaseOriginal) precioVentaBaseOriginal = 0;
 
     if (visualizaMarcaProducto) visualizaMarcaProducto.innerText = '';
     if (visualizaNombreProducto) visualizaNombreProducto.innerText = '';
     if (visualizaReferenciaProducto) visualizaReferenciaProducto.innerText = '';
     if (visualizaColorProducto) visualizaColorProducto.innerText = '';
+
+    if (iconoPreviewImagenProducto) iconoPreviewImagenProducto.style.display = 'block';
 
     if (previewImagenProducto) {
         previewImagenProducto.style.display = 'none';
@@ -404,7 +410,25 @@ function LimpiarCamposVenta() {
 
     const resumen = document.getElementById('resumenSeleccionLotes');
     if (resumen) resumen.innerHTML = '';
+
+    limpiarLotesCompletamente();
+    mostrarBloqueDatosProducto(false);
 }
+
+
+function mostrarBloqueDatosProducto(mostrar) {
+    const contenedor = document.getElementById('contenedorDetallesProducto');
+    if (mostrar) {
+        if (contenedor) {
+            contenedor.classList.remove('d-none');
+            contenedor.removeAttribute('aria-hidden');
+        }
+    } else {
+        contenedor.classList.add('d-none');
+        contenedor.setAttribute('aria-hidden', 'true');
+    }
+}
+
 
 if (cantUnidadesVender) {
     // Evento 'input' detecta cada tecla o cambio en el valor
@@ -416,20 +440,6 @@ if (cantUnidadesVender) {
 
 // Limpia un texto formateado ($ 75.000) a un número puro (75000)
 const limpiarNumero = (val) => parseFloat((val || '').toString().replace(/\D/g, '')) || 0;
-
-function SoloFormatoMoneda(valor) {
-    if (!isNaN(valor)) {
-        // Formatear el valor como moneda COP
-        const formatoMoneda = new Intl.NumberFormat("es-CO", {
-            style: "currency",
-            currency: "COP",
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0
-        });
-        const cantidadFormateada = formatoMoneda.format(valor);
-        return valor = cantidadFormateada;
-    }
-}
 
 
 chkManualTotal.addEventListener('change', function () {
@@ -445,7 +455,7 @@ chkManualTotal.addEventListener('change', function () {
         }
         calcularUnidadDesdeTotal();
     } else {
-        // 🔄 MODO AUTOMÁTICO: Restauramos el valor original guardado
+        // MODO AUTOMÁTICO: Restauramos el valor original guardado
         inputPrecioVentaTotal.readOnly = true;
         inputPrecioVentaTotal.classList.remove('bg-white');
 
@@ -459,6 +469,8 @@ chkManualTotal.addEventListener('change', function () {
             if (typeof formatoMoneda === 'function') {
                 formatoMoneda(inputPrecioVentaPorUni, 'resPrecioVentaPorUni');
             }
+
+            calcularVenta();
         }
 
         // Recalculamos totales con el valor restaurado
@@ -511,3 +523,253 @@ cantUnidadesVender.addEventListener('input', function () {
         actualizarCalculoUnidades();
     }
 });
+
+
+function calcularVenta() {
+    const stockActual = parseInt(lblCantStockActual.getAttribute("data-valor-interno") || 0);
+    const cantUniVender = parseFloat(cantUnidadesVender.value) || 0;
+    const precio = parseCurrency(inputPrecioVentaPorUni.value);
+
+    let total = 0;
+
+    if (cantUniVender > stockActual) {
+        total = stockActual * precio;
+    } else {
+        total = cantUniVender * precio;
+    }
+
+    if (inputPrecioVentaPorUni) {
+        inputPrecioVentaPorUni.value = SoloFormatoMoneda(precio);
+    }
+
+    if (inputPrecioVentaTotal) {
+        inputPrecioVentaTotal.value = SoloFormatoMoneda(total);
+    }
+
+}
+
+
+function limpiarLotesCompletamente() {
+    // 1. Vaciar el arreglo de selecciones
+    lotesSeleccionados = [];
+
+    // 2. Obtener el contenedor principal de los lotes
+    const contenedorLotes = document.getElementById('contenedorLotes'); // ⚠️ Ajusta este ID al de tu HTML
+
+    if (contenedorLotes) {
+        // Destruir instancias de Tooltips para evitar fugas de memoria o globos huérfanos
+        contenedorLotes.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
+            const instance = bootstrap.Tooltip.getInstance(el);
+            if (instance) instance.dispose();
+        });
+
+        // 🧹 Eliminar visualmente todos los botones de lotes del DOM
+        contenedorLotes.innerHTML = '';
+    }
+
+    // 3. Limpiar la sección visual de Asignación/Resumen (si la tienes en un contenedor aparte)
+    const contenedorAsignacion = document.getElementById('contenedorAsignacion'); // ⚠️ Opcional
+    if (contenedorAsignacion) {
+        contenedorAsignacion.innerHTML = '';
+    }
+
+    // 4. Recalcular o resetear los contadores
+    if (typeof actualizarCalculoUnidades === 'function') {
+        actualizarCalculoUnidades();
+    }
+}
+
+
+// 1. Agrega el producto configurado a la tabla
+function agregarProductoACarrito(productoActual) {
+    const yaExiste = carritoVenta.some(item => String(item.codigoProducto) === String(productoActual.codigoProducto));
+
+    if (yaExiste) {
+        MostrarAlerta("warning", "Atención", "Este producto ya fue agregado a la lista de venta.", 4000);
+        return;
+    }
+
+    const cantidad = parseInt(cantUnidadesVender.value, 10) || 0;
+    const precioUnid = limpiarNumero(inputPrecioVentaPorUni.value);
+    const total = cantidad * precioUnid;
+
+    if (cantidad <= 0 || precioUnid <= 0) {
+        MostrarAlerta("warning", "Atención", "Ingrese una cantidad y precio válidos.", 4000);
+        return;
+    }
+
+    if (!lotesSeleccionados || lotesSeleccionados.length === 0) {
+        MostrarAlerta("warning", "Atención", "Debe seleccionar al menos un lote para este producto.", 4000);
+        return;
+    }
+
+    // Calculamos la distribución real de unidades tomadas de cada lote
+    const distribucionResult = calcularDistribucionLotes(cantidad);
+
+    if (distribucionResult.unidadesPendientes > 0) {
+        MostrarAlerta("warning", "Atención", `Aún faltan ${distribucionResult.unidadesPendientes} unidades por cubrir. Seleccione más lotes.`, 5000);
+        return;
+    }
+
+    // Mapeamos la distribución obtenida relacionándola con lotesActuales
+    const lotesEstandarizados = distribucionResult.distribucion
+        .filter(item => item.tomadas > 0)
+        .map(item => {
+            // Buscar la información completa del lote en la lista global
+            const loteObj = lotesActuales.find(l => String(l.idLote ?? l.IdLote ?? l.id) === String(item.loteId));
+
+            const id = item.loteId;
+
+            // 🔍 Evaluamos todas las posibles propiedades del lote
+            let refLote = loteObj?.referencia || loteObj?.Referencia || loteObj?.nombreLote || loteObj?.codigoLote || loteObj?.numLote;
+
+            // Si dice "NO APLICA", está nulo o vacío, mostramos "Lote X" (con el ID del lote)
+            if (!refLote || refLote.toString().trim().toUpperCase() === 'NO APLICA' || refLote.toString().trim() === '') {
+                refLote = `Lote ${id}`;
+            }
+
+            return {
+                idLote: id,
+                referencia: refLote,
+                cantidad: item.tomadas
+            };
+        });
+
+    let nomProducto = (productoActual.nombreProducto || '').toUpperCase().trim();
+    let marcaProducto = (productoActual.nombreMarca || '').toUpperCase().trim();
+    let colorProducto = (productoActual.nombreColor || '').toUpperCase().trim();
+    let referenciaProducto = (productoActual.referencia || '').toUpperCase().trim();
+
+    let detalleProducto = [nomProducto, marcaProducto, colorProducto, referenciaProducto]
+        .filter(val => val !== '' && val !== 'NO APLICA')
+        .join(' - ');
+
+    const detalleItem = {
+        codigoProducto: productoActual.codigoProducto,
+        nombreProducto: detalleProducto,
+        cantidad: cantidad,
+        precioUnitario: precioUnid,
+        total: total,
+        lotes: lotesEstandarizados
+    };
+
+    carritoVenta.push(detalleItem);
+    renderizarTablaVenta();
+    LimpiarCamposVenta();
+}
+
+
+
+// 2. Dibuja las filas en el HTML y recalcula el Gran Total
+function renderizarTablaVenta() {
+    const tbody = document.getElementById('tbodyDetalleVenta');
+    const lblTotalPagar = document.getElementById('lblTotalPagar');
+
+    if (!tbody) return;
+
+    if (carritoVenta.length === 0) {
+        tbody.innerHTML = `
+            <tr id="trFilaVacia">
+                <td colspan="6" class="text-center text-muted py-4">No hay productos agregados a la venta.</td>
+            </tr>`;
+        if (lblTotalPagar) lblTotalPagar.textContent = SoloFormatoMoneda(0);
+        return;
+    }
+
+    let html = '';
+    let granTotal = 0;
+
+    carritoVenta.forEach((item, index) => {
+        granTotal += item.total;
+
+        // Formatear texto con los lotes asignados
+        const textoLotes = (item.lotes && item.lotes.length > 0)
+            ? item.lotes.map(l => `${l.referencia} (${l.cantidad} und)`).join(', ')
+            : 'Sin lote asignado';
+
+        html += `
+            <tr>
+                <td class="text-center fw-bold fs-7">${item.codigoProducto}</td>
+                <td>
+                    <div class="fw-bold">${item.nombreProducto}</div>
+                    <small class="text-muted fs-8 d-block">
+                        Lotes: ${textoLotes}
+                    </small>
+                </td>
+                <td class="text-center fw-bold">${item.cantidad}</td>
+                <td class="text-end">${SoloFormatoMoneda(item.precioUnitario)}</td>
+                <td class="text-end fw-bold text-success">${SoloFormatoMoneda(item.total)}</td>
+                <td class="text-center">
+                    <button class="btn btn-outline-danger btn-sm border-0" onclick="eliminarItemCarrito(${index})">
+                        <i class="bi bi-trash-fill"></i> Quitar
+                    </button>
+                </td>
+            </tr>`;
+    });
+
+    tbody.innerHTML = html;
+    if (lblTotalPagar) lblTotalPagar.textContent = SoloFormatoMoneda(granTotal);
+}
+
+// 3. Elimina un ítem de la tabla
+function eliminarItemCarrito(index) {
+    carritoVenta.splice(index, 1);
+    renderizarTablaVenta();
+}
+
+// 4. Envía la venta completa y sus lotes al servidor
+async function registrarVenta() {
+    if (carritoVenta.length === 0) {
+        MostrarAlerta("warning", "Venta Vacía", "Agregue al menos un producto a la tabla.", 4000);
+        return;
+    }
+
+    const payloadVenta = {
+        totalVenta: carritoVenta.reduce((acc, item) => acc + item.total, 0),
+        detalles: carritoVenta
+    };
+
+    try {
+        const response = await fetch('/Ventas/RegistrarVenta', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payloadVenta)
+        });
+
+        if (response.ok) {
+            MostrarAlerta("success", "Éxito", "La venta y el descuento de lotes se registraron correctamente.", 5000);
+            carritoVenta = [];
+            renderizarTablaVenta();
+        } else {
+            const errorMsg = await response.text();
+            MostrarAlerta("error", "Error en Venta", errorMsg || "No se pudo registrar la venta.", 5000);
+        }
+    } catch (error) {
+        console.error('Error enviando la venta:', error);
+        MostrarAlerta("error", "Conexión", "Error de red al intentar procesar la venta.", 5000);
+    }
+}
+
+
+// Supongamos que esta es tu función donde cargas los datos del producto
+function alCargarProductoExitoso(producto) {
+    // 1. Guardas el producto actual en la variable global
+    productoCargadoActual = producto;
+
+    // 2. Muestras sus detalles en la interfaz
+    document.getElementById('lblMarcaProducto').textContent = producto.marca;
+    document.getElementById('lblNombreProducto').textContent = producto.nombre;
+    // ... resto de tu lógica para mostrar stock, lotes, etc.
+}
+
+// Función ejecutada por el botón "Agregar a la Venta"
+function prepararYAgregarProducto() {
+    if (!productoCargadoActual) {
+        MostrarAlerta("warning", "Atención", "Primero debe buscar y seleccionar un producto.", 4000);
+        return;
+    }
+
+    // Ejecuta la función que inserta el ítem en la tabla y recalcula totales
+    agregarProductoACarrito(productoCargadoActual);
+    if (validarCodigo) validarCodigo.value = '';
+}

@@ -3,44 +3,44 @@
   "WorkspaceRootPath": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|c:\\users\\manuelnelson.torresl\\manuelt\\personalmt\\proyectos p\\github\\front_talleresseta\\front_talleresseta\\wwwroot\\js\\ventadeproducto.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|solutionrelative:front_talleresseta\\wwwroot\\js\\ventadeproducto.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|c:\\users\\manuelnelson.torresl\\manuelt\\personalmt\\proyectos p\\github\\front_talleresseta\\front_talleresseta\\wwwroot\\js\\codigodebarras\\cargarcodigodebarras.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}|",
       "RelativeMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|solutionrelative:front_talleresseta\\wwwroot\\js\\codigodebarras\\cargarcodigodebarras.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|c:\\users\\manuelnelson.torresl\\manuelt\\personalmt\\proyectos p\\github\\front_talleresseta\\front_talleresseta\\wwwroot\\js\\venderproducto.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|solutionrelative:front_talleresseta\\wwwroot\\js\\venderproducto.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|c:\\users\\manuelnelson.torresl\\manuelt\\personalmt\\proyectos p\\github\\front_talleresseta\\front_talleresseta\\wwwroot\\js\\ventadeproducto.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|solutionrelative:front_talleresseta\\wwwroot\\js\\ventadeproducto.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|c:\\users\\manuelnelson.torresl\\manuelt\\personalmt\\proyectos p\\github\\front_talleresseta\\front_talleresseta\\views\\inventariosalidaproductos\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|solutionrelative:front_talleresseta\\views\\inventariosalidaproductos\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|c:\\users\\manuelnelson.torresl\\manuelt\\personalmt\\proyectos p\\github\\front_talleresseta\\front_talleresseta\\modelos\\modelosview\\viewcargarproductoparaventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|solutionrelative:front_talleresseta\\modelos\\modelosview\\viewcargarproductoparaventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|c:\\users\\manuelnelson.torresl\\manuelt\\personalmt\\proyectos p\\github\\front_talleresseta\\front_talleresseta\\wwwroot\\js\\venderproducto.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|solutionrelative:front_talleresseta\\wwwroot\\js\\venderproducto.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|c:\\users\\manuelnelson.torresl\\manuelt\\personalmt\\proyectos p\\github\\front_talleresseta\\front_talleresseta\\views\\inventarioentradaproductos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|solutionrelative:front_talleresseta\\views\\inventarioentradaproductos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|c:\\users\\manuelnelson.torresl\\manuelt\\personalmt\\proyectos p\\github\\front_talleresseta\\front_talleresseta\\modelos\\inventarioentradaproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|solutionrelative:front_talleresseta\\modelos\\inventarioentradaproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|c:\\users\\manuelnelson.torresl\\manuelt\\personalmt\\proyectos p\\github\\front_talleresseta\\front_talleresseta\\controllers\\funcionescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|solutionrelative:front_talleresseta\\controllers\\funcionescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|c:\\users\\manuelnelson.torresl\\manuelt\\personalmt\\proyectos p\\github\\front_talleresseta\\front_talleresseta\\controllers\\inventariolotescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|solutionrelative:front_talleresseta\\controllers\\inventariolotescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|c:\\users\\manuelnelson.torresl\\manuelt\\personalmt\\proyectos p\\github\\front_talleresseta\\front_talleresseta\\modelos\\modelosview\\viewcargarproductoparaventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|solutionrelative:front_talleresseta\\modelos\\modelosview\\viewcargarproductoparaventa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|c:\\users\\manuelnelson.torresl\\manuelt\\personalmt\\proyectos p\\github\\front_talleresseta\\front_talleresseta\\modelos\\modelosview\\viewmostrarlotesporproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|solutionrelative:front_talleresseta\\modelos\\modelosview\\viewmostrarlotesporproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|c:\\users\\manuelnelson.torresl\\manuelt\\personalmt\\proyectos p\\github\\front_talleresseta\\front_talleresseta\\controllers\\funcionescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|solutionrelative:front_talleresseta\\controllers\\funcionescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|c:\\users\\manuelnelson.torresl\\manuelt\\personalmt\\proyectos p\\github\\front_talleresseta\\front_talleresseta\\modelos\\inventarioentradaproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|solutionrelative:front_talleresseta\\modelos\\inventarioentradaproducto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|c:\\users\\manuelnelson.torresl\\manuelt\\personalmt\\proyectos p\\github\\front_talleresseta\\front_talleresseta\\views\\inventarioentradaproductos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|solutionrelative:front_talleresseta\\views\\inventarioentradaproductos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{81B78D83-888E-4F5D-BBEF-FAA1ABA3BAAF}|Front_TalleresSeta\\Front_TalleresSeta.csproj|c:\\users\\manuelnelson.torresl\\manuelt\\personalmt\\proyectos p\\github\\front_talleresseta\\front_talleresseta\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -62,17 +62,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "CargarCodigoDeBarras.js",
               "DocumentMoniker": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\wwwroot\\js\\CodigoDeBarras\\CargarCodigoDeBarras.js",
               "RelativeDocumentMoniker": "Front_TalleresSeta\\wwwroot\\js\\CodigoDeBarras\\CargarCodigoDeBarras.js",
               "ToolTip": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\wwwroot\\js\\CodigoDeBarras\\CargarCodigoDeBarras.js",
               "RelativeToolTip": "Front_TalleresSeta\\wwwroot\\js\\CodigoDeBarras\\CargarCodigoDeBarras.js",
-              "ViewState": "AgIAAIMAAAAAAAAAAAAuwHQAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAF8AAAAAAAAAAAAuwHQAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2026-08-05T14:22:37.104Z",
               "IsPinned": true,
@@ -80,13 +80,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "VentaDeProducto.js",
               "DocumentMoniker": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\wwwroot\\js\\VentaDeProducto.js",
               "RelativeDocumentMoniker": "Front_TalleresSeta\\wwwroot\\js\\VentaDeProducto.js",
               "ToolTip": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\wwwroot\\js\\VentaDeProducto.js",
               "RelativeToolTip": "Front_TalleresSeta\\wwwroot\\js\\VentaDeProducto.js",
-              "ViewState": "AgIAAKsBAAAAAAAAAAAqwLkBAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAAFUCAAAAAAAAAAAwwGoCAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2026-08-05T23:38:41.687Z",
               "IsPinned": true,
@@ -94,13 +94,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "VenderProducto.js",
               "DocumentMoniker": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\wwwroot\\js\\VenderProducto.js",
               "RelativeDocumentMoniker": "Front_TalleresSeta\\wwwroot\\js\\VenderProducto.js",
               "ToolTip": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\wwwroot\\js\\VenderProducto.js",
               "RelativeToolTip": "Front_TalleresSeta\\wwwroot\\js\\VenderProducto.js",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAswBQAAAAEAAAAAAAAAA==",
+              "ViewState": "AgIAAKMBAAAAAAAAAAAtwLIBAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2026-08-07T17:19:55.656Z",
               "IsPinned": true,
@@ -108,13 +108,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\Views\\InventarioSalidaProductos\\Create.cshtml",
               "RelativeDocumentMoniker": "Front_TalleresSeta\\Views\\InventarioSalidaProductos\\Create.cshtml",
               "ToolTip": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\Views\\InventarioSalidaProductos\\Create.cshtml",
               "RelativeToolTip": "Front_TalleresSeta\\Views\\InventarioSalidaProductos\\Create.cshtml",
-              "ViewState": "AgIAANQAAAAAAAAAAAAAAO0AAABiAAAAAAAAAA==",
+              "ViewState": "AgIAAPwAAAAAAAAAAAAqwAoBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-08-05T16:22:38.983Z",
               "IsPinned": true,
@@ -122,13 +122,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 4,
               "Title": "FuncionesController.cs",
               "DocumentMoniker": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\Controllers\\FuncionesController.cs",
               "RelativeDocumentMoniker": "Front_TalleresSeta\\Controllers\\FuncionesController.cs",
               "ToolTip": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\Controllers\\FuncionesController.cs",
               "RelativeToolTip": "Front_TalleresSeta\\Controllers\\FuncionesController.cs",
-              "ViewState": "AgIAACwAAAAAAAAAAAAuwDwAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAADUAAAAAAAAAAAAgwEAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-08-05T16:24:48.203Z",
               "IsPinned": true,
@@ -136,7 +136,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "ViewCargarProductoParaVenta.cs",
               "DocumentMoniker": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\Modelos\\ModelosView\\ViewCargarProductoParaVenta.cs",
               "RelativeDocumentMoniker": "Front_TalleresSeta\\Modelos\\ModelosView\\ViewCargarProductoParaVenta.cs",
@@ -150,13 +150,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "ViewMostrarLotesPorProducto.cs",
               "DocumentMoniker": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\Modelos\\ModelosView\\ViewMostrarLotesPorProducto.cs",
               "RelativeDocumentMoniker": "Front_TalleresSeta\\Modelos\\ModelosView\\ViewMostrarLotesPorProducto.cs",
               "ToolTip": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\Modelos\\ModelosView\\ViewMostrarLotesPorProducto.cs",
               "RelativeToolTip": "Front_TalleresSeta\\Modelos\\ModelosView\\ViewMostrarLotesPorProducto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAIAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-08-07T12:15:18.11Z",
               "IsPinned": true,
@@ -164,13 +164,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 5,
               "Title": "InventarioLotesController.cs",
               "DocumentMoniker": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\Controllers\\InventarioLotesController.cs",
               "RelativeDocumentMoniker": "Front_TalleresSeta\\Controllers\\InventarioLotesController.cs",
               "ToolTip": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\Controllers\\InventarioLotesController.cs",
               "RelativeToolTip": "Front_TalleresSeta\\Controllers\\InventarioLotesController.cs",
-              "ViewState": "AgIAAGwAAAAAAAAAAAAkwNcAAABOAAAAAAAAAA==",
+              "ViewState": "AgIAAHEAAAAAAAAAAAAmwOEAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-08-07T12:02:56.544Z",
               "IsPinned": true,
@@ -178,7 +178,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\Views\\InventarioEntradaProductos\\Index.cshtml",
               "RelativeDocumentMoniker": "Front_TalleresSeta\\Views\\InventarioEntradaProductos\\Index.cshtml",
@@ -191,7 +191,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "InventarioEntradaProducto.cs",
               "DocumentMoniker": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\Modelos\\InventarioEntradaProducto.cs",
               "RelativeDocumentMoniker": "Front_TalleresSeta\\Modelos\\InventarioEntradaProducto.cs",

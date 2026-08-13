@@ -228,7 +228,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         //Total pagado
         if (inputPrecioTotalPagado) {
-            let result = formatoMoneda(totalVentaPagada + ingresado);
+            let result = SoloFormatoMoneda(totalVentaPagada + ingresado);
             inputPrecioTotalPagado.value = result;
         }
 
@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (validarPrecioRestantePorPagar) {
             let saldoRestante = CalcularMaximoPermitido(totalVenta, totalVentaPagada);
             saldoRestante = saldoRestante - ingresado;
-            validarPrecioRestantePorPagar.value = formatoMoneda(saldoRestante);
+            validarPrecioRestantePorPagar.value = SoloFormatoMoneda(saldoRestante);
         }
         validarBotonAgregarUI();
     }
@@ -347,30 +347,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    function calcularVenta() {
-        const stockActual = parseInt(lblCantStockActual.getAttribute("data-valor-interno") || 0);
-        const cantUniVender = parseFloat(cantUnidadesVender.value) || 0;
-        const precio = parseCurrency(inputPrecioVentaPorUni.value);
-
-        let total = 0;
-
-        if (cantUniVender > stockActual) {
-            total = stockActual * precio;
-        } else {
-            total = cantUniVender * precio;
-        }
-
-        if (inputPrecioVentaPorUni) {
-            inputPrecioVentaPorUni.value = formatoMoneda(precio);
-        }
-
-        if (inputPrecioVentaTotal) {
-            inputPrecioVentaTotal.value = formatoMoneda(total);
-            //inputPrecioVentaTotal.dispatchEvent(new Event('input'));
-        }
-
-    }
-
+    
     function updateOptions() {
         const selectedValues = getSelectedMethods();
         const allSelects = container.querySelectorAll('.metodo-pago-select');
@@ -442,32 +419,33 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         return isValid;
     }
-
-    function MostrarAlerta(icon, title, text, timer, showConfirmButton, confirmButtonColor) {
-        Swal.fire({
-            icon: icon,
-            title: title,
-            text: text,
-            timer: timer,
-            showConfirmButton: showConfirmButton,
-            confirmButtonColor: confirmButtonColor
-        });
-    }
-
-    function formatoMoneda(input) {
-        let amount = parseInt(input);
-
-        if (!isNaN(amount)) {
-            const formatoMoneda = new Intl.NumberFormat("es-CO", {
-                style: "currency",
-                currency: "COP",
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0
-            });
-            const cantidadFormateada = formatoMoneda.format(amount);
-            return cantidadFormateada;
-        }
-    }
-
-
+                
 });
+
+
+function SoloFormatoMoneda(valor) {
+    if (!isNaN(valor)) {
+        // Formatear el valor como moneda COP
+        const formatoMoneda = new Intl.NumberFormat("es-CO", {
+            style: "currency",
+            currency: "COP",
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        });
+        const cantidadFormateada = formatoMoneda.format(valor);
+        return valor = cantidadFormateada;
+    }
+}
+
+
+function MostrarAlerta(icon, title, text, timer, showConfirmButton, confirmButtonColor) {
+    Swal.fire({
+        icon: icon,
+        title: title,
+        text: text,
+        timer: timer,
+        showConfirmButton: showConfirmButton,
+        confirmButtonColor: confirmButtonColor
+    });
+}
+
