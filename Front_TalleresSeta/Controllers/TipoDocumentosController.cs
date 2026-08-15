@@ -332,5 +332,6 @@ namespace Front_TalleresSeta.Controllers
             }
         }
 
+        
     }
 }

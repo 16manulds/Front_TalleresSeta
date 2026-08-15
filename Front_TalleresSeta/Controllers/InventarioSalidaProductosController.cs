@@ -14,6 +14,7 @@ namespace Front_TalleresSeta.Controllers
         private readonly IFuncionRepositorio _funcionRepo;
         private readonly IInventarioStockRepositorio _inventarioStockRepo;
         private readonly IInventarioLoteRepositorio _inventarioLoteRepo;
+        private readonly ITipoDocumentoRepositorio _tipoDocumentoRepo;
         public static string tabla = "InventarioSalidaProductos";
         public static string mensaje = string.Empty;
         public static string idItem = string.Empty;
@@ -21,12 +22,13 @@ namespace Front_TalleresSeta.Controllers
         public static string mensajeError = string.Empty;
         public static SelectList talleres = null!;
 
-        public InventarioSalidaProductosController(IHttpClientFactory httpClientFactory, IFuncionRepositorio funcionRepo, IInventarioStockRepositorio inventarioStockRepo, IInventarioLoteRepositorio inventarioLoteRepo)
+        public InventarioSalidaProductosController(IHttpClientFactory httpClientFactory, IFuncionRepositorio funcionRepo, IInventarioStockRepositorio inventarioStockRepo, IInventarioLoteRepositorio inventarioLoteRepo, ITipoDocumentoRepositorio tipoDocumentoRepo)
         {
             _httpClient = httpClientFactory.CreateClient("ApiClient");
             _funcionRepo = funcionRepo;
             _inventarioStockRepo = inventarioStockRepo;
             _inventarioLoteRepo = inventarioLoteRepo;
+            _tipoDocumentoRepo = tipoDocumentoRepo;
         }
 
 
@@ -102,6 +104,8 @@ namespace Front_TalleresSeta.Controllers
         public async Task<IActionResult> Create()
         {
             var logueado = _funcionRepo.ObtenerDatosLogueadoAsync();
+            talleres = await _funcionRepo.ObtenerTallerLogueadoAsync(logueado.TipoUser, logueado.TipoRol, logueado.IdTaller);
+
             if (!logueado.IsAuth)
             {
                 return RedirectToAction("Acceso", "Login");
@@ -110,6 +114,16 @@ namespace Front_TalleresSeta.Controllers
             {
                 try
                 {
+                    //var tipoDoccumentos = await _tipoDocumentoRepo.ObtenerTipoDeDocumentosAsync(1);
+                    //ViewBag.TipoDocumentoId = tipoDoccumentos;
+
+                    SelectList tipoDocumentos = await _tipoDocumentoRepo.ObtenerTipoDeDocumentosAsync(1);
+                    ViewBag.TipoDocumentoId = tipoDocumentos;
+
+                    SelectList tipoVehiculos = await _tipoDocumentoRepo.ObtenerTipoDeDocumentosAsync(1);
+                    ViewBag.TipoVehiculoId = tipoVehiculos;
+
+
                     ViewData["mensaje"] = "Registra la venta de un producto.";
                     return View();
                 }

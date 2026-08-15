@@ -24,6 +24,8 @@
         public string? NombreMedida { get; set; }
         public string? UnidadMedida { get; set; }
         public string? Taller { get; set; }
+        public string? TipoDocumentoId { get; set; }
+        public string? TipoVehiculoId { get; set; }
         public required long TallerId { get; set; }
 
         public List<MetodoPagoIngreso> Pagos { get; set; } = new List<MetodoPagoIngreso>();

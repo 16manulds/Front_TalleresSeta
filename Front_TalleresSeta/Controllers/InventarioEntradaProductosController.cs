@@ -29,6 +29,7 @@ namespace Front_TalleresSeta.Controllers
             _inventarioLoteRepo = inventarioLoteRepo;
         }
 
+        
         public async Task<IActionResult> Index(string? search = null, string? mensaje = null, string? accion = null)
         {
             var logueado = _funcionRepo.ObtenerDatosLogueadoAsync();
@@ -132,6 +133,8 @@ namespace Front_TalleresSeta.Controllers
         public async Task<IActionResult> Create()
         {
             var logueado = _funcionRepo.ObtenerDatosLogueadoAsync();
+            talleres = await _funcionRepo.ObtenerTallerLogueadoAsync(logueado.TipoUser, logueado.TipoRol, logueado.IdTaller);
+
             if (!logueado.IsAuth)
             {
                 return RedirectToAction("Acceso", "Login");

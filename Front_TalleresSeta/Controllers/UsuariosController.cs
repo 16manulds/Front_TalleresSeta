@@ -472,5 +472,26 @@ namespace Front_TalleresSeta.Controllers
             }
         }
 
+
+        public async Task<IActionResult> ObtenerUsuario(string filtroId)
+        {
+            if (string.IsNullOrWhiteSpace(filtroId))
+            {
+                return BadRequest("El identificador del usuario es requerido.");
+            }
+
+            try
+            {
+                var dato = await _httpClient.GetFromJsonAsync<Usuario>($"Usuarios/obtener/{filtroId}");
+
+                return Json(dato ?? new Usuario());
+            }
+            catch (HttpRequestException)
+            {
+                return Json(new Usuario());
+            }
+        }
+
+
     }
 }

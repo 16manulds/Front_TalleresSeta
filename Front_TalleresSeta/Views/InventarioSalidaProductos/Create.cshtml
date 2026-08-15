@@ -5,9 +5,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-
 <audio id="beep" src="~/audio/CodigoDeBarras/beep.mp3"></audio>
-
 
 @{
     ViewData["Title"] = "Vender Producto";
@@ -15,35 +13,13 @@
 
     var TipoUser = User.FindFirst("TipoUsuarioAcceso")?.Value ?? string.Empty;
     var TipoRol = User.FindFirst("TipoRolAcceso")?.Value ?? string.Empty;
+    //var tallerId = 1; //User.FindFirst("UsuarioTallerId")?.Value ?? string.Empty;
 }
-
-
-<div class="container-fluid">
-    @if (ViewBag.accion == "CREADO")
-    {
-        <div id="alert-message" class="alert alert-success" role="alert">
-            @ViewBag.mensaje
-        </div>
-    }
-    else if (ViewBag.accion == "FALLO")
-    {
-        <div id="alert-message" class="alert alert-danger" role="alert">
-            @ViewBag.mensaje
-        </div>
-    }
-    else if (ViewBag.accion == "CREADO_CON_ERROR")
-    {
-        <div id="alert-message" class="alert alert-warning" role="alert">
-            @ViewBag.mensaje
-        </div>
-    }
-</div>
-
 
 <style>
     body {
         background-color: #f4f7f6;
-        padding-bottom: 100px; /* Espacio para que el botón fijo no tape el contenido final */
+        padding-bottom: 100px;
     }
 
     .hidden-field {
@@ -66,16 +42,15 @@
         margin-bottom: 20px;
     }
 
-    /* ESTILOS PARA EL BOTÓN FIJO */
     .sticky-btn-container {
         position: fixed;
         bottom: 30px;
         right: 30px;
-        z-index: 1050; /* Por encima de otros elementos */
+        z-index: 1050;
     }
 
     .btn-register-sale {
-        border-radius: 50px; /* Estilo redondeado moderno */
+        border-radius: 50px;
         transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
@@ -83,375 +58,491 @@
             transform: scale(1.05);
             box-shadow: 0 10px 25px rgba(25, 135, 84, 0.4) !important;
         }
+
+    .card-section-title {
+        font-weight: 700;
+        color: #2b6cb0;
+        text-transform: uppercase;
+        font-size: 0.95rem;
+        letter-spacing: 0.5px;
+    }
 </style>
 
+<div class="container-fluid">
+    @if (ViewBag.accion == "CREADO")
+    {
+        <div id="alert-message" class="alert alert-success" role="alert">
+            @ViewBag.mensaje
+        </div>
+    }
+    else if (ViewBag.accion == "FALLO")
+    {
+        <div id="alert-message" class="alert alert-danger" role="alert">
+            @ViewBag.mensaje
+        </div>
+    }
+    else if (ViewBag.accion == "CREADO_CON_ERROR")
+    {
+        <div id="alert-message" class="alert alert-warning" role="alert">
+            @ViewBag.mensaje
+        </div>
+    }
+</div>
 
 <div class="container-fluid">
-    <div class="card shadow mb-lg-4">
-        <div class="card-header py-3">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <span class="nav-link">
-                            <i class="fab fa-wpforms"></i>
-                            Registrar Producto
-                        </span>
+    @* <form class="needs-validation" novalidate asp-controller="InventarioSalidaProductos" asp-action="Create" method="post" id="formVentaPrincipal"> *@
+
+    <!-- ========================================== -->
+    <!-- 1. FORMULARIO: DATOS DEL CLIENTE Y VEHÍCULO -->
+    <!-- ========================================== -->
+    <div class="card shadow mb-4">
+        <div class="card-header bg-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="card-section-title">
+                    <i class="fas fa-user-gear me-2"></i> 1. Información del Cliente y Vehículo
+                </span>
+                <span class="small text-muted">Campos Obligatorios <b class="text-danger">*</b></span>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                <!-- Sección Cliente -->
+                <div class="col-md-12 border-end-md">
+                    <div class="row g-3 align-items-end">
+                        <div class="col-md-5">
+                            <h6 class="fw-bold text-secondary mb-3"><i class="fas fa-id-card me-1"></i> Datos del Cliente</h6>
+                        </div>
+                        <div class="col-md-3">
+                            <input class="form-check-input" type="checkbox" id="chkConsumidorFinal" style="cursor: pointer;">
+                            <label class="form-check-label small fw-bold text-muted" for="chkConsumidorFinal" style="cursor: pointer;">
+                                Consumidor Final
+                            </label>
+                        </div>
+                        <div class="col text-end">
+                            <button type="button" class="btn btn-danger btn-sm px-3" id="btnLimpiarCliente" onclick="LimpiarCamposCliente()">
+                                <i class="fa-solid fa-trash-arrow-up"></i> 
+                            </button>
+                        </div>
+                        <div class="col text-end">
+                            <button type="button" class="btn btn-primary btn-sm px-3" id="btnBuscarCliente" onclick="BuscarCliente()">
+                                <i class="fa-solid fa-magnifying-glass me-1"></i> Buscar Cliente
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row g-2 align-items-end">
+                        <div class="col-md-2">
+                            <label class="form-label small fw-bold">
+                                TIPO<b style="color:red;"> *</b>
+                            </label>
+                            <select id="TipoDocumentoId" class="form-control col-md-8" asp-for="TipoDocumentoId" asp-items="ViewBag.TipoDocumentoId" required>
+                                <option value="">...</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small fw-bold">Documento</label><b style="color:red;"> *</b>
+                            <input type="text" id="txtClienteDocumento" class="form-control col-md-12" placeholder="Número de documento" required>
+                        </div>
                     </div>
                 </div>
-                <div class="text-right col-sm-8">
-                    <div class="form-group">
-                        <span style="float:right;">Campos Obligatorios <b style="color:red;">*</b></span>
+
+                <div class="col-md-12 border-end-md">
+                    <div class="row g-2">
+                        <div class="col-3">
+                            <label class="form-label small fw-bold">Primer Nombre</label><b style="color:red;"> *</b>
+                            <input type="text" id="txtPrimerNombre" class="form-control form-control-sm" placeholder="Primre Nombre" required>
+                        </div>
+                        <div class="col-3">
+                            <label class="form-label small fw-bold">Segundo Nombre</label>
+                            <input type="text" id="txtSegundoNombre" class="form-control form-control-sm" placeholder="Segundo Nombre">
+                        </div>
+                        <div class="col-3">
+                            <label class="form-label small fw-bold">Primer Apellido</label><b style="color:red;"> *</b>
+                            <input type="text" id="txtPrimerApellido" class="form-control form-control-sm" placeholder="Primer Apellido" required>
+                        </div>
+                        <div class="col-3">
+                            <label class="form-label small fw-bold">Segundo Apellido</label>
+                            <input type="text" id="txtSegundoApellido" class="form-control form-control-sm" placeholder="Segundo Apellido">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 border-end-md">
+                    <div class="row g-2">
+                        <div class="col-md-4">
+                            <label class="form-label small fw-bold">Teléfono / Celular</label>
+                            <input type="text" id="txtClienteTelefono" class="form-control form-control-sm" placeholder="Teléfono de contacto">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small fw-bold">Correo</label>
+                            <input type="text" id="txtCorreo" class="form-control form-control-sm" placeholder="Correo">
+                        </div>
+                    </div>
+                </div>
+
+
+                <br />
+                <!-- Sección Vehículo -->
+                <div class="col-md-12">
+                    <h6 class="fw-bold text-secondary mb-3"><i class="fas fa-car me-1"></i> Datos del Vehículo</h6>
+                    <div class="row g-2">
+                        <div class="col-md-3">
+                            <label class="form-label small fw-bold">Placa</label>
+                            <input type="text" id="txtVehiculoPlaca" class="form-control form-control-sm text-uppercase" placeholder="ABC123">
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label small fw-bold">
+                                TIPO VEHÍCULO<b style="color:red;"> *</b>
+                            </label>
+                            <select id="TipoVehiculoId" class="form-control col-md-8" asp-for="TipoVehiculoId" asp-items="ViewBag.TipoVehiculoId" required>
+                                <option value="">...</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label small fw-bold">Marca / Modelo</label>
+                            <input type="text" id="txtVehiculoModelo" class="form-control form-control-sm" placeholder="Ej: Toyota Hilux">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label small fw-bold">Kilometraje</label>
+                            <input type="number" id="txtVehiculoKm" class="form-control form-control-sm" placeholder="0">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <br />
+    <!-- ========================================== -->
+    <!-- 2. FORMULARIO: INGRESAR DATOS DEL PRODUCTO -->
+    <!-- ========================================== -->
+    <div class="card shadow mb-4">
+        <div class="card-header bg-white py-3">
+            <span class="card-section-title">
+                <i class="fab fa-wpforms me-2"></i> 2. Registrar / Buscar Producto
+            </span>
+        </div>
         <div class="card-body">
-            @* EL FORMULARIO PRINCIPAL AHORA CONTIENE TODA LA LÓGICA DE PRODUCTO Y PAGOS *@
-            <form class="needs-validation" novalidate asp-controller="InventarioSalidaProductos" asp-action="Create" method="post">
+            <input type="hidden" asp-for="NombreProducto" id="cargarNombreProducto" />
+            <input type="hidden" asp-for="UnidadesStock" id="cargarUnidadesStock" />
+            <input type="hidden" asp-for="TallerId" id="cargarTallerId" />
 
-                <input type="hidden" asp-for="NombreProducto" id="cargarNombreProducto" />
-                <input type="hidden" asp-for="UnidadesStock" id="cargarUnidadesStock" />
-                <input type="hidden" asp-for="TallerId" id="cargarTallerId" />
+            <!-- Detalle dinámico del producto seleccionado (Oculto inicialmente) -->
+            <div id="contenedorDetallesProducto" class="row g-3 mb-4 p-3 bg-light rounded border d-none text-break" aria-hidden="true">
 
-                <!-- Contenedor principal: Oculto por defecto (d-none) por seguridad de interfaz -->
-                <div id="contenedorDetallesProducto" class="row g-3 mb-4 p-3 bg-light rounded border d-none text-break" aria-hidden="true">
-
-                    <!-- Columna 1: Marca y Producto -->
-                    <div class="col-12 col-sm-6 col-md-3 border-end-md pe-md-3">
-                        <!-- Fila para MARCA -->
-                        <div class="d-flex flex-wrap align-items-baseline gap-1 mb-2">
-                            <span class="fw-bold text-dark">MARCA:</span>
-                            <span class="text-muted fw-bold text-uppercase" id="lblMarcaProducto"></span>
-                        </div>
-                        <hr class="my-2 text-secondary opacity-25">
-                        <!-- Fila para PRODUCTO -->
-                        <div class="d-flex flex-wrap align-items-baseline gap-1">
-                            <span class="fw-bold text-dark">PRODUCTO:</span>
-                            <span class="text-muted fw-bold text-uppercase" id="lblNombreProducto"></span>
-                        </div>
+                <!-- Columna 1: Marca y Producto -->
+                <div class="col-12 col-sm-6 col-md-3 border-end-md pe-md-3">
+                    <div class="d-flex flex-wrap align-items-baseline gap-1 mb-2">
+                        <span class="fw-bold text-dark">MARCA:</span>
+                        <span class="text-muted fw-bold text-uppercase" id="lblMarcaProducto"></span>
                     </div>
-
-                    <!-- Columna 2: Referencia y Color -->
-                    <div class="col-12 col-sm-6 col-md-3 border-end-md pe-md-3">
-                        <!-- Fila para REFERENCIA -->
-                        <div class="d-flex flex-wrap align-items-baseline gap-1 mb-2">
-                            <span class="fw-bold text-dark">REFERENCIA:</span>
-                            <span class="text-muted fw-bold text-uppercase" id="lblReferenciaProducto"></span>
-                        </div>
-                        <hr class="my-2 text-secondary opacity-25">
-                        <!-- Fila para COLOR -->
-                        <div class="d-flex flex-wrap align-items-baseline gap-1">
-                            <span class="fw-bold text-dark">COLOR:</span>
-                            <span class="text-muted fw-bold text-uppercase" id="lblColorProducto"></span>
-                        </div>
-                    </div>
-
-                    <!-- Columna 3: SELECCIÓN DE LOTES -->
-                    <div class="col-12 col-md-6">
-                        <div class="d-flex flex-column h-100">
-                            <small class="text-muted fw-bold text-uppercase mb-2">Lotes Disponibles (Seleccione uno o varios)</small>
-
-                            <!-- Contenedor dinámico de Lotes -->
-                            <div id="contenedorLotes" class="d-flex flex-wrap gap-2 align-items-center">
-                                <span class="text-muted fst-italic fs-7">Cargue un producto para ver los lotes...</span>
-                            </div>
-
-                            <!-- Resumen dinámico de la selección -->
-                            <div id="resumenSeleccionLotes" class="mt-2 text-primary fw-bold text-start fs-7"></div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="row align-items-start mb-4">
-                    <div class="col-lg-4 col-md-5">
-                        <div class="mb-3">
-                            <label for="validarCodigo" class="form-label fw-bold">
-                                CÓDIGO PRODUCTO<b class="text-danger"> *</b>
-                                <i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresar un código"></i>
-                            </label>
-                            <input type="text" class="form-control" id="validarCodigo" asp-for="CodigoProducto" required>
-                        </div>
-
-                        <div class="d-grid gap-2">
-                            <button type="button" class="btn btn-primary d-flex align-items-center justify-content-center" id="btnCapturar">
-                                <img src="~/images/Admin_Productos/codigo-de-barras.png" style="width:20px; margin-right: 8px;" /> Capturar Código
-                            </button>
-
-                            <div id="CancelarEscaneo" style="display: none;">
-                                <button type="button" class="btn btn-danger w-100 d-flex align-items-center justify-content-center" id="btnCancelarEscaneo">
-                                    <img src="~/images/Admin_Productos/escaneo-de-codigo-de-barras.png" style="width:20px; margin-right: 8px;" /> Cancelar Escaneo
-                                </button>
-                            </div>
-                        </div>
-
-                        <div id="contenedor" class="mt-2 text-center" style="display: none;">
-                            <video id="video" autoplay playsinline class="img-fluid border rounded shadow-sm"></video>
-                            <div id="marcoEscaneo"></div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-2 text-center">
-                        @* <label class="d-block mb-2 fw-bold" id="lblCargarNombreProducto" name="lblCargarNombreProducto"></label> *@
-                        <div class="position-relative d-inline-block">
-                            <input type="hidden" asp-for="ImagenProducto" id="ImagenProducto" />
-                            <img src="#" id="previewImagenProducto" class="img-thumbnail shadow-sm"
-                                 style="width: 150px; height: 150px; object-fit: cover; display: none;" />
-                            <img src="~/images/Admin_Productos/SinArchivos.png" id="iconoPreviewImagenProducto"
-                                 class="img-thumbnail shadow-sm" style="width: 120px; height: 120px; opacity: 0.6;" />
-                        </div>
-                        <div class="mt-2 small text-muted">
-                            <label class="d-block mb-2 fw-bold" id="lblCantStockActual" name="lblCantStockActual"></label>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-5">
-                        <div class="row align-items-center">
-                            <label for="validarCantidadVendidos" class="col-sm-5 col-form-label text-end fw-bold">
-                                UNIDADES A VENDER:<b class="text-danger"> *</b>
-                            </label>
-                            <div class="col-sm-7">
-                                <input type="number" class="form-control form-control-lg border-primary" id="validarCantidadVendidos" asp-for="CantVendidos" min="1" required>
-                                <span asp-validation-for="CantVendidos" class="text-danger small"></span>
-                            </div>
-                        </div>
-                    </div>                                        
-                </div>
-
-                
-                <div class="row mb-4">
-                    <div class="col-md-6 border-end">
-                        <div class="row align-items-center">
-                            <label for="validarPrecioVentaPorUni" class="col-sm-4 col-form-label text-end fw-bold">VALOR UNIDAD</label>
-                            <div class="col-sm-8">
-                                <div class="input-group">
-                                    <span class="input-group-text bg-success text-white">COP</span>
-                                    <input type="text" class="form-control fw-bold" id="validarPrecioVentaPorUni" asp-for="PrecioVentaPorUni" required>
-                                </div>
-                                <div id="resPrecioVentaPorUni" class="form-text font-monospace text-end"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="row align-items-center">
-                            <!-- Checkbox centrado vertical y horizontalmente en la grilla -->
-                            <div class="col-auto d-flex align-items-center justify-content-center">
-                                <div class="form-check mb-0">
-                                    <input class="form-check-input" type="checkbox" id="chkManualTotal" style="cursor: pointer;">
-                                    <label class="form-check-label small fw-bold text-muted" for="chkManualTotal" style="cursor: pointer;">
-                                        Manual
-                                    </label>
-                                </div>
-                            </div>
-
-                            <label for="validarPrecioVentaTotal" class="col col-form-label text-end fw-bold">VALOR TOTAL PRODUCTO</label>
-                            <div class="col-sm-7">
-                                <div class="input-group">
-                                    <span class="input-group-text bg-success text-white">COP</span>
-                                    <input type="text" class="form-control fw-bold" id="validarPrecioVentaTotal" asp-for="PrecioVentaTotal" required readonly>
-                                </div>
-                                <div id="resPrecioVentaTotal" class="form-text text-primary fw-bold text-end"></div>
-                            </div>
-                        </div>
+                    <hr class="my-2 text-secondary opacity-25">
+                    <div class="d-flex flex-wrap align-items-baseline gap-1">
+                        <span class="fw-bold text-dark">PRODUCTO:</span>
+                        <span class="text-muted fw-bold text-uppercase" id="lblNombreProducto"></span>
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-end mb-3">
-                    <button type="button" class="btn btn-primary fw-bold px-4 py-2" id="btnAgregarTabla" onclick="prepararYAgregarProducto()">
-                        <i class="bi bi-cart-plus-fill me-2"></i>Agregar producto
-                    </button>
-                </div>
-                <hr class="my-4" />
-
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="table-responsive">
-                        <table class="table table-bordered align-middle mb-0" id="tablaDetalleVenta">
-                            <!-- Encabezado estilo azul similar a la imagen -->
-                            <thead class="table-primary text-white" style="background-color: #2b6cb0; color: white;">
-                                <tr class="text-center text-uppercase fs-7">
-                                    <th style="width: 15%;">Código</th>
-                                    <th style="width: 35%;">Producto</th>
-                                    <th style="width: 10%;">Cant</th>
-                                    <th style="width: 15%;">Precio Unid</th>
-                                    <th style="width: 15%;">Total</th>
-                                    <th style="width: 10%;">Acción</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tbodyDetalleVenta">
-                                <!-- Filas dinámicas JS -->
-                                <tr id="trFilaVacia">
-                                    <td colspan="6" class="text-center text-muted py-4">
-                                        No hay productos agregados a la venta.
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <!-- Columna 2: Referencia y Color -->
+                <div class="col-12 col-sm-6 col-md-3 border-end-md pe-md-3">
+                    <div class="d-flex flex-wrap align-items-baseline gap-1 mb-2">
+                        <span class="fw-bold text-dark">REFERENCIA:</span>
+                        <span class="text-muted fw-bold text-uppercase" id="lblReferenciaProducto"></span>
                     </div>
-
-                    <!-- Pie de tabla con Total a Pagar y Botón de Registro -->
-                    <div class="card-footer bg-white p-3 d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="fs-5 fw-bold text-dark">TOTAL A PAGAR:</span>
-                            <span class="fs-4 fw-bolder text-success" id="lblTotalPagar">$ 0</span>
-                        </div>                        
+                    <hr class="my-2 text-secondary opacity-25">
+                    <div class="d-flex flex-wrap align-items-baseline gap-1">
+                        <span class="fw-bold text-dark">COLOR:</span>
+                        <span class="text-muted fw-bold text-uppercase" id="lblColorProducto"></span>
                     </div>
                 </div>
-                
-                <hr class="my-4" />
 
-
-                @* INICIA LA SECCIÓN DE PAGOS INTEGRADA EN EL FORMULARIO PRINCIPAL *@
-                <div class="container mt-4">
-                    <h4>Detalle del pago</h4>
-                    <div class="col-md-6 ms-auto">
-                        <div class="row align-items-center justify-content-end">
-                            <label for="validarPrecioTotalPagado" class="col-sm-6 col-form-label text-end fw-bold">VALOR TOTAL PAGADO</label>
-                            <div class="col-sm-6">
-                                <div class="input-group">
-                                    <span class="input-group-text bg-success text-white">COP</span>
-                                    <input type="text" class="form-control fw-bold" id="validarPrecioTotalPagado" asp-for="PrecioTotalPagado" required readonly>
-                                </div>
-                                <div id="resPrecioTotalPagado" class="form-text text-primary fw-bold text-end"></div>
-                            </div>
-
-                            <label for="validarPrecioRestantePorPagar" class="col-sm-6 col-form-label text-end fw-bold">VALOR RESTANTE POR PAGAR</label>
-                            <div class="col-sm-6">
-                                <div class="input-group">
-                                    <span class="input-group-text bg-success text-white">COP</span>
-                                    <input type="text" class="form-control fw-bold" id="validarPrecioRestantePorPagar" required readonly>
-                                </div>
-                                <div id="resPrecioRestantePorPagar" class="form-text text-primary fw-bold text-end"></div>
-                            </div>
+                <!-- Columna 3: SELECCIÓN DE LOTES -->
+                <div class="col-12 col-md-6">
+                    <div class="d-flex flex-column h-100">
+                        <small class="text-muted fw-bold text-uppercase mb-2">Lotes Disponibles (Seleccione uno o varios)</small>
+                        <div id="contenedorLotes" class="d-flex flex-wrap gap-2 align-items-center">
+                            <span class="text-muted fst-italic fs-7">Cargue un producto para ver los lotes...</span>
                         </div>
+                        <div id="resumenSeleccionLotes" class="mt-2 text-primary fw-bold text-start fs-7"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Entradas para buscar producto -->
+            <div class="row align-items-start mb-4">
+                <div class="col-lg-4 col-md-5">
+                    <div class="mb-3">
+                        <label for="validarCodigo" class="form-label fw-bold">
+                            CÓDIGO PRODUCTO<b class="text-danger"> *</b>
+                            <i class="far fa-question-circle" data-bs-toggle="tooltip" title="Ingresar un código"></i>
+                        </label>
+                        <input type="text" class="form-control" id="validarCodigo" asp-for="CodigoProducto">
                     </div>
 
-
-
-                    <div class="container bg-white p-5 mt-4 rounded shadow-sm">
-                        <div class="section-header d-flex justify-content-between align-items-center">
-                            <div>
-                                <h4 class="m-0 text-dark font-weight-bold">
-                                    <i class="fas fa-wallet me-2 text-success"></i>Métodos de Pago
-                                </h4>
-                                <small class="text-muted">Gestione los pagos del cliente para registrar la venta</small>
-                            </div>
-                            <button type="button" id="addPaymentMethod" class="btn btn-success rounded-pill px-4">
-                                <i class="fas fa-plus me-2"></i>Agregar Pago
-                            </button>
-                        </div>
-
-                        <div id="paymentMethodsContainer">
-                            <!-- Los bloques de pago aparecerán aquí -->
-                        </div>
-
-                        <div id="emptyState" class="text-center py-5 text-muted border rounded-3 bg-light">
-                            <i class="fas fa-hand-holding-dollar fa-3x mb-3 opacity-25"></i>
-                            <p class="mb-0">No hay métodos de pago agregados.</p>
-                            <small>Presione "Agregar Pago" para definir cómo se liquidará esta cuenta.</small>
-                        </div>
-                    </div>
-
-                    <!-- CONTENEDOR DEL BOTÓN FIJO -->
-                    <div class="sticky-btn-container">
-                        <button type="submit" class="btn btn-success btn-lg px-5 shadow-lg border-2 border-white btn-register-sale">
-                            <i class="fas fa-cash-register me-2"></i> Registrar Venta Completa
+                    <div class="d-grid gap-2">
+                        <button type="button" class="btn btn-primary d-flex align-items-center justify-content-center" id="btnCapturar">
+                            <img src="~/images/Admin_Productos/codigo-de-barras.png" style="width:20px; margin-right: 8px;" /> Capturar Código
                         </button>
+
+                        <div id="CancelarEscaneo" style="display: none;">
+                            <button type="button" class="btn btn-danger w-100 d-flex align-items-center justify-content-center" id="btnCancelarEscaneo">
+                                <img src="~/images/Admin_Productos/escaneo-de-codigo-de-barras.png" style="width:20px; margin-right: 8px;" /> Cancelar Escaneo
+                            </button>
+                        </div>
                     </div>
 
-                    <!-- TEMPLATE DE MÉTODO DE PAGO -->
-                    <template id="paymentMethodTemplate">
-                        <div class="card mb-3 payment-card active-payment-block shadow-sm">
-                            <div class="card-body">
-                                <div class="row g-3">
-                                    <div class="col-md-3">
-                                        <label class="form-label fw-bold small text-uppercase">Método</label>
-                                        <select class="form-select metodo-pago-select" name="Pagos[idx].MetodoId" required>
-                                            <option value="">Seleccione...</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-md-3 div-banco">
-                                        <label class="form-label fw-bold small text-uppercase">Banco</label>
-                                        <select class="form-select banco-select" name="Pagos[idx].BancoId">
-                                            <option value="">Seleccione Banco...</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-md-3 div-tipo-tarjeta">
-                                        <label class="form-label fw-bold small text-uppercase">Tipo Tarjeta</label>
-                                        <select class="form-select tipo-tarjeta-select" name="Pagos[idx].TipoTarjetaId">
-                                            <option value="">Seleccione Tipo...</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <label class="form-label fw-bold small text-uppercase">Valor</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text bg-light">COP</span>
-                                            <input type="number" step="0.01" class="form-control monto-pago" name="Pagos[idx].Monto" placeholder="0.00" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-1 d-flex align-items-end justify-content-end">
-                                        <button type="button" class="btn btn-outline-danger remove-payment-btn" title="Eliminar este pago">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-
-
-                </div>
-                <hr class="my-4" />
-
-
-
-                <div class="row">
-                    <div class="col-lg-12 col-sm-4">
-                        <div class="form-group">
-                            <label for="validarDetalle" class="col-sm-12 col-form-label">
-                                DETALLE
-                                <i class="far fa-question-circle" data-bs-toggle="tooltip" title="No mayor a 3000 caracteres"></i>
-                            </label>
-                            <div class="col-sm-12">
-                                <textarea type="text" class="form-control" id="validarDetalle" asp-for="Detalle"
-                                          rows="5" cols="20" style="width: 100%; resize: both;"></textarea>
-                            </div>
-                            <div class="valid-tooltip">
-                                OK!
-                            </div>
-                            <div class="invalid-tooltip">
-                                detalle superó los 200 caracteres
-                            </div>
-                        </div>
+                    <div id="contenedor" class="mt-2 text-center" style="display: none;">
+                        <video id="video" autoplay playsinline class="img-fluid border rounded shadow-sm"></video>
+                        <div id="marcoEscaneo"></div>
                     </div>
                 </div>
 
+                <div class="col-lg-4 col-md-2 text-center">
+                    <div class="position-relative d-inline-block">
+                        <input type="hidden" asp-for="ImagenProducto" id="ImagenProducto" />
+                        <img src="#" id="previewImagenProducto" class="img-thumbnail shadow-sm"
+                             style="width: 150px; height: 150px; object-fit: cover; display: none;" />
+                        <img src="~/images/Admin_Productos/SinArchivos.png" id="iconoPreviewImagenProducto"
+                             class="img-thumbnail shadow-sm" style="width: 120px; height: 120px; opacity: 0.6;" />
+                    </div>
+                    <div class="mt-2 small text-muted">
+                        <label class="d-block mb-2 fw-bold" id="lblCantStockActual" name="lblCantStockActual"></label>
+                    </div>
+                </div>
 
-
-
-                <hr />
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <a asp-controller="InventarioSalidaProductos" asp-action="Index" class="btn btn-dark btn-regresar">Atrás </a>
+                <div class="col-lg-4 col-md-5">
+                    <div class="row align-items-center">
+                        <label for="validarCantidadVendidos" class="col-sm-5 col-form-label text-end fw-bold">
+                            UNIDADES A VENDER:<b class="text-danger"> *</b>
+                        </label>
+                        <div class="col-sm-7">
+                            <input type="number" class="form-control form-control-lg border-primary" id="validarCantidadVendidos" asp-for="CantVendidos" min="1">
+                            <span asp-validation-for="CantVendidos" class="text-danger small"></span>
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6 border-end">
+                    <div class="row align-items-center">
+                        <label for="validarPrecioVentaPorUni" class="col-sm-4 col-form-label text-end fw-bold">VALOR UNIDAD</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <span class="input-group-text bg-success text-white">COP</span>
+                                <input type="text" class="form-control fw-bold" id="validarPrecioVentaPorUni" asp-for="PrecioVentaPorUni">
+                            </div>
+                            <div id="resPrecioVentaPorUni" class="form-text font-monospace text-end"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row align-items-center">
+                        <div class="col-auto d-flex align-items-center justify-content-center">
+                            <div class="form-check mb-0">
+                                <input class="form-check-input" type="checkbox" id="chkManualTotal" style="cursor: pointer;">
+                                <label class="form-check-label small fw-bold text-muted" for="chkManualTotal" style="cursor: pointer;">
+                                    Manual
+                                </label>
+                            </div>
+                        </div>
+
+                        <label for="validarPrecioVentaTotal" class="col col-form-label text-end fw-bold">VALOR TOTAL PRODUCTO</label>
+                        <div class="col-sm-7">
+                            <div class="input-group">
+                                <span class="input-group-text bg-success text-white">COP</span>
+                                <input type="text" class="form-control fw-bold" id="validarPrecioVentaTotal" asp-for="PrecioVentaTotal" readonly>
+                            </div>
+                            <div id="resPrecioVentaTotal" class="form-text text-primary fw-bold text-end"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-primary fw-bold px-4 py-2" id="btnAgregarTabla" onclick="prepararYAgregarProducto()">
+                    <i class="fa-solid fa-cart-plus me-1"></i> Agregar producto
+                </button>
+            </div>
         </div>
     </div>
+
+    <!-- ========================================== -->
+    <!-- 3. SECCIÓN: TABLA DE VISUALIZAR PRODUCTOS  -->
+    <!-- ========================================== -->
+    <div class="card shadow mb-4">
+        <div class="card-header bg-white py-3">
+            <span class="card-section-title">
+                <i class="fas fa-shopping-cart me-2"></i> 3. Lista de Productos Agregados
+            </span>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle mb-0" id="tablaDetalleVenta">
+                    <thead class="table-primary text-white" style="background-color: #2b6cb0; color: white;">
+                        <tr class="text-center text-uppercase fs-7">
+                            <th style="width: 15%;">Código</th>
+                            <th style="width: 35%;">Producto</th>
+                            <th style="width: 10%;">Cant</th>
+                            <th style="width: 15%;">Precio Unid</th>
+                            <th style="width: 15%;">Total</th>
+                            <th style="width: 10%;">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyDetalleVenta">
+                        <tr id="trFilaVacia">
+                            <td colspan="6" class="text-center text-muted py-4">
+                                No hay productos agregados a la venta.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer bg-white p-3 d-flex flex-column flex-md-row justify-content-end align-items-center gap-3">
+            <div class="d-flex align-items-center gap-2">
+                <label class="fs-5 fw-bold text-dark mb-0">TOTAL A PAGAR:</label>
+                <input type="text" class="fs-4 fw-bolder text-success form-control fw-bold w-auto text-end" id="lblTotalPagar" readonly value="$ 0">
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 4. FORMULARIO: AGREGAR MÉTODOS DE PAGO     -->
+    <!-- ========================================== -->
+    <div class="card shadow mb-4">
+        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+            <div>
+                <span class="card-section-title">
+                    <i class="fas fa-wallet me-2"></i> 4. Métodos de Pago
+                </span>
+                <small class="text-muted d-block mt-1">Gestione los pagos del cliente para registrar la venta</small>
+            </div>
+            <button type="button" id="addPaymentMethod" class="btn btn-success rounded-pill px-4">
+                <i class="fas fa-plus me-2"></i>Agregar Pago
+            </button>
+        </div>
+        <div class="card-body">
+            <!-- Totales de Pago -->
+            <div class="row justify-content-end mb-4">
+                <div class="col-md-6">
+                    <div class="row align-items-center mb-2">
+                        <label for="validarPrecioTotalPagado" class="col-sm-6 col-form-label text-end fw-bold">VALOR TOTAL PAGADO</label>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-text bg-success text-white">COP</span>
+                                <input type="text" class="form-control fw-bold" id="validarPrecioTotalPagado" asp-for="PrecioTotalPagado" readonly>
+                            </div>
+                            <div id="resPrecioTotalPagado" class="form-text text-primary fw-bold text-end"></div>
+                        </div>
+                    </div>
+                    <div class="row align-items-center">
+                        <label for="validarPrecioRestantePorPagar" class="col-sm-6 col-form-label text-end fw-bold">VALOR RESTANTE POR PAGAR</label>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-text bg-success text-white">COP</span>
+                                <input type="text" class="form-control fw-bold" id="validarPrecioRestantePorPagar" readonly>
+                            </div>
+                            <div id="resPrecioRestantePorPagar" class="form-text text-primary fw-bold text-end"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenedor Dinámico de Bloques de Pago -->
+            <div id="paymentMethodsContainer">
+                <!-- Los bloques de pago aparecerán aquí -->
+            </div>
+
+            <div id="emptyState" class="text-center py-5 text-muted border rounded-3 bg-light">
+                <i class="fas fa-hand-holding-dollar fa-3x mb-3 opacity-25"></i>
+                <p class="mb-0">No hay métodos de pago agregados.</p>
+                <small>Presione "Agregar Pago" para definir cómo se liquidará esta cuenta.</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- TEMPLATE DE MÉTODO DE PAGO -->
+    <template id="paymentMethodTemplate">
+        <div class="card mb-3 payment-card active-payment-block shadow-sm">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label fw-bold small text-uppercase">Método</label>
+                        <select class="form-select metodo-pago-select" name="Pagos[idx].MetodoId" required>
+                            <option value="">Seleccione...</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 div-banco">
+                        <label class="form-label fw-bold small text-uppercase">Banco</label>
+                        <select class="form-select banco-select" name="Pagos[idx].BancoId">
+                            <option value="">Seleccione Banco...</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 div-tipo-tarjeta">
+                        <label class="form-label fw-bold small text-uppercase">Tipo Tarjeta</label>
+                        <select class="form-select tipo-tarjeta-select" name="Pagos[idx].TipoTarjetaId">
+                            <option value="">Seleccione Tipo...</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-2">
+                        <label class="form-label fw-bold small text-uppercase">Valor</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light">COP</span>
+                            <input type="number" step="0.01" class="form-control monto-pago" name="Pagos[idx].Monto" placeholder="0.00" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-1 d-flex align-items-end justify-content-end">
+                        <button type="button" class="btn btn-outline-danger remove-payment-btn" title="Eliminar este pago">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- ========================================== -->
+    <!-- 5. SECCIÓN: REGISTRAR DETALLE / OBSERVACIÓN -->
+    <!-- ========================================== -->
+    <div class="card shadow mb-4">
+        <div class="card-header bg-white py-3">
+            <span class="card-section-title">
+                <i class="fas fa-comment-alt me-2"></i> 5. Observaciones / Detalle
+            </span>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="validarDetalle" class="form-label fw-bold">
+                    DETALLE
+                    <i class="far fa-question-circle" data-bs-toggle="tooltip" title="No mayor a 3000 caracteres"></i>
+                </label>
+                <textarea class="form-control" id="validarDetalle" asp-for="Detalle" rows="4" style="width: 100%; resize: vertical;"></textarea>
+                <div class="valid-tooltip">OK!</div>
+                <div class="invalid-tooltip">El detalle superó los 200 caracteres</div>
+            </div>
+        </div>
+        <div class="card-footer bg-white py-3 d-flex justify-content-between align-items-center">
+            <a asp-controller="InventarioSalidaProductos" asp-action="Index" class="btn btn-dark px-4">
+                <i class="fas fa-arrow-left me-1"></i> Atrás
+            </a>
+        </div>
+    </div>
+
+    <!-- CONTENEDOR DEL BOTÓN FIJO DE REGISTRO -->
+    <div class="sticky-btn-container">
+        <button type="button" class="btn btn-success btn-lg px-5 shadow-lg border-2 border-white btn-register-sale" id="btnRegistrarVenta" onclick="RegistrarVentaProducto()">
+            <i class="fas fa-cash-register me-2"></i> Registrar Venta Completa
+        </button>
+    </div>
+
+    @* </form> *@
 </div>
-
-
 
 @section Scripts {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
@@ -467,21 +558,13 @@
     <script src="~/js/VentaDeProducto.js"></script>
 
     <script>
-        // // These variables MUST come from your ViewBag, not hardcoded if they change!
-        // var metodoDePagoOptions = @Html.Raw(Json.Serialize(ViewBag.MetodoDePagoId));
-        // var bancoOptions = @Html.Raw(Json.Serialize(ViewBag.BancoId));
-        // var creditoDebitoOptions = @Html.Raw(Json.Serialize(ViewBag.CreditoDebitoId));
 
+        // window.usuarioTallerId = "tallerId";
 
-
-        // Validaciones
         (function () {
             'use strict'
-
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
             var forms = document.querySelectorAll('.needs-validation')
 
-            // Loop over them and prevent submission
             Array.prototype.slice.call(forms)
                 .forEach(function (form) {
                     form.addEventListener('submit', function (event) {
@@ -489,7 +572,6 @@
                             event.preventDefault()
                             event.stopPropagation()
                         }
-
                         form.classList.add('was-validated')
                     }, false)
                 })
@@ -498,13 +580,10 @@
         function formatoMoneda(input, resultPrecio) {
             const resultadoElement = document.getElementById(resultPrecio);
 
-            // Obtener el valor actual del input y remover los caracteres no numéricos
             let precio = input.value.replace(/\D/g, '');
-            //let amount = precio.replace(',', '.');
             let amount = parseInt(precio);
 
             if (!isNaN(amount)) {
-                // Formatear el valor como moneda COP
                 const formatoMoneda = new Intl.NumberFormat("es-CO", {
                     style: "currency",
                     currency: "COP",
@@ -514,25 +593,20 @@
                 const cantidadFormateada = formatoMoneda.format(amount);
                 input.value = cantidadFormateada;
             } else {
-                    input.value = '';
-                resultadoElement.textContent = "Por favor ingrese un valor válido.";
+                input.value = '';
+                if(resultadoElement) resultadoElement.textContent = "Por favor ingrese un valor válido.";
             }
         }
 
-        // Ocultar el mensaje después de 30 segundos
         setTimeout(function () {
             var alertMessage = document.getElementById("alert-message");
             if (alertMessage) {
                 alertMessage.style.display = "none";
             }
-        }, 30000); // 30 segundos
-
-
-
+        }, 30000);
     </script>
 
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-
 }

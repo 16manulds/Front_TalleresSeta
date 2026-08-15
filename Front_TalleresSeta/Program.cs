@@ -41,6 +41,8 @@ builder.Services.AddScoped<IFuncionRepositorio, FuncionRepositorio>();
 builder.Services.AddScoped<IInventarioStockRepositorio, InventarioStockRepositorio>();
 builder.Services.AddScoped<IInventarioLoteRepositorio, InventarioLoteRepositorio>();
 builder.Services.AddScoped<ILoginRepositorio, LoginRepositorio>();
+builder.Services.AddScoped<ITipoDocumentoRepositorio, TipoDocumentoRepositorio>();
+builder.Services.AddScoped<ITipoVehiculoRepositorio, TipoVehiculoRepositorio>();
 
 // configurar la sesión - tiempo activo y direccionamientos
 builder.Services.AddAuthentication(options =>

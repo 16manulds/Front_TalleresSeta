@@ -82,8 +82,9 @@ namespace Front_TalleresSeta.Controllers
                                     }
                                     else
                                     {
-                                        var responseUsuarios = await _httpClient.GetAsync($"Usuarios/Obtener/{userLogueado.UsuarioId}");
-                                        var usuarios = await responseUsuarios.Content.ReadFromJsonAsync<ViewUsuario>();
+                                        var usuarios = await _httpClient.GetFromJsonAsync<Usuario>($"Usuarios/ObtenerUsuarioLogin/{userLogueado.UsuarioId}");
+
+                                        //var usuarios = await responseUsuarios.Content.ReadFromJsonAsync<ViewUsuario>();
 
                                         if (usuarios != null)
                                         {
@@ -92,8 +93,8 @@ namespace Front_TalleresSeta.Controllers
                                             identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, ($"{userLogueado.UsuarioId}")));
                                             identity.AddClaim(new Claim(ClaimTypes.Name, ($"{userLogueado.UsuarioId}")));
                                             identity.AddClaim(new Claim("Nombre", ($"{usuarios?.PrimerNombre} {usuarios?.PrimerApellido}")));
-                                            identity.AddClaim(new Claim("UsuarioSucursalId", ($"{usuarios?.SucursalId}")));
-                                            identity.AddClaim(new Claim("UsuarioTallerId", ($"{usuarios?.TallerId}")));
+                                            identity.AddClaim(new Claim("UsuarioSucursalId", ($"{usuarios?.Sucursales?.SucursalId}")));
+                                            identity.AddClaim(new Claim("UsuarioTallerId", $"{usuarios?.Sucursales?.Talleres?.TallerId}"));
 
                                             var userRoles = JsonConvert.DeserializeObject<UsuariosPermisos>(userLogueado.Permisos.ToString());
 
