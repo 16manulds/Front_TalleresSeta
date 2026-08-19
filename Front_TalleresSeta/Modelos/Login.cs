@@ -26,7 +26,7 @@ namespace Front_TalleresSeta.Modelos
 
 
         [ForeignKey("Usuario")]
-        public long UsuarioId { get; set; }
+        public long Documento { get; set; }
         public virtual Usuario? Usuarios { get; set; } = null;
 
     }

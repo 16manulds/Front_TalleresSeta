@@ -13,7 +13,7 @@
 
     var TipoUser = User.FindFirst("TipoUsuarioAcceso")?.Value ?? string.Empty;
     var TipoRol = User.FindFirst("TipoRolAcceso")?.Value ?? string.Empty;
-    //var tallerId = 1; //User.FindFirst("UsuarioTallerId")?.Value ?? string.Empty;
+    var tallerId = User.FindFirst("UsuarioTallerId")?.Value ?? string.Empty;
 }
 
 <style>
@@ -96,11 +96,16 @@
     <!-- 1. FORMULARIO: DATOS DEL CLIENTE Y VEHÍCULO -->
     <!-- ========================================== -->
     <div class="card shadow mb-4">
+        <input type="hidden" id="txtTallerId" value="@tallerId" />
+
         <div class="card-header bg-white py-3">
             <div class="d-flex justify-content-between align-items-center">
                 <span class="card-section-title">
                     <i class="fas fa-user-gear me-2"></i> 1. Información del Cliente y Vehículo
                 </span>
+                <label class="form-label fw-bold">
+                    Número de Pedido: <span id="lblNumeroPedido" class="text-primary">Generando ID...</span>
+                </label>
                 <span class="small text-muted">Campos Obligatorios <b class="text-danger">*</b></span>
             </div>
         </div>
@@ -134,13 +139,13 @@
                             <label class="form-label small fw-bold">
                                 TIPO<b style="color:red;"> *</b>
                             </label>
-                            <select id="TipoDocumentoId" class="form-control col-md-8" asp-for="TipoDocumentoId" asp-items="ViewBag.TipoDocumentoId" required>
+                            <select id="TipoDocumentoId" class="form-control col-md-8" asp-for="TipoDocumentoId" asp-items="ViewBag.TipoDocumentoId">
                                 <option value="">...</option>
                             </select>
                         </div>
                         <div class="col-md-4">
                             <label class="form-label small fw-bold">Documento</label><b style="color:red;"> *</b>
-                            <input type="text" id="txtClienteDocumento" class="form-control col-md-12" placeholder="Número de documento" required>
+                            <input type="text" id="txtClienteDocumento" class="form-control col-md-12" placeholder="Número de documento">
                         </div>
                     </div>
                 </div>
@@ -149,7 +154,7 @@
                     <div class="row g-2">
                         <div class="col-3">
                             <label class="form-label small fw-bold">Primer Nombre</label><b style="color:red;"> *</b>
-                            <input type="text" id="txtPrimerNombre" class="form-control form-control-sm" placeholder="Primre Nombre" required>
+                            <input type="text" id="txtPrimerNombre" class="form-control form-control-sm" placeholder="Primre Nombre">
                         </div>
                         <div class="col-3">
                             <label class="form-label small fw-bold">Segundo Nombre</label>
@@ -157,7 +162,7 @@
                         </div>
                         <div class="col-3">
                             <label class="form-label small fw-bold">Primer Apellido</label><b style="color:red;"> *</b>
-                            <input type="text" id="txtPrimerApellido" class="form-control form-control-sm" placeholder="Primer Apellido" required>
+                            <input type="text" id="txtPrimerApellido" class="form-control form-control-sm" placeholder="Primer Apellido">
                         </div>
                         <div class="col-3">
                             <label class="form-label small fw-bold">Segundo Apellido</label>
@@ -191,9 +196,9 @@
                         </div>
                         <div class="col-md-2">
                             <label class="form-label small fw-bold">
-                                TIPO VEHÍCULO<b style="color:red;"> *</b>
+                                TIPO VEHÍCULO
                             </label>
-                            <select id="TipoVehiculoId" class="form-control col-md-8" asp-for="TipoVehiculoId" asp-items="ViewBag.TipoVehiculoId" required>
+                            <select id="TipoVehiculoId" class="form-control col-md-8" asp-for="TipoVehiculoId" asp-items="ViewBag.TipoVehiculoId">
                                 <option value="">...</option>
                             </select>
                         </div>

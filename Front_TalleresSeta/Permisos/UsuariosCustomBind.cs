@@ -3,7 +3,7 @@
     public static class UsuariosCustomBind
     {
 
-        public const string Usuarios = "UsuarioId," +
+        public const string Usuarios =
             "Delete," +
             "Documento," +
             "PrimerNombre," +

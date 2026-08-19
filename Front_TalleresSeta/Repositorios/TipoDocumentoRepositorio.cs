@@ -31,23 +31,6 @@ namespace Front_TalleresSeta.Repositorios
             }
         }
 
-
-        public async Task<SelectList> ObtenerTipoDeVehiculosAsync(long idTaller)
-        {
-            try
-            {
-                var tipos = await _httpClient.GetFromJsonAsync<List<TipoVehiculo>>($"TipoVehiculos/mostrarTipoVehiculos/{idTaller}");
-                var lista = tipos ?? new List<TipoVehiculo>();
-
-                return new SelectList(lista, "TipoVehiculoId", "TipoV");
-            }
-            catch (Exception)
-            {
-                return new SelectList(new List<TipoVehiculo>(), "TipoVehiculoId", "TipoV");
-            }
-        }
-
-
-
+               
     }
 }

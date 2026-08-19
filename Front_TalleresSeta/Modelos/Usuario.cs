@@ -13,23 +13,21 @@ namespace Front_TalleresSeta.Modelos
         }
 
         [Key]
-        public long UsuarioId { get; set; }
+        [Required(ErrorMessage = "Ingresa un documento valido")]
+        public long Documento { get; set; } = 222222222222;
         public bool Habilitado { get; set; } = true;
         public DateTime FechaRegistro { get; set; } = DateTime.Now;
-
-        [Required(ErrorMessage = "Ingresa un documento valido")]
-        public long Documento { get; set; } = 0;
-
+                
         [Required(ErrorMessage = "Ingresa un nombre al usuario")]
         [StringLength(30)]
-        public string PrimerNombre { get; set; } = null!;
+        public string PrimerNombre { get; set; } = "Clientes";
 
         [StringLength(30)]
         public string? SegundoNombre { get; set; }
 
         [Required(ErrorMessage = "Ingresa un apellido al usuario")]
         [StringLength(30)]
-        public string PrimerApellido { get; set; } = null!;
+        public string PrimerApellido { get; set; } = "Varios";
 
         [StringLength(30)]
         public string? SegundoApellido { get; set; }
@@ -57,30 +55,30 @@ namespace Front_TalleresSeta.Modelos
 
         [Required(ErrorMessage = "Selecciona el estado del usuario")]
         [ForeignKey("Estado")]
-        public long EstadoId { get; set; }
+        public long? EstadoId { get; set; }
         public virtual Estado? Estados { get; set; } = null;
 
         [Required(ErrorMessage = "Selecciona un tipo de usuario")]
         [ForeignKey("TipoUsuario")]
         public long TipoUsuarioId { get; set; }
-        public virtual TipoUsuario? TipoUsuarios { get; set; } = null;
+        public virtual TipoUsuario TipoUsuarios { get; set; } = null!;
 
 
         [Required(ErrorMessage = "Selecciona un tipo de documento")]
         [ForeignKey("TipoDocumento")]
         public long TipoDocumentoId { get; set; }
-        public virtual TipoDocumento? TipoDocumentos { get; set; } = null;
+        public virtual TipoDocumento TipoDocumentos { get; set; } = null!;
 
 
         [Required(ErrorMessage = "Selecciona un rol de usuario")]
         [ForeignKey("RolUsuario")]
         public long RolUsuarioId { get; set; }
-        public virtual RolUsuario? RolUsuarios { get; set; } = null;
+        public virtual RolUsuario RolUsuarios { get; set; } = null!;
 
         [Required(ErrorMessage = "Selecciona una sucursal")]
         [ForeignKey("Sucursal")]
         public long SucursalId { get; set; }
-        public virtual Sucursal? Sucursales { get; set; } = null;
+        public virtual Sucursal Sucursales { get; set; } = null!;
                         
 
         public virtual ICollection<Vehiculo> Vehiculos { get; set; }

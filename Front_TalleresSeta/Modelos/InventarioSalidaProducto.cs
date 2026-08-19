@@ -5,23 +5,19 @@ namespace Front_TalleresSeta.Modelos
 {
     public class InventarioSalidaProducto
     {
-        public InventarioSalidaProducto()
-        {
-            InventarioGanancias = new HashSet<InventarioGanancia>();
-        }
+        //public InventarioSalidaProducto()
+        //{
+        //    InventarioGanancias = new HashSet<InventarioGanancia>();
+        //}
 
         [Key]
         public long IdInventarioSalidaProducto { get; set; }
         public bool Habilitado { get; set; } = true;
         public DateTime FechaRegistro { get; set; } = DateTime.Now;
         public Int64 PrecioFinalXuni { get; set; } = 0;
-        public Int64 PrecioFinaVenta { get; set; } = 0;
-        public Int64 PrecioFinalVentaPagado { get; set; } = 0;
         public int? CantVendidos { get; set; } = 0;
         public int? CantDevoluciones { get; set; } = 0;
-
-        [StringLength(3000)]
-        public string? Detalle { get; set; } = "N/A";
+        public string? EstadoProducto { get; set; } = null;
 
 
         [ForeignKey("InventarioEntradaProducto")]
@@ -34,6 +30,17 @@ namespace Front_TalleresSeta.Modelos
         public virtual Taller? Talleres { get; set; } = null;
 
 
-        public virtual ICollection<InventarioGanancia> InventarioGanancias { get; set; } = null!;
+        [ForeignKey("Factura")]
+        public long? FacturaId { get; set; } = null;
+        public virtual Factura? Facturas { get; set; } = null;
+
+
+        [ForeignKey("Pedido")]
+        public long PedidoId { get; set; }
+        public virtual Pedido? Pedidos { get; set; } = null;
+
+
+
+        //public virtual ICollection<InventarioGanancia> InventarioGanancias { get; set; } = null!;
     }
 }

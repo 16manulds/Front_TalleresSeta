@@ -202,7 +202,7 @@
 
 //                                            // Agregar devolución
 //                                            model.FechaRegistro = DateTime.Now;
-//                                            model.UsuarioId = logueado.Id;
+//                                            model.Documento = logueado.Id;
 //                                            model.TallerId = TallerId;
 //                                            await _httpClient.PostAsJsonAsync("inventarioDevoluciones/add", model);
 //                                            error = false;

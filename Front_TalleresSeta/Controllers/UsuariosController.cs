@@ -154,7 +154,7 @@ namespace Front_TalleresSeta.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UsuarioId,Habilitado,FechaRegistro,Documento,PrimerNombre,SegundoNombre,PrimerApellido,SegundoApellido,FechaNacimiento,Sexo,TelefonoFijo,TelefonoMovil,DireccionPrincipal,DireccionAlterna,Correo,EstadoId,TipoUsuarioId,TipoDocumentoId,RolUsuarioId,SucursalId")] Usuario model)
+        public async Task<IActionResult> Create([Bind("Documento,Habilitado,FechaRegistro,PrimerNombre,SegundoNombre,PrimerApellido,SegundoApellido,FechaNacimiento,Sexo,TelefonoFijo,TelefonoMovil,DireccionPrincipal,DireccionAlterna,Correo,EstadoId,TipoUsuarioId,TipoDocumentoId,RolUsuarioId,SucursalId")] Usuario model)
         {
             var logueado = _funcionRepo.ObtenerDatosLogueadoAsync();
             if (!logueado.IsAuth)
@@ -263,7 +263,7 @@ namespace Front_TalleresSeta.Controllers
                                 Permisos = "",
                                 RememberMe = false,
                                 TallerId = sucursalesLogueo.TallerId,
-                                UsuarioId = model.UsuarioId
+                                Documento = model.Documento
                             };
 
                             //Crear y asociar login
@@ -367,7 +367,7 @@ namespace Front_TalleresSeta.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("UsuarioId,Habilitado,FechaRegistro,Documento,PrimerNombre,SegundoNombre,PrimerApellido,SegundoApellido,FechaNacimiento,Sexo,TelefonoFijo,TelefonoMovil,DireccionPrincipal,DireccionAlterna,Correo,EstadoId,TipoUsuarioId,TipoDocumentoId,RolUsuarioId,SucursalId")] Usuario model)
+        public async Task<IActionResult> Edit([Bind("Documento,Habilitado,FechaRegistro,PrimerNombre,SegundoNombre,PrimerApellido,SegundoApellido,FechaNacimiento,Sexo,TelefonoFijo,TelefonoMovil,DireccionPrincipal,DireccionAlterna,Correo,EstadoId,TipoUsuarioId,TipoDocumentoId,RolUsuarioId,SucursalId")] Usuario model)
         {
             accion = "ACTUALIZADO";
             mensaje = "Actualización satisfactoria...";

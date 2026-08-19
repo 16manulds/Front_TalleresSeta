@@ -82,7 +82,7 @@ namespace Front_TalleresSeta.Controllers
                                     }
                                     else
                                     {
-                                        var usuarios = await _httpClient.GetFromJsonAsync<Usuario>($"Usuarios/ObtenerUsuarioLogin/{userLogueado.UsuarioId}");
+                                        var usuarios = await _httpClient.GetFromJsonAsync<Usuario>($"Usuarios/ObtenerUsuarioLogin/{userLogueado.Documento}");
 
                                         //var usuarios = await responseUsuarios.Content.ReadFromJsonAsync<ViewUsuario>();
 
@@ -90,8 +90,8 @@ namespace Front_TalleresSeta.Controllers
                                         {
                                             var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
 
-                                            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, ($"{userLogueado.UsuarioId}")));
-                                            identity.AddClaim(new Claim(ClaimTypes.Name, ($"{userLogueado.UsuarioId}")));
+                                            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, ($"{userLogueado.Documento}")));
+                                            identity.AddClaim(new Claim(ClaimTypes.Name, ($"{userLogueado.Documento}")));
                                             identity.AddClaim(new Claim("Nombre", ($"{usuarios?.PrimerNombre} {usuarios?.PrimerApellido}")));
                                             identity.AddClaim(new Claim("UsuarioSucursalId", ($"{usuarios?.Sucursales?.SucursalId}")));
                                             identity.AddClaim(new Claim("UsuarioTallerId", $"{usuarios?.Sucursales?.Talleres?.TallerId}"));

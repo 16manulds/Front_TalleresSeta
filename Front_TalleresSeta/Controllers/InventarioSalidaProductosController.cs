@@ -3,6 +3,7 @@ using Front_TalleresSeta.Modelos.ModelosView;
 using Front_TalleresSeta.Repositorios.IRepositorios;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
@@ -15,6 +16,9 @@ namespace Front_TalleresSeta.Controllers
         private readonly IInventarioStockRepositorio _inventarioStockRepo;
         private readonly IInventarioLoteRepositorio _inventarioLoteRepo;
         private readonly ITipoDocumentoRepositorio _tipoDocumentoRepo;
+        private readonly ITipoVehiculoRepositorio _tipoVehiculoRepo;
+        private readonly IPedidoRepositorio _pedidoRepo;
+        private readonly IInventarioSalidaProductoRepositorio _inventarioSalidaProducto;
         public static string tabla = "InventarioSalidaProductos";
         public static string mensaje = string.Empty;
         public static string idItem = string.Empty;
@@ -22,13 +26,16 @@ namespace Front_TalleresSeta.Controllers
         public static string mensajeError = string.Empty;
         public static SelectList talleres = null!;
 
-        public InventarioSalidaProductosController(IHttpClientFactory httpClientFactory, IFuncionRepositorio funcionRepo, IInventarioStockRepositorio inventarioStockRepo, IInventarioLoteRepositorio inventarioLoteRepo, ITipoDocumentoRepositorio tipoDocumentoRepo)
+        public InventarioSalidaProductosController(IHttpClientFactory httpClientFactory, IFuncionRepositorio funcionRepo, IInventarioStockRepositorio inventarioStockRepo, IInventarioLoteRepositorio inventarioLoteRepo, ITipoDocumentoRepositorio tipoDocumentoRepo, ITipoVehiculoRepositorio tipoVehiculoRepo, IPedidoRepositorio pedidoRepo, IInventarioSalidaProductoRepositorio inventarioSalidaProducto  )
         {
             _httpClient = httpClientFactory.CreateClient("ApiClient");
             _funcionRepo = funcionRepo;
             _inventarioStockRepo = inventarioStockRepo;
             _inventarioLoteRepo = inventarioLoteRepo;
             _tipoDocumentoRepo = tipoDocumentoRepo;
+            _tipoVehiculoRepo = tipoVehiculoRepo;
+            _pedidoRepo = pedidoRepo;
+            _inventarioSalidaProducto = inventarioSalidaProducto;
         }
 
 
@@ -114,13 +121,14 @@ namespace Front_TalleresSeta.Controllers
             {
                 try
                 {
-                    //var tipoDoccumentos = await _tipoDocumentoRepo.ObtenerTipoDeDocumentosAsync(1);
-                    //ViewBag.TipoDocumentoId = tipoDoccumentos;
+                    //Registrar ID Pedido
+                    //var idPedido = await _pedidoRepo.CrearPedidoAsync(logueado.IdTaller);
+                    //ViewBag.PedidoId = idPedido.consecutivo;
 
-                    SelectList tipoDocumentos = await _tipoDocumentoRepo.ObtenerTipoDeDocumentosAsync(1);
+                    SelectList tipoDocumentos = await _tipoDocumentoRepo.ObtenerTipoDeDocumentosAsync(logueado.IdTaller);
                     ViewBag.TipoDocumentoId = tipoDocumentos;
 
-                    SelectList tipoVehiculos = await _tipoDocumentoRepo.ObtenerTipoDeDocumentosAsync(1);
+                    SelectList tipoVehiculos = await _tipoVehiculoRepo.ObtenerTipoDeVehiculosAsync(logueado.IdTaller);
                     ViewBag.TipoVehiculoId = tipoVehiculos;
 
 
@@ -136,9 +144,47 @@ namespace Front_TalleresSeta.Controllers
             }
         }
 
+
+        [HttpPut]
+        public async Task<IActionResult> AgregarProductoVenta([FromQuery] long filtroId, [FromBody] ViewAgregarProducto model)
+        {
+            if (filtroId <= 0)
+            {
+                return BadRequest(new { success = false, mensaje = "El identificador del taller es requerido." });
+            }
+
+            if (model == null || model.PedidoId <= 0)
+            {
+                return BadRequest(new { success = false, mensaje = "Los datos del producto o el ID del pedido no son válidos." });
+            }
+
+            try
+            {
+                // Invoca el repositorio o servicio backend que guarda el producto en BD
+                long idProductoGuardado = await _inventarioSalidaProducto.AgregarProductoVentaAsync(filtroId, model);
+
+                if (idProductoGuardado <= 0)
+                {
+                    return StatusCode(500, new { success = false, mensaje = "No se pudo insertar el producto en la base de datos." });
+                }
+
+                // Retorna la propiedad 'id' esperada por el fetch en JavaScript
+                return Json(new { id = idProductoGuardado });
+            }
+            catch (HttpRequestException ex)
+            {
+                return StatusCode(500, new { success = false, mensaje = "Error de comunicación con el servicio de Inventario.", detalle = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { success = false, mensaje = "Ocurrió un error inesperado al agregar el producto.", detalle = ex.Message });
+            }
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Habilitado, CodigoProducto, FechaVenta, NombreProducto, UnidadesStock, PrecioVentaPorUni, PrecioVentaTotal, PrecioTotalPagado, CantVendidos, CantDevoluciones, Detalle, MetodoDePago, ImagenProducto, NombreProveedor, NombreMarca, NombreCategoria, NombreSubCategoria, NombreColor, NombreMedida, UnidadMedida, Taller, TallerId, Pagos")] ViewVentaProducto model)
+        public async Task<IActionResult> Create([Bind("Habilitado, CodigoProducto, FechaVenta, NombreProducto, UnidadesStock, PrecioVentaPorUni, PrecioVentaTotal, PrecioTotalPagado, CantVendidos, CantDevoluciones,  MetodoDePago, ImagenProducto, NombreProveedor, NombreMarca, NombreCategoria, NombreSubCategoria, NombreColor, NombreMedida, UnidadMedida, Taller, TallerId, Pagos")] ViewVentaProducto model)
         {
             var logueado = _funcionRepo.ObtenerDatosLogueadoAsync();
             if (!logueado.IsAuth)
@@ -191,11 +237,11 @@ namespace Front_TalleresSeta.Controllers
                                             Habilitado = true,
                                             FechaRegistro = fechaRegistro,
                                             PrecioFinalXuni = pUnidad,
-                                            PrecioFinaVenta = pVenta,
-                                            PrecioFinalVentaPagado = pVentaPagada,
+                                            //PrecioFinalVenta = pVenta,
+                                            //PrecioFinalVentaPagado = pVentaPagada,
                                             CantVendidos = model.CantVendidos,
                                             CantDevoluciones = model.CantDevoluciones,
-                                            Detalle = model.Detalle ??= "N/A",
+                                            //Detalle = model.Detalle ??= "N/A",
                                             TallerId = model.TallerId,
                                             CodigoProducto = model.CodigoProducto!
                                         };
@@ -229,13 +275,13 @@ namespace Front_TalleresSeta.Controllers
                                                     Habilitado = true,
                                                     FechaRegistro = fechaRegistro,
                                                     ValorPago = pago.Monto!,
-                                                    OrigenPago = idItem,
+                                                    //OrigenPago = idItem,
                                                     TipoTarjetaPagoId = pago.TipoTarjetaId,
                                                     MetodoDePagoId = pago.MetodoId,
                                                     BancoId = pago.BancoId,
-                                                    CodigoProducto = model.CodigoProducto,
+                                                    //CodigoProducto = model.CodigoProducto,
                                                     TallerId = model.TallerId,
-                                                    IdInventarioSalidaProducto = idVenta
+                                                    //IdInventarioSalidaProducto = idVenta
                                                 };
 
                                                 //Registrar venta del pago

@@ -6,6 +6,5 @@ namespace Front_TalleresSeta.Repositorios.IRepositorios
     public interface ITipoDocumentoRepositorio
     {
         Task<SelectList> ObtenerTipoDeDocumentosAsync(long idTaller);
-        Task<SelectList> ObtenerTipoDeVehiculosAsync(long idTaller);
     }
 }

@@ -28,6 +28,7 @@ namespace Front_TalleresSeta.Modelos
             //Usuarios = new HashSet<Usuario>();
             Vehiculos = new HashSet<Vehiculo>();
             Logins = new HashSet<Login>();
+            Pedidos = new HashSet<Pedido>();
         }
 
         [Key]
@@ -69,5 +70,6 @@ namespace Front_TalleresSeta.Modelos
         //public virtual ICollection<Usuario> Usuarios { get; set; }
         public virtual ICollection<Vehiculo> Vehiculos { get; set; }
         public virtual ICollection<Login> Logins { get; set; }
+        public virtual ICollection<Pedido> Pedidos { get; set; }
     }
 }

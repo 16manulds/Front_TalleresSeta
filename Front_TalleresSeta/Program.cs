@@ -43,6 +43,7 @@ builder.Services.AddScoped<IInventarioLoteRepositorio, InventarioLoteRepositorio
 builder.Services.AddScoped<ILoginRepositorio, LoginRepositorio>();
 builder.Services.AddScoped<ITipoDocumentoRepositorio, TipoDocumentoRepositorio>();
 builder.Services.AddScoped<ITipoVehiculoRepositorio, TipoVehiculoRepositorio>();
+builder.Services.AddScoped<IPedidoRepositorio, PedidoRepositorio>();
 
 // configurar la sesión - tiempo activo y direccionamientos
 builder.Services.AddAuthentication(options =>
@@ -52,14 +53,16 @@ builder.Services.AddAuthentication(options =>
     options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 })
 .AddCookie(options =>
-{
+{    
     options.Cookie.HttpOnly = true;
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(240);
-    //La sesión del usuario se mantendrá activa siempre y cuando continúe interactuando con la aplicación el usuario
-    options.SlidingExpiration = true; // Habilita la expiración deslizante, renueva las cookies con la interaccion del usuario
+    //options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    options.ExpireTimeSpan = TimeSpan.FromHours(4); // Define el tiempo de vida en 4 horas
+    options.SlidingExpiration = true; // Reinicia el contador si el usuario interactúa con la app
     options.AccessDeniedPath = "/Login/Acceso";
     options.LoginPath = "/Login/Acceso";
     options.LogoutPath = "/Login/Logout"; // Corregido el LogoutPath
+    // Opcional: Para mayor seguridad en la cookie
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
 
 // Add services to the container.

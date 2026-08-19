@@ -3,11 +3,10 @@
 namespace Front_TalleresSeta.Modelos
 {
     public partial class ViewUsuario
-    {        
-        public long UsuarioId { get; set; }
+    {
+        public string Documento { get; set; } = null!;
         public bool Habilitado { get; set; }
         public DateTime FechaRegistro { get; set; }
-        public string Documento { get; set; } = null!;
         public string PrimerNombre { get; set; } = null!;
         public string? SegundoNombre { get; set; }
         public string PrimerApellido { get; set; } = null!;
@@ -31,6 +30,6 @@ namespace Front_TalleresSeta.Modelos
         public long SucursalId { get; set; }
         public long TallerId { get; set; }
 
-        
+
     }
 }
