@@ -38,16 +38,23 @@ namespace Front_TalleresSeta.Repositorios
         {
             try
             {
-                var model = new Pedido
+                // Enviamos solo los datos primitivos necesarios
+                var payload = new
                 {
-                    ConsecutivoPedido = $"P-{DateTime.Now:yyyyMMddHHmmss}",
-                    EstadoPedido = "PENDIENTE",
+                    Habilitado = true,
+                    FechaRegistro = DateTime.Now,
+                    ConsecutivoPedido = $"P-000-{DateTime.Now:yy}",
+                    EstadoPedido = "PEDIDO_CREADO",
+                    Detalle = "P",
                     TallerId = idTaller
                 };
 
-                var responseEdit = await _httpClient.PostAsJsonAsync("Pedidos/crear", model);
+                var responseEdit = await _httpClient.PostAsJsonAsync("Pedidos/crear", payload);
+
                 if (!responseEdit.IsSuccessStatusCode)
                 {
+                    var errorContent = await responseEdit.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Error de Servidor ({responseEdit.StatusCode}): {errorContent}");
                     return (0, string.Empty);
                 }
 
@@ -58,14 +65,10 @@ namespace Front_TalleresSeta.Repositorios
                 string consecutivo = string.Empty;
 
                 if (document.RootElement.TryGetProperty("id", out JsonElement idElement))
-                {
                     id = idElement.GetInt64();
-                }
 
                 if (document.RootElement.TryGetProperty("consecutivo", out JsonElement consecutivoElement))
-                {
                     consecutivo = consecutivoElement.GetString() ?? string.Empty;
-                }
 
                 return (id, consecutivo);
             }

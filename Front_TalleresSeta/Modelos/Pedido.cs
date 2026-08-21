@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Front_TalleresSeta.Modelos
 {
@@ -24,18 +25,26 @@ namespace Front_TalleresSeta.Modelos
 
         [Required]
         [StringLength(50)]
-        public string EstadoPedido { get; set; } = null!;
+        public string EstadoPedido { get; set; } = "PEDIDO_CREADO";
 
         [StringLength(3000)]
         public string? Detalle { get; set; } = "Pedido creado automaticamente.";
 
+
+
         [ForeignKey("Talleres")]
         public long TallerId { get; set; }
-        public virtual Taller? Talleres { get; set; }
+        public virtual Taller? Talleres { get; set; } = null;
 
-        
-        public virtual ICollection<InventarioSalidaProducto> InventarioSalidaProductos { get; set; }
-        public virtual ICollection<Pago> Pagos { get; set; }
-        public virtual ICollection<Factura> Facturas { get; set; }
+
+
+        [JsonIgnore]
+        public virtual ICollection<InventarioSalidaProducto> InventarioSalidaProductos { get; set; } = new HashSet<InventarioSalidaProducto>();
+
+        [JsonIgnore]
+        public virtual ICollection<Pago> Pagos { get; set; } = new HashSet<Pago>();
+
+        [JsonIgnore]
+        public virtual ICollection<Factura> Facturas { get; set; } = new HashSet<Factura>();
     }
 }

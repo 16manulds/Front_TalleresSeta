@@ -49,7 +49,7 @@ namespace Front_TalleresSeta.Controllers
                     if (logueado.TipoUser == "SuperAdmin")
                         return View(await _httpClient.GetFromJsonAsync<List<InventarioLote>>($"InventarioLotes/lotesPorProducto?search={search}"));
                     else if (logueado.TipoUser == "Admin" || (logueado.TipoUser == "Empleado" && logueado.TipoRol == "Jefe"))
-                        return View(await _httpClient.GetFromJsonAsync<List<InventarioLote>>($"InventarioLotes/lotesPorProducto?search={search}&tallerId={logueado.IdTaller}&codProducto={id}&idLote={loteId}"));
+                        return View(await _httpClient.GetFromJsonAsync<List<InventarioLote>>($"InventarioLotes/lotesPorProducto?search={search}&tallerId={logueado.IdTaller}&codProducto={id}&LoteId={loteId}"));
                     else
                         return RedirectToAction("AccesoDenegado", "Interfaz", new { mensaje = "Acceso denegado al listado de productos" });
                 }
@@ -79,7 +79,7 @@ namespace Front_TalleresSeta.Controllers
                         return RedirectToAction("AccesoDenegado", "Interfaz", new { mensaje = "No se puede modificar el producto: id no válido." });
                     }
 
-                    var model = await _httpClient.GetFromJsonAsync<InventarioLote>($"InventarioLotes/obtenerLote?idLote={loteId}&codProducto={id}");
+                    var model = await _httpClient.GetFromJsonAsync<InventarioLote>($"InventarioLotes/obtenerLote?LoteId={loteId}&codProducto={id}");
                     if (model == null)
                     {
                         return RedirectToAction("AccesoDenegado", "Interfaz", new { mensaje = "No se encontró el lote a modificar." });
@@ -111,7 +111,7 @@ namespace Front_TalleresSeta.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("IdLote,CodigoProducto,Habilitado,FechaRegistro,NombreProducto,PrecioCompraXuni,PrecioVentaXuni,CantIngresan,CantRestante,TallerId")] InventarioLote model, string PrecioCompraPorUni, string PrecioVentaPorUni)
+        public async Task<IActionResult> Edit(string id, [Bind("LoteId,CodigoProducto,Habilitado,FechaRegistro,NombreProducto,PrecioCompraXuni,PrecioVentaXuni,CantIngresan,CantRestante,TallerId")] InventarioLote model, string PrecioCompraPorUni, string PrecioVentaPorUni)
         {
             accion = "ERROR_DATOS";            
             mensaje = "Algo salió mal con los datos...";

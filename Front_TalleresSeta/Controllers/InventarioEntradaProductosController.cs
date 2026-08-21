@@ -259,7 +259,6 @@ namespace Front_TalleresSeta.Controllers
                             Habilitado = true,
                             FechaRegistroInicial = model.FechaRegistro,
                             FechaRegistroUpdate = DateTime.Now,
-                            Detalle = model.Detalle,
                             CantStock = CantidadIngresa,
                             CantVendidos = 0,
                             CodigoProducto = model.CodigoProducto,
@@ -329,11 +328,11 @@ namespace Front_TalleresSeta.Controllers
                             }
                         }
 
-                        long idLote = 0;
+                        long LoteId = 0;
                         long idStock = 0;
 
                         // Registrar lote                                
-                        idLote = await _inventarioLoteRepo.CrearAsync(modelLote);
+                        LoteId = await _inventarioLoteRepo.CrearAsync(modelLote);
 
                         // Registrar stock
                         if (await _inventarioStockRepo.ExisteModeloAsync(modelStock.CodigoProducto))
@@ -348,7 +347,7 @@ namespace Front_TalleresSeta.Controllers
                         //validar todos los registros estén ok
                         if (!string.IsNullOrEmpty(idItem))
                         {
-                            if (idLote > 0)
+                            if (LoteId > 0)
                             {
                                 if (idStock > 0)
                                 {

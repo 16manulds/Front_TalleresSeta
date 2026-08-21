@@ -114,11 +114,11 @@ function renderizarLotes(lotes) {
     }
 
     lotes.forEach(lote => {
-        const idLote = lote.idLote ?? lote.IdLote;
+        const loteId = lote.loteId ?? lote.loteId;
         const stock = lote.cantRestante ?? lote.CantRestante ?? 0;
         const precioCompra = lote.precioCompraXuni ?? lote.PrecioCompraXuni ?? 0;
         const precioVenta = lote.precioVentaXuni ?? lote.PrecioVentaXuni ?? 0;
-        const loteIdSanitizado = String(idLote).replace(/[^\w-]/g, '');
+        const loteIdSanitizado = String(loteId).replace(/[^\w-]/g, '');
 
         let precioCompraP = SoloFormatoMoneda(precioCompra);
         let precioVentaP = SoloFormatoMoneda(precioVenta);
@@ -131,7 +131,7 @@ function renderizarLotes(lotes) {
         btnLote.dataset.precio = precioVenta;
 
         btnLote.innerHTML = `
-                Lote <strong>${idLote}</strong> 
+                Lote <strong>${loteId}</strong> 
                 <span class="badge bg-secondary ms-1">${stock} und</span>
                 <span class="badge bg-danger ms-1 badge-venta-tooltip"
                       data-bs-toggle="tooltip"
@@ -230,19 +230,19 @@ function calcularDistribucionLotes(cantidadRequerida) {
     const distribucion = [];
 
     for (const idSeleccionado of lotesSeleccionados) {
-        const lote = lotesActuales.find(l => String(l.idLote ?? l.id) === String(idSeleccionado));
+        const lote = lotesActuales.find(l => String(l.loteId ?? l.id) === String(idSeleccionado));
 
         if (!lote) continue;
 
-        const idLote = lote.idLote ?? lote.id;
+        const loteId = lote.loteId ?? lote.id;
         const stockDisponible = lote.cantRestante ?? lote.stock ?? 0;
 
         const tomar = unidadesPendientes > 0 ? Math.min(stockDisponible, unidadesPendientes) : 0;
         unidadesPendientes -= tomar;
 
         distribucion.push({
-            loteId: idLote,
-            codigo: idLote,
+            loteId: loteId,
+            codigo: loteId,
             tomadas: tomar
         });
     }
@@ -705,7 +705,7 @@ function agregarProductoACarrito(productoActual) {
     const lotesEstandarizados = distribucionResult.distribucion
         .filter(item => item.tomadas > 0)
         .map(item => {
-            const loteObj = lotesActuales.find(l => String(l.idLote ?? l.IdLote ?? l.id) === String(item.loteId));
+            const loteObj = lotesActuales.find(l => String(l.loteId ?? l.loteId ?? l.id) === String(item.loteId));
 
             const id = item.loteId;
 
@@ -716,7 +716,7 @@ function agregarProductoACarrito(productoActual) {
             }
 
             return {
-                idLote: id,
+                loteId: id,
                 referencia: refLote,
                 cantidad: item.tomadas
             };
@@ -743,7 +743,7 @@ function agregarProductoACarrito(productoActual) {
     carritoVenta.push(detalleItem);
     renderizarTablaVenta();
     LimpiarCamposVenta();
-    AgregarProductoTabla(detalleItem);
+    IniciarProcesoProducto(detalleItem);
     if (validarCodigo) validarCodigo.value = '';
 }
 
@@ -805,38 +805,6 @@ function eliminarItemCarrito(index) {
         calcularTotalPagado_Y_Restante(null, null, null);
     }
 }
-
-//async function registrarVenta() {
-//    if (carritoVenta.length === 0) {
-//        MostrarAlerta("warning", "Venta Vacía", "Agregue al menos un producto a la tabla.", 4000);
-//        return;
-//    }
-
-//    const payloadVenta = {
-//        totalVenta: carritoVenta.reduce((acc, item) => acc + item.total, 0),
-//        detalles: carritoVenta
-//    };
-
-//    try {
-//        const response = await fetch('/Ventas/RegistrarVenta', {
-//            method: 'POST',
-//            headers: { 'Content-Type': 'application/json' },
-//            body: JSON.stringify(payloadVenta)
-//        });
-
-//        if (response.ok) {
-//            MostrarAlerta("success", "Éxito", "La venta y el descuento de lotes se registraron correctamente.", 10000);
-//            carritoVenta = [];
-//            renderizarTablaVenta();
-//        } else {
-//            const errorMsg = await response.text();
-//            MostrarAlerta("error", "Error en Venta", errorMsg || "No se pudo registrar la venta.", 10000);
-//        }
-//    } catch (error) {
-//        console.error('Error enviando la venta:', error);
-//        MostrarAlerta("error", "Conexión", "Error de red al intentar procesar la venta.", 10000);
-//    }
-//}
 
 function alCargarProductoExitoso(producto) {
     productoCargadoActual = producto;
@@ -1054,7 +1022,11 @@ function LimpiarFormularioVenta() {
 }
 
 
-async function AgregarProductoTabla(productoData) {
+
+/**
+ * Procesa la inclusión de un producto iterando n veces según los lotes requeridos
+ */
+async function IniciarProcesoProducto(productoData) {
     if (!tallerId || tallerId <= 0) {
         console.warn("El ID del taller no es válido.");
         return null;
@@ -1065,42 +1037,165 @@ async function AgregarProductoTabla(productoData) {
         return null;
     }
 
-    if (!productoData) {
-        console.warn("El objeto del producto a agregar es requerido.");
+    if (!productoData || !productoData.lotes || productoData.lotes.length === 0) {
+        console.warn("El producto no contiene información válida de lotes.");
         return null;
     }
 
-    const payload = {
-        ...productoData,
-        pedidoId: IdConsecutivoActual
+    // 1. REGISTRAR PRODUCTO (N veces por cada lote asignado)
+    for (const lote of productoData.lotes) {
+        const dataProducto = {
+            PrecioFinalXuni: productoData.precioUnitario,
+            CantVendidos: lote.cantidad,
+            CodigoProducto: productoData.codigoProducto,
+            TallerId: parseInt(tallerId),
+            PedidoId: IdConsecutivoActual,
+            LoteId: lote.loteId
+        };
+
+        let idProductoInsertado = await AgregarProductoTabla(dataProducto);
+        if (!idProductoInsertado) {
+            MostrarAlerta("warning", "Error", `No se pudo registrar el producto para el Lote ${lote.loteId}.`, 10000);
+            return null;
+        }
+
+        // 3. ACTUALIZAR LOTE ACTUAL
+        const dataLoteProducto = {
+            LoteId: lote.loteId,
+            CantVendidos: lote.cantidad,
+            CodigoProducto: productoData.codigoProducto,
+            TallerId: parseInt(tallerId)
+        };
+
+        let loteActualizado = await ActualizarLotesVenta(dataLoteProducto);
+        if (!loteActualizado) {
+            await EliminarProductoVenta(IdConsecutivoActual);
+            MostrarAlerta("warning", "Error Lote", `No se pudo actualizar el stock del Lote ${lote.loteId}.`, 10000);
+            return null;
+        }
+    }
+
+    // 2. ACTUALIZAR STOCK GENERAL DE PRODUCTO
+    const dataStockProducto = {
+        CantVendidos: productoData.cantidad,
+        CodigoProducto: productoData.codigoProducto,
+        TallerId: parseInt(tallerId)
     };
 
+    let stockActualizado = await ActualizarStockVenta(dataStockProducto);
+    if (!stockActualizado) {
+        await EliminarProductoVenta(IdConsecutivoActual);
+        MostrarAlerta("warning", "Error Stock", "No se pudo actualizar el stock general del producto.", 10000);
+        return null;
+    }
+
+    // 4. ACTUALIZAR GANANCIA MEDIANTE SP
+    const dataGananciaProducto = {
+        TallerId: parseInt(tallerId)
+    };
+
+    let gananciaActualizada = await ActualizarGananciaVenta(dataGananciaProducto);
+    if (!gananciaActualizada) {
+        MostrarAlerta("warning", "Atención", "Producto registrado, pero hubo un detalle al actualizar ganancias.", 6000);
+    } else {
+        MostrarAlerta("success", "Éxito", "Producto, lotes, stock y ganancias procesados correctamente.", 5000);
+    }
+
+    return true;
+}
+
+// ==========================================
+// PETICIONES API (HTTP PUT/POST)
+// ==========================================
+
+async function AgregarProductoTabla(dataProducto) {
     try {
-        const response = await fetch(`/InventarioSalidaProducto/AgregarProductoVenta?filtroId=${tallerId}`, {
+        const response = await fetch(`/InventarioSalidaProductos/AgregarProductoTabla?filtroId=${tallerId}`, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dataProducto)
         });
 
         if (response.ok) {
             const resultado = await response.json();
-            const idProductoInsertado = resultado.id || resultado.productoId;
-
-            if (idProductoInsertado) {
-                console.log("Producto agregado exitosamente con ID:", idProductoInsertado);
-                return idProductoInsertado; // Retorna el ID al llamador
-            } else {
-                console.warn("El servidor respondió OK pero no devolvió un ID válido:", resultado);
-                return null;
-            }
-        } else {
-            console.error("Error en la respuesta del servidor:", response.statusText);
-            return null;
+            return resultado.id || resultado.productoId || true;
         }
+        return null;
     } catch (error) {
-        console.error("Error al conectar con la API de Inventario:", error);
+        console.error("Error al registrar producto en tabla:", error);
         return null;
     }
 }
+
+async function ActualizarStockVenta(dataStockProducto) {
+    try {
+        const response = await fetch(`/InventarioStocks/ActualizarStockVenta?filtroId=${tallerId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dataStockProducto)
+        });
+
+        if (response.ok) {
+            const resultado = await response.json();
+            return resultado.id || resultado.stockId || true;
+        }
+        return null;
+    } catch (error) {
+        console.error("Error al actualizar stock:", error);
+        return null;
+    }
+}
+
+async function ActualizarLotesVenta(dataLoteProducto) {
+    try {
+        const response = await fetch(`/InventarioLotes/ActualizarLotesVenta?filtroId=${tallerId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dataLoteProducto)
+        });
+
+        if (response.ok) {
+            const resultado = await response.json();
+            return resultado.id || resultado.loteId || true;
+        }
+        return null;
+    } catch (error) {
+        console.error("Error al actualizar lote:", error);
+        return null;
+    }
+}
+
+async function ActualizarGananciaVenta(dataGanancia) {
+    try {
+        const response = await fetch(`/InventarioGanancias/ActualizarGananciaVenta?filtroId=${tallerId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dataGanancia)
+        });
+
+        if (response.ok) {
+            const resultado = await response.json();
+            return resultado.id || true;
+        }
+        return null;
+    } catch (error) {
+        console.error("Error al ejecutar SP de ganancia:", error);
+        return null;
+    }
+}
+
+async function EliminarProductoVenta(pedidoId) {
+    try {
+        const payload = { PedidoId: pedidoId, TallerId: parseInt(tallerId) };
+        await fetch(`/InventarioSalidaProductos/EliminarProductoVenta?filtroId=${tallerId}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+    } catch (error) {
+        console.error("Error al hacer roll-back de producto:", error);
+    }
+}
+
+
+

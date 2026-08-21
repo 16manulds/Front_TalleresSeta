@@ -5,11 +5,11 @@ namespace Front_TalleresSeta.Modelos
 {
     public class Pago
     {
-        //public Pago()
-        //{
-        //    Usuarios = new HashSet<Usuario>();
-        //    Vehiculos = new HashSet<Vehiculo>();
-        //}
+        public Pago()
+        {
+            //Usuarios = new HashSet<Usuario>();
+            //Vehiculos = new HashSet<Vehiculo>();
+        }
 
         [Key]
         public long PagoId { get; set; }
@@ -21,17 +21,8 @@ namespace Front_TalleresSeta.Modelos
         [StringLength(3000)]
         public string? Detalle { get; set; } = "N/A";
 
-        public string? EstadoPago { get; set; } = "PENDIENTE";
+        public string? EstadoPago { get; set; } = "PENDIENTE_PROCESAR";
 
-
-        [ForeignKey("Factura")]
-        public long? FacturaId { get; set; } = null;
-        public virtual Factura? Facturas { get; set; } = null;
-
-
-        [ForeignKey("Pedido")]
-        public long PedidoId { get; set; }
-        public virtual Pedido? Pedidos { get; set; } = null;
 
 
         [ForeignKey("Sis_MetodosDePago")]
@@ -48,12 +39,17 @@ namespace Front_TalleresSeta.Modelos
         public long? TipoTarjetaPagoId { get; set; }
         public virtual Sis_MetodosDePago_TipoTarjeta? Sis_TipoTarjetaPago { get; set; } = null;
 
-                
+
+        [ForeignKey("Pedido")]
+        public long PedidoId { get; set; }
+        public virtual Pedido Pedidos { get; set; } = null!;
+
+
         [ForeignKey("Taller")]
         public long TallerId { get; set; }
-        public virtual Taller? Talleres { get; set; } = null;
+        public virtual Taller Talleres { get; set; } = null!;
 
-                
+
         //public virtual ICollection<Usuario> Usuarios { get; set; }
         //public virtual ICollection<Vehiculo> Vehiculos { get; set; }
     }

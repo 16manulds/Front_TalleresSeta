@@ -25,10 +25,11 @@ namespace Front_TalleresSeta.Modelos
             TipoDocumentos = new HashSet<TipoDocumento>();
             Estados = new HashSet<Estado>();
             RolUsuarios = new HashSet<RolUsuario>();
-            //Usuarios = new HashSet<Usuario>();
             Vehiculos = new HashSet<Vehiculo>();
             Logins = new HashSet<Login>();
             Pedidos = new HashSet<Pedido>();
+            Facturas = new HashSet<Factura>();
+            Pagos = new HashSet<Pago>();
         }
 
         [Key]
@@ -67,9 +68,10 @@ namespace Front_TalleresSeta.Modelos
         public virtual ICollection<TipoDocumento> TipoDocumentos { get; set; }
         public virtual ICollection<Estado> Estados { get; set; }
         public virtual ICollection<RolUsuario> RolUsuarios { get; set; }
-        //public virtual ICollection<Usuario> Usuarios { get; set; }
         public virtual ICollection<Vehiculo> Vehiculos { get; set; }
         public virtual ICollection<Login> Logins { get; set; }
         public virtual ICollection<Pedido> Pedidos { get; set; }
+        public virtual ICollection<Factura> Facturas { get; set; }
+        public virtual ICollection<Pago> Pagos { get; set; }
     }
 }

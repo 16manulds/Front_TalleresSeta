@@ -127,7 +127,7 @@
                 }
 
 
-                if (TipoUser == "SuperAdmin" || TipoUser == "Admin" || (TipoUser == "Empleado" && (User.IsInRole("Jefe") || User.IsInRole("Mecánico"))))    
+                if (TipoUser == "SuperAdmin" || TipoUser == "Admin" || (TipoUser == "Empleado" && (User.IsInRole("Jefe") || User.IsInRole("Mecánico"))))
                 {
                     <!-- Titulo -->
                     <div class="sidebar-heading" lang="es-co">
@@ -494,18 +494,21 @@
                         </li>
 
                         <li class="nav-item d-flex align-items-center mr-2">
-                            @* mr-2 para un pequeño margen a la derecha *@
-                            <a class="btn btn-primary py-2 px-3" type="button" asp-controller="InventarioSalidaProductos" asp-action="Create" style="background-color: #f6c23e; border-color: #f6c23e;">
-                                <span class="d-none d-md-inline font-weight-bold" style="font-size: 0.9rem;">VENDER</span> @* Solo texto en pantallas medianas y grandes *@
-                                <i class="fas fa-cash-register d-md-none" style="font-size: 1.2rem;"></i> @* Ícono en pantallas pequeñas *@
+                            @* Se remueve el atributo type="button" para evitar la doble petición *@
+                            <a class="btn btn-primary py-2 px-3"
+                               asp-controller="InventarioSalidaProductos"
+                               asp-action="Create"
+                               style="background-color: #f6c23e; border-color: #f6c23e;">
+                                <span class="d-none d-md-inline font-weight-bold" style="font-size: 0.9rem;">VENDER</span>
+                                <i class="fas fa-cash-register d-md-none" style="font-size: 1.2rem;"></i>
                             </a>
                         </li>
 
                         <li class="nav-item d-flex align-items-center mr-3">
                             @* mr-3 para un pequeño margen a la derecha y antes de las alertas *@
                             <a class="btn btn-primary py-2 px-3" type="button" asp-controller="InventarioEntradaProductos" asp-action="Create" style="background-color: #1cc88a; border-color: #1cc88a;">
-                                <span class="d-none d-md-inline font-weight-bold" style="font-size: 0.9rem;">INGRESAR PRODUCTO</span> @* Solo texto en pantallas medianas y grandes *@
-                                <i class="fas fa-plus-square d-md-none" style="font-size: 1.2rem;"></i> @* Ícono en pantallas pequeñas *@
+                                <span class="d-none d-md-inline font-weight-bold" style="font-size: 0.9rem;">INGRESAR PRODUCTO</span>
+                                <i class="fas fa-plus-square d-md-none" style="font-size: 1.2rem;"></i>
                             </a>
                         </li>
 

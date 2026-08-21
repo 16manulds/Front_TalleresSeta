@@ -8,7 +8,7 @@ namespace Front_TalleresSeta.Modelos
         public InventarioEntradaProducto()
         {
             InventarioDevoluciones = new HashSet<InventarioDevolucion>();
-            InventarioGanancias = new HashSet<InventarioGanancia>();
+            //InventarioGanancias = new HashSet<InventarioGanancia>();
             InventarioLotes = new HashSet<InventarioLote>();
             InventarioSalidaProductos = new HashSet<InventarioSalidaProducto>();
             InventarioStocks = new HashSet<InventarioStock>();
@@ -57,7 +57,7 @@ namespace Front_TalleresSeta.Modelos
 
         [ForeignKey("Taller")]
         public long TallerId { get; set; }
-        public virtual Taller? Talleres { get; set; } = null;
+        public virtual Taller Talleres { get; set; } = null!;
 
 
         [ForeignKey("Color_c")]
@@ -66,12 +66,12 @@ namespace Front_TalleresSeta.Modelos
 
 
         [ForeignKey("UnidadMedida_c")]
-        public long? UnidadMedida_cId { get; set; } = 0;
+        public long? UnidadMedida_cId { get; set; }
         public virtual UnidadMedida_c? UnidadMedidas { get; set; } = null;
 
 
         public virtual ICollection<InventarioDevolucion> InventarioDevoluciones { get; set; }
-        public virtual ICollection<InventarioGanancia> InventarioGanancias { get; set; }
+        //public virtual ICollection<InventarioGanancia> InventarioGanancias { get; set; }
         public virtual ICollection<InventarioLote> InventarioLotes { get; set; }
         public virtual ICollection<InventarioSalidaProducto> InventarioSalidaProductos { get; set; }
         public virtual ICollection<InventarioStock> InventarioStocks { get; set; }

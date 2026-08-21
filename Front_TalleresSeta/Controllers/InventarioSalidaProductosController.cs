@@ -42,8 +42,7 @@ namespace Front_TalleresSeta.Controllers
         public async Task<IActionResult> Index(string? search = null, string? mensaje = null, string? accion = null)
         {
             var logueado = _funcionRepo.ObtenerDatosLogueadoAsync();
-            talleres = await _funcionRepo.ObtenerTallerLogueadoAsync(logueado.TipoUser, logueado.TipoRol, logueado.IdTaller);
-
+            
             if (!logueado.IsAuth)
             {
                 return RedirectToAction("Acceso", "Login");
@@ -52,6 +51,8 @@ namespace Front_TalleresSeta.Controllers
             {
                 try
                 {
+                    talleres = await _funcionRepo.ObtenerTallerLogueadoAsync(logueado.TipoUser, logueado.TipoRol, logueado.IdTaller);
+
                     ViewData["accion"] = accion;
                     ViewData["mensaje"] = mensaje;
                     search = (search == "Todos") ? string.Empty : search;
@@ -111,8 +112,7 @@ namespace Front_TalleresSeta.Controllers
         public async Task<IActionResult> Create()
         {
             var logueado = _funcionRepo.ObtenerDatosLogueadoAsync();
-            talleres = await _funcionRepo.ObtenerTallerLogueadoAsync(logueado.TipoUser, logueado.TipoRol, logueado.IdTaller);
-
+            
             if (!logueado.IsAuth)
             {
                 return RedirectToAction("Acceso", "Login");
@@ -121,9 +121,7 @@ namespace Front_TalleresSeta.Controllers
             {
                 try
                 {
-                    //Registrar ID Pedido
-                    //var idPedido = await _pedidoRepo.CrearPedidoAsync(logueado.IdTaller);
-                    //ViewBag.PedidoId = idPedido.consecutivo;
+                    talleres = await _funcionRepo.ObtenerTallerLogueadoAsync(logueado.TipoUser, logueado.TipoRol, logueado.IdTaller);
 
                     SelectList tipoDocumentos = await _tipoDocumentoRepo.ObtenerTipoDeDocumentosAsync(logueado.IdTaller);
                     ViewBag.TipoDocumentoId = tipoDocumentos;
@@ -203,7 +201,7 @@ namespace Front_TalleresSeta.Controllers
                         DateTime fechaRegistro = DateTime.Now;
                         long idVenta = 0;
                         long idPago = 0;
-                        long idLote = 0;
+                        long LoteId = 0;
                         string idStock = "0";
                         long idGanancia = 0;
 
@@ -281,7 +279,7 @@ namespace Front_TalleresSeta.Controllers
                                                     BancoId = pago.BancoId,
                                                     //CodigoProducto = model.CodigoProducto,
                                                     TallerId = model.TallerId,
-                                                    //IdInventarioSalidaProducto = idVenta
+                                                    //InventarioSalidaProductoId = idVenta
                                                 };
 
                                                 //Registrar venta del pago
@@ -333,17 +331,17 @@ namespace Front_TalleresSeta.Controllers
                                             var resultObjectLote = JsonSerializer.Deserialize<JsonElement>(jsonResultLote);
 
                                             // Extraer ID del lote y Cantidad Pendiente
-                                            idLote = resultObjectLote.GetProperty("id").GetInt64();
+                                            LoteId = resultObjectLote.GetProperty("id").GetInt64();
                                             cantidadPendiente = resultObjectLote.GetProperty("cantidadPendiente").GetInt32();
                                             int unidadesDescontadasEnEstePaso = unidadesPorProcesar - cantidadPendiente;
 
-                                            if (idLote == 0 && unidadesPorProcesar > 0)
+                                            if (LoteId == 0 && unidadesPorProcesar > 0)
                                             {
                                                 mensaje = "Error: No hay suficiente stock en los lotes para completar la venta.";
                                                 break;
                                             }
 
-                                            var loteActual = await _httpClient.GetFromJsonAsync<InventarioLote>($"InventarioLotes/obtenerLote?idLote={idLote}&codProducto={model.CodigoProducto}");
+                                            var loteActual = await _httpClient.GetFromJsonAsync<InventarioLote>($"InventarioLotes/obtenerLote?LoteId={LoteId}&codProducto={model.CodigoProducto}");
 
                                             // Calcular Ganancia Proporcional para este lote específico
                                             long precioCompraUnidadLoteActual = loteActual!.PrecioCompraXuni;
@@ -356,14 +354,9 @@ namespace Front_TalleresSeta.Controllers
                                             var modelGanancia = new InventarioGanancia
                                             {
                                                 Habilitado = true,
-                                                FechaRegistro = fechaRegistro,
-                                                CantVendida = unidadesDescontadasEnEstePaso,
-                                                PrecioCompraXuni = precioCompraUnidadLoteActual,
-                                                PrecioVentaXuni = pUnidad,
-                                                Ganancia = gananciaCalculada,
+                                                FechaRegistro = fechaRegistro,                                                
+                                                ValorGanancia = gananciaCalculada,
                                                 InventarioSalidaProductoId = idVenta,
-                                                IdLote = idLote,
-                                                CodigoProducto = model.CodigoProducto,
                                                 TallerId = model.TallerId
                                             };
 
@@ -410,7 +403,7 @@ namespace Front_TalleresSeta.Controllers
                                         //    mensaje = "Error: No se recibió el ID del lote.";
                                         //    return View(model);
                                         //}
-                                        //idLote = idResultLote.GetInt64();
+                                        //LoteId = idResultLote.GetInt64();
 
 
                                         ////actualizar stock
@@ -430,7 +423,7 @@ namespace Front_TalleresSeta.Controllers
                                         //    PrecioVentaXuni = pVenta,
                                         //    Ganancia = gananciaCalculada,
                                         //    InventarioSalidaProductoId = idVenta,
-                                        //    IdLote = idLote,
+                                        //    LoteId = LoteId,
                                         //    CodigoProducto = model.CodigoProducto,
                                         //    TallerId = model.TallerId,
 
@@ -459,7 +452,7 @@ namespace Front_TalleresSeta.Controllers
                                         //venta, pagos, lote, stock y ganancias
                                         if (!string.IsNullOrEmpty(idItem))
                                         {
-                                            if (idLote > 0)
+                                            if (LoteId > 0)
                                             {
                                                 if (!string.IsNullOrEmpty(idStock))
                                                 {

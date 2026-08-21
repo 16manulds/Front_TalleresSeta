@@ -7,8 +7,8 @@ namespace Front_TalleresSeta.Modelos
     {
         public Factura()
         {
-            Pagos = new HashSet<Pago>();
-            InventarioSalidaProductos = new HashSet<InventarioSalidaProducto>();
+            //Pagos = new HashSet<Pago>();
+            //InventarioSalidaProductos = new HashSet<InventarioSalidaProducto>();
         }
 
         [Key]
@@ -21,12 +21,12 @@ namespace Front_TalleresSeta.Modelos
         public string? Detalle { get; set; } = "N/A";
 
         public decimal ValorFactura { get; set; }
-        public string? EstadoFactura { get; set; }
+        public string? EstadoFactura { get; set; } = "FACTURA_CREADA";
 
 
         [ForeignKey("Taller")]
         public long TallerId { get; set; }
-        public virtual Taller? Talleres { get; set; } = null;
+        public virtual Taller Talleres { get; set; } = null!;
 
         [ForeignKey("Usuario")]
         public long Documento { get; set; }
@@ -40,10 +40,10 @@ namespace Front_TalleresSeta.Modelos
 
         [ForeignKey("Pedido")]
         public long PedidoId { get; set; }
-        public virtual Pedido? Pedidos { get; set; } = null;
+        public virtual Pedido Pedidos { get; set; } = null!;
 
 
-        public virtual ICollection<Pago>? Pagos { get; set; } = null;
-        public virtual ICollection<InventarioSalidaProducto>? InventarioSalidaProductos { get; set; } = null;
+        //public virtual ICollection<Pago>? Pagos { get; set; } = null;
+        //public virtual ICollection<InventarioSalidaProducto>? InventarioSalidaProductos { get; set; } = null;
     }
 }

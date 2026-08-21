@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Front_TalleresSeta.Modelos
@@ -10,6 +9,7 @@ namespace Front_TalleresSeta.Modelos
         {
             Vehiculos = new HashSet<Vehiculo>();
             Logins = new HashSet<Login>();
+            Facturas = new HashSet<Factura>();
         }
 
         [Key]
@@ -17,7 +17,7 @@ namespace Front_TalleresSeta.Modelos
         public long Documento { get; set; } = 222222222222;
         public bool Habilitado { get; set; } = true;
         public DateTime FechaRegistro { get; set; } = DateTime.Now;
-                
+
         [Required(ErrorMessage = "Ingresa un nombre al usuario")]
         [StringLength(30)]
         public string PrimerNombre { get; set; } = "Clientes";
@@ -79,9 +79,10 @@ namespace Front_TalleresSeta.Modelos
         [ForeignKey("Sucursal")]
         public long SucursalId { get; set; }
         public virtual Sucursal Sucursales { get; set; } = null!;
-                        
+
 
         public virtual ICollection<Vehiculo> Vehiculos { get; set; }
         public virtual ICollection<Login> Logins { get; set; }
+        public virtual ICollection<Factura> Facturas { get; set; }
     }
 }

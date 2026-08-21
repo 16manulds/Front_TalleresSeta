@@ -60,7 +60,7 @@
 		<div class="card-body">
 			<form class="needs-validation" novalidate asp-controller="InventarioLotes" asp-action="Edit">
 				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-				<input type="hidden" asp-for="IdLote" />
+				<input type="hidden" asp-for="LoteId" />
 				<input type="hidden" asp-for="CodigoProducto" />
 
 				<div class="row">
@@ -71,7 +71,7 @@
 									LOTE
 								</label>
 								<div class="text-center col-sm-12">
-									<input type="text" class="form-control" id="validarLote" asp-for="IdLote" style="text-align: center;" disabled>
+									<input type="text" class="form-control" id="validarLote" asp-for="LoteId" style="text-align: center;" disabled>
 								</div>
 							</div>
 						</div>

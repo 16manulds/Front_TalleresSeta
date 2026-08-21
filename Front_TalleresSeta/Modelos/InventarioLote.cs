@@ -8,10 +8,11 @@ namespace Front_TalleresSeta.Modelos
         public InventarioLote()
         {
             InventarioGanancias = new HashSet<InventarioGanancia>();
+            InventarioSalidaProductos = new HashSet<InventarioSalidaProducto>();
         }
 
         [Key]
-        public long IdLote { get; set; }
+        public long LoteId { get; set; }
         public bool Habilitado { get; set; } = true;
         public DateTime FechaRegistro { get; set; } = DateTime.Now;
         public Int64 PrecioCompraXuni { get; set; } = 0;
@@ -22,14 +23,23 @@ namespace Front_TalleresSeta.Modelos
 
         [ForeignKey("InventarioEntradaProducto")]
         public required string CodigoProducto { get; set; }
-        public virtual InventarioEntradaProducto? InventarioEntradaProductos { get; set; } = null;
+        public virtual InventarioEntradaProducto InventarioEntradaProductos { get; set; } = null!;
 
 
         [ForeignKey("Taller")]
         public long TallerId { get; set; }
-        public virtual Taller? Talleres { get; set; } = null;
+        public virtual Taller Talleres { get; set; } = null!;
 
 
         public virtual ICollection<InventarioGanancia> InventarioGanancias { get; set; } = null!;
+        public virtual ICollection<InventarioSalidaProducto> InventarioSalidaProductos { get; set; } = null!;
+
     }
+
+    public class LoteVentaResponse
+    {
+        public long Id { get; set; }
+        public int CantidadPendiente { get; set; }
+    }
+
 }
