@@ -673,7 +673,7 @@ function limpiarLotesCompletamente() {
     }
 }
 
-function agregarProductoACarrito(productoActual) {
+async function agregarProductoACarrito(productoActual) {
     const yaExiste = carritoVenta.some(item => String(item.codigoProducto) === String(productoActual.codigoProducto));
 
     if (yaExiste) {
@@ -706,7 +706,6 @@ function agregarProductoACarrito(productoActual) {
         .filter(item => item.tomadas > 0)
         .map(item => {
             const loteObj = lotesActuales.find(l => String(l.loteId ?? l.loteId ?? l.id) === String(item.loteId));
-
             const id = item.loteId;
 
             let refLote = loteObj?.referencia || loteObj?.Referencia || loteObj?.nombreLote || loteObj?.codigoLote || loteObj?.numLote;
@@ -740,11 +739,25 @@ function agregarProductoACarrito(productoActual) {
         lotes: lotesEstandarizados
     };
 
-    carritoVenta.push(detalleItem);
-    renderizarTablaVenta();
-    LimpiarCamposVenta();
-    IniciarProcesoProducto(detalleItem);
-    if (validarCodigo) validarCodigo.value = '';
+    // 1. Obtener consecutiva de pedido
+    const idPedido = await CargarConsecutivoPedido();
+    if (!idPedido) {
+        MostrarAlerta("warning", "Error de Pedido", "No se pudo obtener ni generar el consecutivo del pedido.", 5000);
+        return;
+    }
+
+    // 2. Procesar la transacción en Backend PRIMERO
+    const transaccionExitosa = await IniciarProcesoProducto(detalleItem);
+
+    // 3. SOLO SI FUE EXITOSA la transacción en la BD, se agrega al carrito visual
+    if (transaccionExitosa) {
+        carritoVenta.push(detalleItem);
+        renderizarTablaVenta();
+        LimpiarCamposVenta();
+        if (validarCodigo) validarCodigo.value = '';
+    } else {
+        console.warn("La transacción falló o fue revertida. El producto no se agregó al carrito.");
+    }
 }
 
 
@@ -795,7 +808,6 @@ function renderizarTablaVenta() {
 
     tbody.innerHTML = html;
     if (lblTotalPagar) lblTotalPagar.value = SoloFormatoMoneda(granTotal);
-    CargarConsecutivoPedido();
 }
 
 function eliminarItemCarrito(index) {
@@ -825,9 +837,6 @@ function prepararYAgregarProducto() {
 
 }
 
-/**
- * CORREGIDO: Se agregó 'async' a la declaración de la función
- */
 async function BuscarCliente() {
     let clienteEncontrado = false;
 
@@ -879,8 +888,6 @@ async function BuscarCliente() {
         MostrarAlerta("warning", "Cliente", "Error al buscar usuario: " + error, 10000);
     }
 }
-
-
 function RegistrarVentaProducto() {
 
     var tipoDocumentoVenta = selectTipoDoc.value;
@@ -928,7 +935,6 @@ function RegistrarVentaProducto() {
 
 }
 
-
 function validarMetodosPago() {
     const contenedorPagos = document.getElementById('paymentMethodsContainer');
     const cantidadPagos = contenedorPagos ? contenedorPagos.children.length : 0;
@@ -945,46 +951,46 @@ function validarMetodosPago() {
     return true;
 }
 
-
 async function CargarConsecutivoPedido() {
     if (!tallerId || tallerId <= 0) {
         console.warn("El ID del taller no es válido.");
-        return;
+        return null;
     }
 
-    if (ConsecutivoActual == null) {
-        try {
-            // Se especifica [FromQuery] explícito o se envía en la URL
-            const response = await fetch(`/Pedidos/CrearPedido?filtroId=${tallerId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
+    // Si ya existe en memoria, se retorna inmediatamente
+    if (IdConsecutivoActual && ConsecutivoActual) {
+        return IdConsecutivoActual;
+    }
 
-            if (response.ok) {
-                const pedido = await response.json();
-
-                // 1. CORRECCIÓN: Validar usando consecutivoPedidoCreado
-                if (pedido && pedido.consecutivoPedidoCreado) {
-                    // 2. CORRECCIÓN: Asignar usando pedidoId y consecutivoPedidoCreado
-                    IdConsecutivoActual = pedido.pedidoId;
-                    ConsecutivoActual = pedido.consecutivoPedidoCreado;
-
-                    if (lblNumeroPedido) {
-                        lblNumeroPedido.textContent = ConsecutivoActual;
-                    }
-                }
-            } else {
-                console.error("Error en la respuesta del servidor:", response.statusText);
+    try {
+        const response = await fetch(`/Pedidos/CrearPedido?filtroId=${tallerId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
             }
-        } catch (error) {
-            console.error("Error al conectar con la API de Pedidos:", error);
+        });
+
+        if (response.ok) {
+            const pedido = await response.json();
+
+            if (pedido && pedido.consecutivoPedidoCreado) {
+                IdConsecutivoActual = pedido.pedidoId;
+                ConsecutivoActual = pedido.consecutivoPedidoCreado;
+
+                if (lblNumeroPedido) {
+                    lblNumeroPedido.textContent = ConsecutivoActual;
+                }
+                return IdConsecutivoActual;
+
+            }
+        } else {
+            console.error("Error en la respuesta del servidor:", response.statusText);
         }
+    } catch (error) {
+        console.error("Error al conectar con la API de Pedidos:", error);
     }
+    return null;
 }
-
-
 function LimpiarFormularioVenta() {
     // Limpiar productos
     const tbody = document.getElementById('tbodyDetalleVenta');
@@ -1022,105 +1028,163 @@ function LimpiarFormularioVenta() {
 }
 
 
-
-/**
- * Procesa la inclusión de un producto iterando n veces según los lotes requeridos
- */
 async function IniciarProcesoProducto(productoData) {
-    if (!tallerId || tallerId <= 0) {
-        console.warn("El ID del taller no es válido.");
-        return null;
+    if (!tallerId || tallerId <= 0 || !IdConsecutivoActual || IdConsecutivoActual <= 0) {
+        console.warn("Taller o Pedido no válidos.");
+        return false;
     }
 
-    if (!IdConsecutivoActual || IdConsecutivoActual <= 0) {
-        console.warn("El ID del pedido no es válido.");
-        return null;
-    }
-
-    if (!productoData || !productoData.lotes || productoData.lotes.length === 0) {
+    if (!productoData?.lotes?.length) {
         console.warn("El producto no contiene información válida de lotes.");
-        return null;
+        return false;
     }
 
-    // 1. REGISTRAR PRODUCTO (N veces por cada lote asignado)
-    for (const lote of productoData.lotes) {
-        const dataProducto = {
-            PrecioFinalXuni: productoData.precioUnitario,
-            CantVendidos: lote.cantidad,
-            CodigoProducto: productoData.codigoProducto,
-            TallerId: parseInt(tallerId),
-            PedidoId: IdConsecutivoActual,
-            LoteId: lote.loteId
-        };
+    const productosInsertadosIds = [];
+    const lotesProcesados = [];
+    let stockActualizadoExitosamente = false;
 
-        let idProductoInsertado = await AgregarProductoTabla(dataProducto);
-        if (!idProductoInsertado) {
-            MostrarAlerta("warning", "Error", `No se pudo registrar el producto para el Lote ${lote.loteId}.`, 10000);
-            return null;
+    // Función de rollback en BD si falla algún punto de la transacción
+    const ejecutarRollback = async () => {
+        console.warn("Iniciando proceso de rollback para revertir operaciones en BD...");
+
+        // 1. Revertir Stock General
+        if (stockActualizadoExitosamente) {
+            await RevertirStockVenta({
+                CantVendidos: productoData.cantidad,
+                CodigoProducto: productoData.codigoProducto,
+                TallerId: parseInt(tallerId)
+            });
         }
 
-        // 3. ACTUALIZAR LOTE ACTUAL
-        const dataLoteProducto = {
-            LoteId: lote.loteId,
-            CantVendidos: lote.cantidad,
+        // 2. Revertir Lotes procesados
+        for (const lote of lotesProcesados) {
+            await RevertirLoteVenta({
+                LoteId: lote.loteId,
+                CantVendidos: lote.cantidad,
+                CodigoProducto: productoData.codigoProducto,
+                TallerId: parseInt(tallerId)
+            });
+        }
+
+        // 3. Eliminar Productos insertados de la tabla
+        for (const idProd of productosInsertadosIds) {
+            await EliminarProductoEspecificoTabla(idProd);
+        }
+
+        // 4. ELIMINAR EL PEDIDO CREADO Y REINICIAR CONSECUTIVO EN MEMORIA
+        if (IdConsecutivoActual) {
+            await EliminarPedido(IdConsecutivoActual);
+            IdConsecutivoActual = null;
+            ConsecutivoActual = null;
+            if (lblNumeroPedido) lblNumeroPedido.textContent = '';
+        }
+    };
+
+    try {
+        // 1. REGISTRAR EN TABLA, ACTUALIZAR LOTES Y GANANCIAS
+        for (const lote of productoData.lotes) {
+            const dataProducto = {
+                PrecioFinalXuni: productoData.precioUnitario,
+                CantVendidos: lote.cantidad,
+                CodigoProducto: productoData.codigoProducto,
+                TallerId: parseInt(tallerId),
+                PedidoId: IdConsecutivoActual,
+                LoteId: lote.loteId
+            };
+
+            // A. Registrar Producto
+            let idProductoInsertado = await AgregarProductoTabla(dataProducto);
+            if (!idProductoInsertado) {
+                MostrarAlerta("warning", "Error", `Error al registrar producto en Lote ${lote.loteId}.`, 10000);
+                await ejecutarRollback();
+                return false;
+            }
+            productosInsertadosIds.push(idProductoInsertado);
+
+            // B. Actualizar Lote
+            const dataLoteProducto = {
+                LoteId: lote.loteId,
+                CantVendidos: lote.cantidad,
+                CodigoProducto: productoData.codigoProducto,
+                TallerId: parseInt(tallerId)
+            };
+
+            let loteActualizado = await ActualizarLotesVenta(dataLoteProducto);
+            if (!loteActualizado) {
+                MostrarAlerta("warning", "Error Lote", `Error al actualizar stock del Lote ${lote.loteId}.`, 10000);
+                await ejecutarRollback();
+                return false;
+            }
+            lotesProcesados.push(lote);
+
+            // C. Actualizar Ganancia por Lote
+            const dataGananciaProducto = {
+                TallerId: parseInt(tallerId),
+                LoteId: lote.loteId,
+                CodigoProducto: productoData.codigoProducto
+            };
+
+            let gananciaActualizada = await ActualizarGananciaVenta(dataGananciaProducto);
+            if (!gananciaActualizada) {
+                MostrarAlerta("warning", "Error Ganancia", `No se pudo registrar la ganancia del Lote ${lote.loteId}.`, 10000);
+                await ejecutarRollback();
+                return false;
+            }
+        }
+
+        // 2. ACTUALIZAR STOCK GENERAL
+        const dataStockProducto = {
+            CantVendidos: productoData.cantidad,
             CodigoProducto: productoData.codigoProducto,
             TallerId: parseInt(tallerId)
         };
 
-        let loteActualizado = await ActualizarLotesVenta(dataLoteProducto);
-        if (!loteActualizado) {
-            await EliminarProductoVenta(IdConsecutivoActual);
-            MostrarAlerta("warning", "Error Lote", `No se pudo actualizar el stock del Lote ${lote.loteId}.`, 10000);
-            return null;
+        let stockActualizado = await ActualizarStockVenta(dataStockProducto);
+        if (!stockActualizado) {
+            MostrarAlerta("warning", "Error Stock", "Error al actualizar stock general del producto.", 10000);
+            await ejecutarRollback();
+            return false;
         }
-    }
+        stockActualizadoExitosamente = true;
 
-    // 2. ACTUALIZAR STOCK GENERAL DE PRODUCTO
-    const dataStockProducto = {
-        CantVendidos: productoData.cantidad,
-        CodigoProducto: productoData.codigoProducto,
-        TallerId: parseInt(tallerId)
-    };
-
-    let stockActualizado = await ActualizarStockVenta(dataStockProducto);
-    if (!stockActualizado) {
-        await EliminarProductoVenta(IdConsecutivoActual);
-        MostrarAlerta("warning", "Error Stock", "No se pudo actualizar el stock general del producto.", 10000);
-        return null;
-    }
-
-    // 4. ACTUALIZAR GANANCIA MEDIANTE SP
-    const dataGananciaProducto = {
-        TallerId: parseInt(tallerId)
-    };
-
-    let gananciaActualizada = await ActualizarGananciaVenta(dataGananciaProducto);
-    if (!gananciaActualizada) {
-        MostrarAlerta("warning", "Atención", "Producto registrado, pero hubo un detalle al actualizar ganancias.", 6000);
-    } else {
         MostrarAlerta("success", "Éxito", "Producto, lotes, stock y ganancias procesados correctamente.", 5000);
-    }
+        return true;
 
-    return true;
+    } catch (error) {
+        console.error("Error crítico durante la transacción:", error);
+        await ejecutarRollback();
+        MostrarAlerta("error", "Error Crítico", "Ocurrió una falla inesperada. Se han revertido las operaciones.", 10000);
+        return false;
+    }
 }
 
-// ==========================================
-// PETICIONES API (HTTP PUT/POST)
-// ==========================================
 
 async function AgregarProductoTabla(dataProducto) {
     try {
-        const response = await fetch(`/InventarioSalidaProductos/AgregarProductoTabla?filtroId=${tallerId}`, {
+        const idTaller = parseInt(document.getElementById("txtTallerId")?.value, 10);
+
+        if (!idTaller || isNaN(idTaller)) {
+            console.error("El TallerId no es válido.");
+            return null;
+        }
+                
+        const response = await fetch(`/InventarioSalidaProductos/AgregarProductoVenta?filtroId=${idTaller}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
             body: JSON.stringify(dataProducto)
         });
-
+        
         if (response.ok) {
             const resultado = await response.json();
             return resultado.id || resultado.productoId || true;
+        } else {
+            const errorMsg = await response.text();
+            console.error(`Error HTTP ${response.status} en AgregarProductoVenta:`, errorMsg);
+            return null;
         }
-        return null;
     } catch (error) {
         console.error("Error al registrar producto en tabla:", error);
         return null;
@@ -1184,18 +1248,46 @@ async function ActualizarGananciaVenta(dataGanancia) {
     }
 }
 
-async function EliminarProductoVenta(pedidoId) {
+
+// Revertir Lote (Suma la cantidad de vuelta)
+async function RevertirLoteVenta(dataLote) {
     try {
-        const payload = { PedidoId: pedidoId, TallerId: parseInt(tallerId) };
-        await fetch(`/InventarioSalidaProductos/EliminarProductoVenta?filtroId=${tallerId}`, {
-            method: 'DELETE',
+        await fetch(`/InventarioLotes/RevertirLoteVenta?filtroId=${tallerId}`, {
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
+            body: JSON.stringify(dataLote)
         });
-    } catch (error) {
-        console.error("Error al hacer roll-back de producto:", error);
-    }
+    } catch (e) { console.error("Error al revertir lote", e); }
 }
 
+// Revertir Stock (Suma la cantidad de vuelta al general)
+async function RevertirStockVenta(dataStock) {
+    try {
+        await fetch(`/InventarioStocks/RevertirStockVenta?filtroId=${tallerId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dataStock)
+        });
+    } catch (e) { console.error("Error al revertir stock", e); }
+}
 
+// Eliminar fila de producto individual por ID
+async function EliminarProductoEspecificoTabla(idProducto) {
+    try {
+        await fetch(`/InventarioSalidaProductos/EliminarPorId/${idProducto}?filtroId=${tallerId}`, {
+            method: 'DELETE'
+        });
+    } catch (e) { console.error("Error al eliminar fila del producto", e); }
+}
 
+async function EliminarPedido(pedidoId) {
+    if (!pedidoId || !tallerId) return;
+
+    try {
+        await fetch(`/Pedidos/EliminarPedido/${pedidoId}?filtroId=${tallerId}`, {
+            method: 'DELETE'
+        });
+    } catch (e) {
+        console.error("Error al eliminar el pedido en el rollback:", e);
+    }
+}

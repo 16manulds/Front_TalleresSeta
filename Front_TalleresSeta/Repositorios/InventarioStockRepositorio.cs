@@ -1,4 +1,5 @@
 ﻿using Front_TalleresSeta.Modelos;
+using Front_TalleresSeta.Modelos.ModelosView;
 using Front_TalleresSeta.Repositorios.IRepositorios;
 using Microsoft.Data.SqlClient;
 using System.Text.Json;
@@ -120,6 +121,45 @@ namespace Front_TalleresSeta.Repositorios
             }
             return result;
         }
+
+
+        public async Task<long> ActualizarStockVentaAsync(long tallerId, DtoStockVenta model)
+        {
+            try
+            {
+                var response = await _httpClient.PutAsJsonAsync($"InventarioStocks/ActualizarStockVenta?filtroId={tallerId}", model);
+                if (!response.IsSuccessStatusCode) return 0;
+
+                var json = await response.Content.ReadAsStringAsync();
+                using var doc = JsonDocument.Parse(json);
+
+                if (doc.RootElement.TryGetProperty("id", out var idElem))
+                {
+                    return idElem.GetInt64();
+                }
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en ActualizarStockVentaAsync: {ex.Message}");
+                return 0;
+            }
+        }
+
+        public async Task<bool> RevertirStockVentaAsync(long tallerId, DtoStockVenta model)
+        {
+            try
+            {
+                var response = await _httpClient.PutAsJsonAsync($"InventarioStocks/RevertirStockVenta?filtroId={tallerId}", model);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en RevertirStockVentaAsync: {ex.Message}");
+                return false;
+            }
+        }
+
 
     }
 }

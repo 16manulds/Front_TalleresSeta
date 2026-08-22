@@ -64,5 +64,22 @@ namespace Front_TalleresSeta.Controllers
         }
 
 
+        [HttpDelete("Pedidos/EliminarPedido/{id}")]
+        public async Task<IActionResult> EliminarPedido(long id, [FromQuery] long filtroId)
+        {
+            try
+            {
+                bool eliminado = await _pedidoRepo.EliminarPedidoAsync(id, filtroId);
+                if (!eliminado) return NotFound("Producto no encontrado o no se pudo eliminar.");
+
+                return Ok(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
+        }
+
+
     }
 }

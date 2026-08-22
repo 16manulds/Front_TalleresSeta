@@ -1,9 +1,5 @@
-﻿using Front_TalleresSeta.Modelos;
-using Front_TalleresSeta.Modelos.ModelosView;
+﻿using Front_TalleresSeta.Modelos.ModelosView;
 using Front_TalleresSeta.Repositorios.IRepositorios;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace Front_TalleresSeta.Repositorios
@@ -20,41 +16,43 @@ namespace Front_TalleresSeta.Repositorios
         }
 
 
-        public async Task<long> AgregarProductoVentaAsync(long idTaller, ViewAgregarProducto model)
+        public async Task<long> AgregarProductoVentaAsync(long tallerId, DtoAgregarProducto model)
         {
             try
-            {                
-                var responseEdit = await _httpClient.PostAsJsonAsync("InventarioSalidaProductos/agregarProdcutoVenta", model);
-                if (!responseEdit.IsSuccessStatusCode)
+            {
+                var response = await _httpClient.PutAsJsonAsync($"InventarioSalidaProductos/AgregarProductoVenta?filtroId={tallerId}", model);
+                if (!response.IsSuccessStatusCode) return 0;
+
+                var json = await response.Content.ReadAsStringAsync();
+                using var doc = JsonDocument.Parse(json);
+
+                if (doc.RootElement.TryGetProperty("id", out var idElem))
                 {
-                    return (0);
+                    return idElem.GetInt64();
                 }
-
-                var jsonResponse = await responseEdit.Content.ReadAsStringAsync();
-                using var document = JsonDocument.Parse(jsonResponse);
-
-                long id = 0;
-                string consecutivo = string.Empty;
-
-                if (document.RootElement.TryGetProperty("id", out JsonElement idElement))
-                {
-                    id = idElement.GetInt64();
-                }
-
-                if (document.RootElement.TryGetProperty("consecutivo", out JsonElement consecutivoElement))
-                {
-                    consecutivo = consecutivoElement.GetString() ?? string.Empty;
-                }
-
-                return (id);
+                return 0;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error en CrearInventarioSalidaProductoAsync: {ex.Message}");
-                return (0);
+                Console.WriteLine($"Error en AgregarProductoVentaAsync: {ex.Message}");
+                return 0;
             }
         }
 
+
+        public async Task<bool> EliminarPorIdAsync(long idProducto, long tallerId)
+        {
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"InventarioSalidaProductos/EliminarPorId/{idProducto}?filtroId={tallerId}");
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en EliminarPorIdAsync: {ex.Message}");
+                return false;
+            }
+        }
 
     }
 }

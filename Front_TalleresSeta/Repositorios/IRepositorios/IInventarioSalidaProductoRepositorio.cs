@@ -5,6 +5,7 @@ namespace Front_TalleresSeta.Repositorios.IRepositorios
 {
     public interface IInventarioSalidaProductoRepositorio
     {
-        Task<long> AgregarProductoVentaAsync(long idTaller, ViewAgregarProducto model);
+        Task<long> AgregarProductoVentaAsync(long tallerId, DtoAgregarProducto model);
+        Task<bool> EliminarPorIdAsync(long idProducto, long tallerId);
     }
 }

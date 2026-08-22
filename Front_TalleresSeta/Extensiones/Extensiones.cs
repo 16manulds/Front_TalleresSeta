@@ -16,7 +16,9 @@ namespace Front_TalleresSeta.Extensions
             services.AddScoped<ITipoVehiculoRepositorio, TipoVehiculoRepositorio>();
             services.AddScoped<IPedidoRepositorio, PedidoRepositorio>();
             services.AddScoped<IInventarioSalidaProductoRepositorio, InventarioSalidaProductoRepositorio>();
-
+            services.AddScoped<IInventarioStockRepositorio, InventarioStockRepositorio>();
+            services.AddScoped<IInventarioLoteRepositorio, InventarioLoteRepositorio>();
+            services.AddScoped<IInventarioGananciaRepositorio, InventarioGananciaRepositorio>();
             return services;
         }
     }

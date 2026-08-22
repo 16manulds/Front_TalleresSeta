@@ -1,8 +1,6 @@
 ﻿using Front_TalleresSeta.Modelos;
 using Front_TalleresSeta.Repositorios.IRepositorios;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace Front_TalleresSeta.Repositorios
@@ -45,7 +43,7 @@ namespace Front_TalleresSeta.Repositorios
                     FechaRegistro = DateTime.Now,
                     ConsecutivoPedido = $"P-000-{DateTime.Now:yy}",
                     EstadoPedido = "PEDIDO_CREADO",
-                    Detalle = "P",
+                    Detalle = "Pedido creado.",
                     TallerId = idTaller
                 };
 
@@ -79,6 +77,20 @@ namespace Front_TalleresSeta.Repositorios
             }
         }
 
+
+        public async Task<bool> EliminarPedidoAsync(long id, long idTaller)
+        {
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"Pedidos/EliminarPedidoPorId/{id}?filtroId={idTaller}");
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en EliminarPorIdAsync: {ex.Message}");
+                return false;
+            }
+        }
 
     }
 }

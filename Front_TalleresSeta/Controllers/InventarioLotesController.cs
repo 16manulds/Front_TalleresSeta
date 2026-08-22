@@ -3,6 +3,7 @@ using Front_TalleresSeta.Modelos.ModelosView;
 using Front_TalleresSeta.Repositorios.IRepositorios;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NuGet.Protocol.Core.Types;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
@@ -13,6 +14,7 @@ namespace Front_TalleresSeta.Controllers
         private readonly HttpClient _httpClient;
         private readonly IFuncionRepositorio _funcionRepo;
         private readonly IInventarioStockRepositorio _inventarioStockRepo;
+        private readonly IInventarioLoteRepositorio _inventarioLoteRepo;
         public static string tabla = "InventarioLotes";
         public static string mensaje = string.Empty;
         public static string idItem = string.Empty;
@@ -20,11 +22,12 @@ namespace Front_TalleresSeta.Controllers
         public static string mensajeError = string.Empty;
         public static SelectList talleres = null!;
 
-        public InventarioLotesController(IHttpClientFactory httpClientFactory, IFuncionRepositorio funcionRepo, IInventarioStockRepositorio inventarioStockRepo)
+        public InventarioLotesController(IHttpClientFactory httpClientFactory, IFuncionRepositorio funcionRepo, IInventarioStockRepositorio inventarioStockRepo, IInventarioLoteRepositorio inventarioLoteRepo)
         {
             _httpClient = httpClientFactory.CreateClient("ApiClient");
             _funcionRepo = funcionRepo;
             _inventarioStockRepo = inventarioStockRepo;
+            _inventarioLoteRepo = inventarioLoteRepo;
         }
 
         public async Task<IActionResult> VerLotes(string id, long loteId, string? search = null, string? mensaje = null, string? accion = null)
@@ -224,6 +227,45 @@ namespace Front_TalleresSeta.Controllers
                 return Json(new List<ViewMostrarLotesPorProducto>());
             }
         }
+
+
+        [HttpPut("InventarioLotes/ActualizarLotesVenta")]
+        public async Task<IActionResult> ActualizarLotesVenta([FromQuery] long filtroId, [FromBody] DtoLoteVenta model)
+        {
+            if (model == null) return BadRequest("El payload no puede ser nulo.");
+
+            try
+            {
+                long loteId = await _inventarioLoteRepo.ActualizarLoteVentaAsync(filtroId, model);
+                if (loteId <= 0) return BadRequest("No se pudo actualizar el lote.");
+
+                return Ok(new { id = loteId, loteId = loteId });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
+        }
+
+        // PUT: /InventarioLotes/RevertirLoteVenta?filtroId=123
+        [HttpPut("InventarioLotes/RevertirLoteVenta")]
+        public async Task<IActionResult> RevertirLoteVenta([FromQuery] long filtroId, [FromBody] DtoLoteVenta model)
+        {
+            if (model == null) return BadRequest("El payload no puede ser nulo.");
+
+            try
+            {
+                bool revertido = await _inventarioLoteRepo.RevertirLoteVentaAsync(filtroId, model);
+                if (!revertido) return BadRequest("No se pudo revertir el lote.");
+
+                return Ok(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = ex.Message });
+            }
+        }
+
 
     }
 }

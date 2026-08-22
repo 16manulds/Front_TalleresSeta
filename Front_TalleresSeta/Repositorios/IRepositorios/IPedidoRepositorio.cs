@@ -6,5 +6,6 @@ namespace Front_TalleresSeta.Repositorios.IRepositorios
     {
         Task<SelectList> ObtenerConsecutivoPedidoAsync(long idTaller);
         Task<(long id, string consecutivo)> CrearPedidoAsync(long idTaller);
+        Task<bool> EliminarPedidoAsync(long pedidoId, long idTaller);
     }
 }
