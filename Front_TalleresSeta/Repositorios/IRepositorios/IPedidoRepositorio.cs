@@ -4,8 +4,7 @@ namespace Front_TalleresSeta.Repositorios.IRepositorios
 {
     public interface IPedidoRepositorio
     {
-        Task<SelectList> ObtenerConsecutivoPedidoAsync(long idTaller);
-        Task<(long id, string consecutivo)> CrearPedidoAsync(long idTaller);
-        Task<bool> EliminarPedidoAsync(long pedidoId, long idTaller);
+        Task<string> CrearPedidoAsync(long idTaller);
+        Task<bool> EliminarPedidoAsync(string consecutivoPedido, long idTaller);
     }
 }

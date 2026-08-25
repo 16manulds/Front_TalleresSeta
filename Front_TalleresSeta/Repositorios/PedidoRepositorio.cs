@@ -1,6 +1,4 @@
-﻿using Front_TalleresSeta.Modelos;
-using Front_TalleresSeta.Repositorios.IRepositorios;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Front_TalleresSeta.Repositorios.IRepositorios;
 using System.Text.Json;
 
 namespace Front_TalleresSeta.Repositorios
@@ -17,22 +15,7 @@ namespace Front_TalleresSeta.Repositorios
         }
 
 
-        public async Task<SelectList> ObtenerConsecutivoPedidoAsync(long idTaller)
-        {
-            try
-            {
-                var tipos = await _httpClient.GetFromJsonAsync<List<Pedido>>($"Pedidos/obtenerConsecutivoPedido/{idTaller}");
-                var lista = tipos ?? new List<Pedido>();
-
-                return new SelectList(lista, "PedidoId", "TipoV");
-            }
-            catch (Exception)
-            {
-                return new SelectList(new List<Pedido>(), "PedidoId", "ConsecutivoPedido");
-            }
-        }
-
-        public async Task<(long id, string consecutivo)> CrearPedidoAsync(long idTaller)
+        public async Task<string> CrearPedidoAsync(long idTaller)
         {
             try
             {
@@ -42,8 +25,8 @@ namespace Front_TalleresSeta.Repositorios
                     Habilitado = true,
                     FechaRegistro = DateTime.Now,
                     ConsecutivoPedido = $"P-000-{DateTime.Now:yy}",
-                    EstadoPedido = "PEDIDO_CREADO",
-                    Detalle = "Pedido creado.",
+                    EstadoPedido = "PEDIDO_PENDIENTE",
+                    Detalle = "Se inicia proceso de pedido automaticamente.",
                     TallerId = idTaller
                 };
 
@@ -53,41 +36,37 @@ namespace Front_TalleresSeta.Repositorios
                 {
                     var errorContent = await responseEdit.Content.ReadAsStringAsync();
                     Console.WriteLine($"Error de Servidor ({responseEdit.StatusCode}): {errorContent}");
-                    return (0, string.Empty);
+                    return (string.Empty);
                 }
 
                 var jsonResponse = await responseEdit.Content.ReadAsStringAsync();
                 using var document = JsonDocument.Parse(jsonResponse);
 
-                long id = 0;
                 string consecutivo = string.Empty;
-
-                if (document.RootElement.TryGetProperty("id", out JsonElement idElement))
-                    id = idElement.GetInt64();
 
                 if (document.RootElement.TryGetProperty("consecutivo", out JsonElement consecutivoElement))
                     consecutivo = consecutivoElement.GetString() ?? string.Empty;
 
-                return (id, consecutivo);
+                return (consecutivo);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error en CrearPedidoAsync: {ex.Message}");
-                return (0, string.Empty);
+                return (string.Empty);
             }
         }
 
 
-        public async Task<bool> EliminarPedidoAsync(long id, long idTaller)
+        public async Task<bool> EliminarPedidoAsync(string consecutivoPedido, long idTaller)
         {
             try
             {
-                var response = await _httpClient.DeleteAsync($"Pedidos/EliminarPedidoPorId/{id}?filtroId={idTaller}");
+                var response = await _httpClient.DeleteAsync($"Pedidos/EliminarPedido/{consecutivoPedido}?filtroId={idTaller}");
                 return response.IsSuccessStatusCode;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error en EliminarPorIdAsync: {ex.Message}");
+                Console.WriteLine($"Error en EliminarPedidoAsync: {ex.Message}");
                 return false;
             }
         }

@@ -7,6 +7,7 @@ let nextPaymentIndex = 0;
 const ID_EFECTIVO = "1";
 const ID_TRANSFERENCIA = "2";
 const ID_TARJETA = "3";
+const ID_SISTEMA_CREDITO = "4";
 
 const container = document.getElementById('paymentMethodsContainer');
 const addBtn = document.getElementById('addPaymentMethod');
@@ -69,11 +70,18 @@ document.addEventListener('DOMContentLoaded', async () => {
                 metodosPagoData = [
                     { Value: "1", Text: "Efectivo" },
                     { Value: "2", Text: "Transferencia" },
-                    { Value: "3", Text: "Tarjeta (Crédito/Débito)" }
+                    { Value: "3", Text: "Tarjeta (Crédito/Débito)" },
+                    { Value: "4", Text: "Crédito" }
                 ];
                 bancosData = [
-                    { Value: "1", Text: "Banco Nacional" },
-                    { Value: "2", Text: "Banco del Norte" }
+                    { Value: "1", Text: "Bancolombia" },
+                    { Value: "2", Text: "Davivienda" },
+                    { Value: "3", Text: "Banco Bogotá" },
+                    { Value: "4", Text: "BBVA" },
+                    { Value: "5", Text: "NU" },                    
+                    { Value: "6", Text: "DaviPlata" },                    
+                    { Value: "7", Text: "Nequi" },
+                    { Value: "8", Text: "BOLD" }                    
                 ];
                 tiposTarjetaData = [
                     { Value: "1", Text: "Crédito" },
@@ -130,6 +138,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 } else if (val === ID_TARJETA) {
                     setFieldState(divBanco, bancoSelect, true);
                     setFieldState(divTipoTarjeta, tipoTarjetaSelect, true);
+                } else if (val === ID_SISTEMA_CREDITO) {
+                    setFieldState(divBanco, bancoSelect, false);
+                    setFieldState(divTipoTarjeta, tipoTarjetaSelect, false);
                 } else {
                     setFieldState(divBanco, bancoSelect, false);
                     setFieldState(divTipoTarjeta, tipoTarjetaSelect, false);

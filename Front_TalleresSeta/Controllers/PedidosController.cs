@@ -1,10 +1,7 @@
 ﻿using Front_TalleresSeta.Modelos;
-using Front_TalleresSeta.Modelos.ModelosView;
 using Front_TalleresSeta.Repositorios.IRepositorios;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Text.Json;
-using System.Text.RegularExpressions;
 
 namespace Front_TalleresSeta.Controllers
 {
@@ -38,16 +35,15 @@ namespace Front_TalleresSeta.Controllers
 
             try
             {
-                var (id, consecutivo) = await _pedidoRepo.CrearPedidoAsync(filtroId);
+                var consecutivo = await _pedidoRepo.CrearPedidoAsync(filtroId);
 
-                if (id <= 0)
+                if (string.IsNullOrEmpty(consecutivo))
                 {
                     return StatusCode(500, new { success = false, mensaje = "No se pudo generar el pedido en el servidor." });
                 }
 
                 var pedidoCreado = new ViewPedidoCreado
                 {
-                    PedidoId = id,
                     ConsecutivoPedidoCreado = consecutivo
                 };
 
@@ -64,13 +60,13 @@ namespace Front_TalleresSeta.Controllers
         }
 
 
-        [HttpDelete("Pedidos/EliminarPedido/{id}")]
-        public async Task<IActionResult> EliminarPedido(long id, [FromQuery] long filtroId)
+        [HttpDelete("Pedidos/EliminarPedido/{consecutivoPedido}")]
+        public async Task<IActionResult> EliminarPedido(string consecutivoPedido, [FromQuery] long filtroId)
         {
             try
             {
-                bool eliminado = await _pedidoRepo.EliminarPedidoAsync(id, filtroId);
-                if (!eliminado) return NotFound("Producto no encontrado o no se pudo eliminar.");
+                bool eliminado = await _pedidoRepo.EliminarPedidoAsync(consecutivoPedido, filtroId);
+                if (!eliminado) return NotFound("Pedido no encontrado o no se pudo eliminar.");
 
                 return Ok(new { success = true });
             }

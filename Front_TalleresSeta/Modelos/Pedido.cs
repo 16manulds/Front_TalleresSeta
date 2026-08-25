@@ -15,20 +15,20 @@ namespace Front_TalleresSeta.Modelos
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long PedidoId { get; set; }
-        public bool Habilitado { get; set; } = true;
-        public DateTime FechaRegistro { get; set; } = DateTime.Now;
-
         [Required]
         [StringLength(50)]
         public string ConsecutivoPedido { get; set; } = null!;
+        public bool Habilitado { get; set; } = true;
+        public DateTime FechaRegistro { get; set; } = DateTime.Now;
+
+        
 
         [Required]
         [StringLength(50)]
-        public string EstadoPedido { get; set; } = "PEDIDO_CREADO";
+        public string EstadoPedido { get; set; } = "PEDIDO_PENDIENTE";
 
         [StringLength(3000)]
-        public string? Detalle { get; set; } = "Pedido creado automaticamente.";
+        public string? Detalle { get; set; } = "Se inicia proceso de pedido automaticamente.";
 
 
 

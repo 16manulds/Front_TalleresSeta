@@ -17,7 +17,7 @@ namespace Front_TalleresSeta.Modelos
         public Int64 PrecioFinalXuni { get; set; }
         public int CantVendidos { get; set; }
         public int? CantDevoluciones { get; set; } = 0;
-        public string? EstadoProducto { get; set; } = "PENDIENTE_VENTA";
+        public string? EstadoProducto { get; set; } = "VENTA_PENDIENTE";
 
 
         [ForeignKey("InventarioEntradaProducto")]

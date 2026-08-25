@@ -19,7 +19,7 @@ builder.Services.AddHttpClient("ApiClient", client =>
     client.BaseAddress = new Uri(apiBaseUrl);
     client.DefaultRequestHeaders.Accept.Clear();
     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-    client.Timeout = TimeSpan.FromMinutes(2); // Ajustado a 2 minutos por buenas prácticas de API
+    client.Timeout = TimeSpan.FromHours(4); // Ajustado a 2 minutos por buenas prácticas de API
 });
 
 // 4. Inyección Centralizada de Repositorios del Frontend

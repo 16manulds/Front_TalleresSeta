@@ -41,7 +41,7 @@ const btnBuscar = document.getElementById('btnBuscarCliente');
 const lblNumeroPedido = document.getElementById('lblNumeroPedido');
 const validarDetalle = document.getElementById('validarDetalle');
 
-let IdConsecutivoActual = null;
+//let IdConsecutivoActual = null;
 let ConsecutivoActual = null;
 
 let selectTipoDoc_antes = null;
@@ -742,7 +742,7 @@ async function agregarProductoACarrito(productoActual) {
     // 1. Obtener consecutiva de pedido
     const idPedido = await CargarConsecutivoPedido();
     if (!idPedido) {
-        MostrarAlerta("warning", "Error de Pedido", "No se pudo obtener ni generar el consecutivo del pedido.", 5000);
+        MostrarAlerta("warning", "Error de Pedido", "No se pudo obtener ni generar el consecutivo del pedido.", 10000);
         return;
     }
 
@@ -888,51 +888,190 @@ async function BuscarCliente() {
         MostrarAlerta("warning", "Cliente", "Error al buscar usuario: " + error, 10000);
     }
 }
-function RegistrarVentaProducto() {
 
-    var tipoDocumentoVenta = selectTipoDoc.value;
-    var documentoVenta = txtDocumento.value;
-    var primerNombreVenta = txtPrimerNombre.value;
-    var primerApellidoVenta = txtPrimerApellido.value;
+//function RegistrarVentaProducto() {
 
-    if (tipoDocumentoVenta == null || tipoDocumentoVenta == '') {
+//    var tipoDocumentoVenta = selectTipoDoc.value;
+//    var documentoVenta = txtDocumento.value;
+//    var primerNombreVenta = txtPrimerNombre.value;
+//    var primerApellidoVenta = txtPrimerApellido.value;
+
+//    if (tipoDocumentoVenta == null || tipoDocumentoVenta == '') {
+//        selectTipoDoc.focus();
+//        MostrarAlerta("warning", "Datos cliente", "Por favor ingresa el tipo de documento del cliente.", 10000);
+//        return;
+//    }
+//    else if (documentoVenta == null || documentoVenta == '') {
+//        txtDocumento.focus();
+//        txtDocumento.select();
+//        MostrarAlerta("warning", "Datos cliente", "Por favor ingresa el número de documento del cliente.", 10000);
+//        return;
+//    }
+//    else if (primerNombreVenta == null || primerNombreVenta == '') {
+//        txtPrimerNombre.focus();
+//        txtPrimerNombre.select();
+//        MostrarAlerta("warning", "Datos cliente", "Por favor ingresa el primer nombre del cliente.", 10000);
+//        return;
+//    } else if (primerApellidoVenta == null || primerApellidoVenta == '') {
+//        txtPrimerApellido.focus();
+//        txtPrimerApellido.select();
+//        MostrarAlerta("warning", "Datos cliente", "Por favor ingresa el primer apellido del cliente.", 10000);
+//        return;
+//    } else if (carritoVenta.length === 0) { //validar si hay productos ingresados a la venta
+//        validarCodigo.focus();
+//        validarCodigo.select();
+//        MostrarAlerta("warning", "Datos Producto", "Por favor ingresa un producto.", 10000);
+//        return;
+//    } else if (!validarMetodosPago()) { // 2. Validar métodos de pago agregados
+//        return;
+//    } else {
+
+
+//        LimpiarCamposCliente();
+//        LimpiarCamposVenta();
+//        LimpiarFormularioVenta();
+
+//        MostrarAlerta("warning", "Venta Registrada.", "Se registro la venta con factura #: ", 10000);
+//    }
+
+//}
+
+async function RegistrarVentaProducto() {
+    const tipoDocumentoVenta = selectTipoDoc?.value;
+    const documentoVenta = txtDocumento?.value?.trim();
+    const primerNombreVenta = txtPrimerNombre?.value?.trim();
+    const primerApellidoVenta = txtPrimerApellido?.value?.trim();
+
+    // 1. Validaciones de Cliente
+    if (!tipoDocumentoVenta) {
         selectTipoDoc.focus();
         MostrarAlerta("warning", "Datos cliente", "Por favor ingresa el tipo de documento del cliente.", 10000);
         return;
     }
-    else if (documentoVenta == null || documentoVenta == '') {
+    if (!documentoVenta) {
         txtDocumento.focus();
         txtDocumento.select();
         MostrarAlerta("warning", "Datos cliente", "Por favor ingresa el número de documento del cliente.", 10000);
         return;
     }
-    else if (primerNombreVenta == null || primerNombreVenta == '') {
+    if (!primerNombreVenta) {
         txtPrimerNombre.focus();
         txtPrimerNombre.select();
         MostrarAlerta("warning", "Datos cliente", "Por favor ingresa el primer nombre del cliente.", 10000);
         return;
-    } else if (primerApellidoVenta == null || primerApellidoVenta == '') {
+    }
+    if (!primerApellidoVenta) {
         txtPrimerApellido.focus();
         txtPrimerApellido.select();
         MostrarAlerta("warning", "Datos cliente", "Por favor ingresa el primer apellido del cliente.", 10000);
         return;
-    } else if (carritoVenta.length === 0) { //validar si hay productos ingresados a la venta
-        validarCodigo.focus();
-        validarCodigo.select();
-        MostrarAlerta("warning", "Datos Producto", "Por favor ingresa un producto.", 10000);
-        return;
-    } else if (!validarMetodosPago()) { // 2. Validar métodos de pago agregados
-        return;
-    } else {
-
-
-        LimpiarCamposCliente();
-        LimpiarCamposVenta();
-        LimpiarFormularioVenta();
-
-        MostrarAlerta("warning", "Venta Registrada.", "Se registro la venta con factura #: ", 10000);
     }
 
+    // 2. Validación de Carrito
+    if (carritoVenta.length === 0) {
+        validarCodigo?.focus();
+        validarCodigo?.select();
+        MostrarAlerta("warning", "Datos Producto", "Por favor ingresa al menos un producto a la venta.", 10000);
+        return;
+    }
+
+    // 3. Validación de Métodos de Pago
+    if (!validarMetodosPago()) return;
+
+    const listaPagos = obtenerMetodosPagoAgregados();
+    if (listaPagos.length === 0) {
+        MostrarAlerta("warning", "Método de Pago", "No se encontraron montos válidos en los métodos de pago.", 10000);
+        return;
+    }
+
+    // 4. Payload Maestro de la Venta / Cliente / Vehículo
+    const payloadVentaMaestro = {
+        TallerId: parseInt(tallerId, 10),
+        ConsecutivoPedido: ConsecutivoActual,
+        Cliente: {
+            TipoDocumentoId: parseInt(tipoDocumentoVenta, 10),
+            Documento: documentoVenta,
+            PrimerNombre: primerNombreVenta,
+            SegundoNombre: txtSegundoNombre?.value?.trim() || '',
+            PrimerApellido: primerApellidoVenta,
+            SegundoApellido: txtSegundoApellido?.value?.trim() || '',
+            Telefono: txtTelefono?.value?.trim() || '',
+            Correo: txtCorreo?.value?.trim() || '',
+            EsConsumidorFinal: chkConsumidorFinal?.checked || false
+        },
+        Vehiculo: {
+            TipoVehiculoId: selectTipoVehiculo?.value ? parseInt(selectTipoVehiculo.value, 10) : null,
+            Placa: txtVehiculoPlaca?.value?.trim() || '',
+            Modelo: txtVehiculoModelo?.value?.trim() || '',
+            Kilometraje: txtVehiculoKm?.value ? parseInt(txtVehiculoKm.value, 10) : 0
+        },
+        DetalleObservacion: validarDetalle?.value?.trim() || '',
+        TotalPagar: limpiarNumero(document.getElementById('lblTotalPagar')?.value)
+    };
+
+    try {
+        // Step A: Registrar Cabecera/Maestro de Venta
+        const responseVenta = await fetch(`/Ventas/RegistrarVentaMaestro?filtroId=${tallerId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(payloadVentaMaestro)
+        });
+
+        if (!responseVenta.ok) {
+            MostrarAlerta("error", "Error Venta", "No se pudo registrar la cabecera de la venta.", 10000);
+            return;
+        }
+
+        // Step B: Registrar Métodos de Pago UNO A UNO en la tabla de pagos
+        const pagosExitosos = await RegistrarMetodosPagoUnoAUno(listaPagos, ConsecutivoActual);
+
+        if (pagosExitosos) {
+            MostrarAlerta("success", "Venta Registrada", `Venta y métodos de pago registrados correctamente. Pedido #: ${ConsecutivoActual}`, 10000);
+
+            LimpiarCamposCliente();
+            LimpiarCamposVenta();
+            LimpiarFormularioVenta();
+        } else {
+            MostrarAlerta("warning", "Atención", "La venta se guardó pero ocurrió un error registrando algunos pagos.", 10000);
+        }
+
+    } catch (error) {
+        console.error("Error al procesar la venta:", error);
+        MostrarAlerta("error", "Error Crítico", "Ocurrió un fallo en el servidor durante la operación.", 10000);
+    }
+}
+
+async function RegistrarMetodosPagoUnoAUno(listaPagos, consecutivoPedido) {
+    for (const pago of listaPagos) {
+        const payloadPago = {
+            TallerId: parseInt(tallerId, 10),
+            ConsecutivoPedido: consecutivoPedido,
+            MetodoPagoId: pago.MetodoPagoId,
+            ValorPagado: pago.ValorPagado,
+            ReferenciaPago: pago.ReferenciaPago
+        };
+
+        try {
+            const response = await fetch(`/VentasPagos/AgregarPagoVenta?filtroId=${tallerId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(payloadPago)
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error(`Error registrando método de pago ${pago.MetodoPagoId}:`, errorText);
+                return false;
+            }
+        } catch (error) {
+            console.error("Error de red al registrar método de pago:", error);
+            return false;
+        }
+    }
+    return true;
 }
 
 function validarMetodosPago() {
@@ -958,8 +1097,8 @@ async function CargarConsecutivoPedido() {
     }
 
     // Si ya existe en memoria, se retorna inmediatamente
-    if (IdConsecutivoActual && ConsecutivoActual) {
-        return IdConsecutivoActual;
+    if (ConsecutivoActual) {
+        return ConsecutivoActual;
     }
 
     try {
@@ -974,13 +1113,13 @@ async function CargarConsecutivoPedido() {
             const pedido = await response.json();
 
             if (pedido && pedido.consecutivoPedidoCreado) {
-                IdConsecutivoActual = pedido.pedidoId;
+                //IdConsecutivoActual = pedido.pedidoId;
                 ConsecutivoActual = pedido.consecutivoPedidoCreado;
 
                 if (lblNumeroPedido) {
                     lblNumeroPedido.textContent = ConsecutivoActual;
                 }
-                return IdConsecutivoActual;
+                return ConsecutivoActual;
 
             }
         } else {
@@ -1022,15 +1161,20 @@ function LimpiarFormularioVenta() {
 
     carritoVenta = [];
     ConsecutivoActual = null;
-    IdConsecutivoActual = null;
+    //IdConsecutivoActual = null;
     lblNumeroPedido.textContent = null;
 
 }
 
 
 async function IniciarProcesoProducto(productoData) {
-    if (!tallerId || tallerId <= 0 || !IdConsecutivoActual || IdConsecutivoActual <= 0) {
-        console.warn("Taller o Pedido no válidos.");
+    if (!tallerId || tallerId <= 0) {
+        console.warn("Taller no válido.");
+        return false;
+    }
+
+    if (!ConsecutivoActual) {
+        console.warn("Pedido no válido.");
         return false;
     }
 
@@ -1072,9 +1216,9 @@ async function IniciarProcesoProducto(productoData) {
         }
 
         // 4. ELIMINAR EL PEDIDO CREADO Y REINICIAR CONSECUTIVO EN MEMORIA
-        if (IdConsecutivoActual) {
-            await EliminarPedido(IdConsecutivoActual);
-            IdConsecutivoActual = null;
+        if (ConsecutivoActual) {
+            await EliminarPedido(ConsecutivoActual);
+            //IdConsecutivoActual = null;
             ConsecutivoActual = null;
             if (lblNumeroPedido) lblNumeroPedido.textContent = '';
         }
@@ -1088,7 +1232,7 @@ async function IniciarProcesoProducto(productoData) {
                 CantVendidos: lote.cantidad,
                 CodigoProducto: productoData.codigoProducto,
                 TallerId: parseInt(tallerId),
-                PedidoId: IdConsecutivoActual,
+                ConsecutivoPedido: ConsecutivoActual,
                 LoteId: lote.loteId
             };
 
@@ -1147,7 +1291,7 @@ async function IniciarProcesoProducto(productoData) {
         }
         stockActualizadoExitosamente = true;
 
-        MostrarAlerta("success", "Éxito", "Producto, lotes, stock y ganancias procesados correctamente.", 5000);
+        MostrarAlerta("success", "Éxito", "Producto, lotes, stock y ganancias procesados correctamente.", 10000);
         return true;
 
     } catch (error) {

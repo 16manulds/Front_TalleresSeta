@@ -6,7 +6,8 @@
         public int CantVendidos { get; set; }
         public string CodigoProducto { get; set; } = null!;
         public long TallerId { get; set; }
-        public long PedidoId { get; set; }
+        public string ConsecutivoPedido { get; set; } = null!;
+        public string? EstadoProducto { get; set; } = "VENTA_PENDIENTE";
         public long LoteId { get; set; }
     }
 }
