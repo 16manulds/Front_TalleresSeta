@@ -15,13 +15,9 @@ namespace Front_TalleresSeta.Modelos
         public long PagoId { get; set; }
         public bool Habilitado { get; set; } = true;
         public DateTime FechaRegistro { get; set; } = DateTime.Now;
-
         public decimal ValorPago { get; set; }
 
-        [StringLength(3000)]
-        public string? Detalle { get; set; } = "N/A";
-
-        public string? EstadoPago { get; set; } = "PENDIENTE_PROCESAR";
+        public string? EstadoPago { get; set; } = "PAGO_PENDIENTE";
 
 
 

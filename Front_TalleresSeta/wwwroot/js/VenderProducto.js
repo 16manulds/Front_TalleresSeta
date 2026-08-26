@@ -39,13 +39,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     cantUnidadesVender.addEventListener("input", () => {
-        calcularVenta();
+        CalcularVenta();
         ValidarStockCantidad();
         //calcularTotalPagado_Y_Restante(null, null, null);
     });
 
     inputPrecioVentaPorUni.addEventListener("input", () => {
-        calcularVenta();
+        CalcularVenta();
     });
 
 
@@ -304,7 +304,7 @@ function AjustarPagos() {
         sumaPagos -= ultimoPago.monto;
         console.log(`Eliminado pago de ${ultimoPago.monto} por exceder total de ${totalVenta}`);
     }
-    calcularVenta();
+    CalcularVenta();
     actualizarEstadoVacio();
 }
 
@@ -407,6 +407,18 @@ function SoloFormatoMoneda(valor) {
     }
 }
 
+function QuitarFormatoMoneda(valorFormateado) {
+    if (!valorFormateado) return 0;
+
+    // Convertir a string por si llega un número
+    const texto = String(valorFormateado);
+
+    // Eliminar todo lo que no sea un dígito numérico
+    const numeroLimpio = texto.replace(/\D/g, '');
+
+    // Retornar como número entero (o 0 si la cadena estaba vacía)
+    return parseInt(numeroLimpio, 10) || 0;
+}
 
 function MostrarAlerta(icon, title, text, timer, showConfirmButton, confirmButtonColor) {
     Swal.fire({
