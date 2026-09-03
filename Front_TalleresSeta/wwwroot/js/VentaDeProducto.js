@@ -408,7 +408,7 @@ async function CargarProductoExisteParaVenta(limpiarCampos) {
                 console.log("Producto no encontrado o datos vacíos.");
             }
         } else {
-            console.log("No se encontró en la respuesta de la API el producto: ", codigo);
+           console.log("No se encontró en la respuesta de la API el producto: ", codigo);
         }
     } catch (error) {
         console.error('Error al buscar producto:', error);
@@ -766,7 +766,7 @@ async function RegistrarVentaProducto() {
         console.warn("Iniciando reversión total de la transacción...");
 
         // Revertir cada producto procesado
-        for (const item of productosInsertadosIds) {
+        for (const item of carritoVenta) {
 
             // Revertir Stock General
             if (stockActualizadoExitosamente) {

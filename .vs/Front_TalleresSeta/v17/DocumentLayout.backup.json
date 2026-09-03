@@ -47,7 +47,7 @@
               "RelativeDocumentMoniker": "Front_TalleresSeta\\wwwroot\\js\\VentaDeProducto.js",
               "ToolTip": "C:\\Users\\manuelnelson.torresl\\ManuelT\\PersonalMT\\Proyectos P\\GitHub\\Front_TalleresSeta\\Front_TalleresSeta\\wwwroot\\js\\VentaDeProducto.js",
               "RelativeToolTip": "Front_TalleresSeta\\wwwroot\\js\\VentaDeProducto.js",
-              "ViewState": "AgIAAAwDAAAAAAAAAAAgwBgDAAA3AAAAAAAAAA==",
+              "ViewState": "AgIAAAADAAAAAAAAAAAgwCYDAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2026-08-25T13:20:31.219Z",
               "IsPinned": true,
@@ -64,8 +64,7 @@
               "ViewState": "AgIAAEEBAAAAAAAAAAAvwJcBAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2026-08-25T19:50:10.205Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -78,8 +77,7 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2026-08-25T19:50:12.001Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -92,8 +90,7 @@
               "ViewState": "AgIAAKIBAAAAAAAAAAAtwL4BAABxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-08-25T19:50:19.293Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -118,8 +115,7 @@
               "RelativeToolTip": "Front_TalleresSeta\\Modelos\\Pago.cs",
               "ViewState": "AgIAAAoAAAAAAAAAAAAgwBIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-25T21:16:31.25Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-25T21:16:31.25Z"
             },
             {
               "$type": "Document",
@@ -131,8 +127,7 @@
               "RelativeToolTip": "Front_TalleresSeta\\Controllers\\InventarioSalidaProductosController.cs",
               "ViewState": "AgIAAHkAAAAAAAAAAAAUwJgAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-25T20:53:51.301Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-25T20:53:51.301Z"
             }
           ]
         }
